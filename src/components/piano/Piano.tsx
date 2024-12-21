@@ -1,21 +1,26 @@
-import { Fragment } from "react";
+import { useEffect, useState } from "react";
+import { usePianoContext } from "@/context/PianoContext";
 
-export default function Piano({
-  keyAttr,
-  keys,
-}: {
-  keyAttr: number;
-  keys: string[];
-}) {
-  const blackKeys = ["C#", "D#", "F#", "G#", "A#"];
+export default function Piano({ keyAttr }: { keyAttr: number }) {
+  const [currentKey, setCurrentKey] = useState<string | null>(null);
+  const { keys, blackKeys } = usePianoContext();
 
-  const fullPiano = [];
+  const logKey = (key: string) => {
+    console.log(key + "-" + (keyAttr + 1));
+  };
 
-  let index = 9;
-  while (fullPiano.length < 88) {
-    fullPiano.push(keys[index]);
-    index = (index + 1) % keys.length;
-  }
+  const keyId = (key: string, keyOctave: number) => {
+    return `${key}-${keyOctave + 1}`;
+  };
+
+  const selectNote = (key: string) => {
+    const id = keyId(key, keyAttr);
+    if (id === currentKey) {
+      setCurrentKey(null);
+      return;
+    }
+    setCurrentKey(id);
+  };
 
   return (
     <div
@@ -27,17 +32,33 @@ export default function Piano({
           key[1] !== "#" && (
             <div
               key={"white-keys-" + i + keyAttr}
-              className="w-[50px] flex justify-center items-end border border-black rounded-b-lg shadow-lg"
-            >
-              {/* {key} */}
-            </div>
+              id={keyId(key, keyAttr)}
+              onClick={() => {
+                // setCurrentKey(keyId(key, keyAttr));
+                selectNote(key);
+                logKey(key);
+              }}
+              className={`w-[50px] flex justify-center items-end border border-black rounded-b-lg shadow-lg ${
+                currentKey === keyId(key, keyAttr)
+                  ? "bg-emerald-200"
+                  : "bg-white"
+              }`}
+            ></div>
           )
       )}
       <div className="absolute flex h-[65%] w-[350px] space-x-[0.5px]">
         {blackKeys.map((key, i) => (
           <div
             key={"black-keys-" + i + keyAttr}
-            className="relative flex justify-center items-end h-full w-[7%] bg-black rounded-b-lg shadow-lg text-white"
+            id={keyId(key, keyAttr)}
+            onClick={() => {
+              // setCurrentKey(keyId(key, keyAttr));
+              selectNote(key);
+              console.log(keyId(key, keyAttr));
+            }}
+            className={`relative flex justify-center items-end h-full w-[7%] bg-black rounded-b-lg shadow-lg text-white ${
+              currentKey === keyId(key, keyAttr) ? "bg-emerald-200" : "bg-black"
+            }`}
             style={{
               left: `${
                 i === 2 || i === 3 || i === 4
@@ -45,9 +66,7 @@ export default function Piano({
                   : 8 * (i + 1) - i + 2.75
               }%`,
             }}
-          >
-            {/* {key} */}
-          </div>
+          ></div>
         ))}
       </div>
     </div>

@@ -1,31 +1,14 @@
 "use client";
-import { MouseEventHandler, useState } from "react";
+
+import { usePianoContext } from "@/context/PianoContext";
 
 import Nav from "@/components/Nav";
 import Piano from "@/components/piano/Piano";
+import KeyPicker from "@/components/KeyPicker";
+import ChordType from "@/components/ChordType";
 
 export default function Home() {
-  const keys = [
-    "C",
-    "C#",
-    "D",
-    "D#",
-    "E",
-    "F",
-    "F#",
-    "G",
-    "G#",
-    "A",
-    "A#",
-    "B",
-  ];
-
-  const keyButtonPress = (event: Event) => {
-    const currentButton = event.target;
-    if (currentButton) {
-      console.log(currentButton);
-    }
-  };
+  const { keys } = usePianoContext();
 
   return (
     <main className="flex flex-col h-screen w-screen">
@@ -33,26 +16,12 @@ export default function Home() {
       <section className="h-[91%] flex flex-col justify-center items-center">
         <div className="flex border-t border-black scale-[80%]">
           {[1, 2, 3, 4].map((_, i) => (
-            <Piano key={"piano-component-" + i + 1} keyAttr={i} keys={keys} />
+            <Piano key={"piano-component-" + i + 1} keyAttr={i} />
           ))}
         </div>
-        <div className="flex items-center w-[75%]">
-          <div className="w-[33%] flex flex-col justify-center items-center">
-            <p className="text-center">
-              Pick a key to start building a chord:{" "}
-            </p>
-            <div className="w-[75%] flex flex-wrap justify-center ">
-              {keys.map((key, i) => (
-                <button
-                  key={i}
-                  className={`border-2 border-black rounded-lg px-2 m-1 w-fit`}
-                  // onClick={keyButtonPress}
-                >
-                  {key}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div className="flex items-start w-[75%] h-fit">
+          <KeyPicker />
+          <ChordType />
         </div>
       </section>
     </main>
