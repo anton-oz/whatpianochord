@@ -1,6 +1,5 @@
-"use client";
 import React from "react";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext } from "react";
 
 const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 

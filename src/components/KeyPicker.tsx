@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePianoContext } from "@/context/PianoContext";
+import { usePianoContext } from "../context/PianoContext";
 
 export default function KeyPicker() {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);

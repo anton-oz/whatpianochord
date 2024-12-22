@@ -1,11 +1,11 @@
 "use client";
 
-import { usePianoContext } from "@/context/PianoContext";
+import { usePianoContext } from "./context/PianoContext";
 
-import Nav from "@/components/Nav";
-import Piano from "@/components/piano/Piano";
-import KeyPicker from "@/components/KeyPicker";
-import ChordType from "@/components/ChordType";
+import Nav from "./components/Nav";
+import Piano from "./components/piano/Piano";
+import KeyPicker from "./components/KeyPicker";
+import ChordType from "./components/ChordType";
 
 export default function Home() {
   const { keys } = usePianoContext();

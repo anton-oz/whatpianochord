@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePianoContext } from "@/context/PianoContext";
+import { usePianoContext } from "../../context/PianoContext";
 
 export default function Piano({ keyAttr }: { keyAttr: number }) {
   const [currentKey, setCurrentKey] = useState<string | null>(null);
