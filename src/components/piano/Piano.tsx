@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePianoContext } from "../../context/PianoContext";
 
-export default function Piano({ keyAttr }: { keyAttr: number }) {
+export default function Piano({ octaves }: { octaves: number }) {
   const [currentKey, setCurrentKey] = useState<string | null>(null);
-  const { keys, blackKeys } = usePianoContext();
+  const { keys, blackKeys, keyId } = usePianoContext();
 
-  const logKey = (key: string) => {
-    console.log(key + "-" + (keyAttr + 1));
+  const logKey = (key: string, octave: number) => {
+    console.log(key + "-" + (octave + 1));
   };
 
-  const keyId = (key: string, keyOctave: number) => {
-    return `${key}-${keyOctave + 1}`;
-  };
-
-  const selectNote = (key: string) => {
-    const id = keyId(key, keyAttr);
+  const selectNote = (key: string, octave: number) => {
+    const id = keyId(key, octave);
     if (id === currentKey) {
       setCurrentKey(null);
       return;
@@ -22,26 +18,28 @@ export default function Piano({ keyAttr }: { keyAttr: number }) {
     setCurrentKey(id);
   };
 
-  return (
+  const renderNum = [];
+
+  for (let i = 0; i < octaves; i++) {
+    renderNum.push(i);
+  }
+
+  return renderNum.map((_, octave) => (
     <div
-      key={"piano-container-" + keyAttr}
+      key={"piano-container-" + octave}
       className="w-[350px] h-[140px] flex relative space-x-[0.5px] mx-[0.25px]"
     >
       {keys.map(
         (key, i) =>
           key[1] !== "#" && (
             <div
-              key={"white-keys-" + i + keyAttr}
-              id={keyId(key, keyAttr)}
+              key={"white-keys-" + i + octave}
+              id={keyId(key, octave)}
               onClick={() => {
-                // setCurrentKey(keyId(key, keyAttr));
-                selectNote(key);
-                logKey(key);
+                selectNote(key, octave);
               }}
               className={`w-[50px] flex justify-center items-end border border-black rounded-b-lg shadow-lg ${
-                currentKey === keyId(key, keyAttr)
-                  ? "bg-emerald-200"
-                  : "bg-white"
+                currentKey === keyId(key, octave) ? "bg-sky-200" : "bg-white"
               }`}
             ></div>
           )
@@ -49,15 +47,13 @@ export default function Piano({ keyAttr }: { keyAttr: number }) {
       <div className="absolute flex h-[65%] w-[350px] space-x-[0.5px]">
         {blackKeys.map((key, i) => (
           <div
-            key={"black-keys-" + i + keyAttr}
-            id={keyId(key, keyAttr)}
+            key={"black-keys-" + i + octave}
+            id={keyId(key, octave)}
             onClick={() => {
-              // setCurrentKey(keyId(key, keyAttr));
-              selectNote(key);
-              console.log(keyId(key, keyAttr));
+              selectNote(key, octave);
             }}
             className={`relative flex justify-center items-end h-full w-[7%] bg-black rounded-b-lg shadow-lg text-white ${
-              currentKey === keyId(key, keyAttr) ? "bg-emerald-200" : "bg-black"
+              currentKey === keyId(key, octave) ? "bg-sky-300" : "bg-black"
             }`}
             style={{
               left: `${
@@ -70,5 +66,5 @@ export default function Piano({ keyAttr }: { keyAttr: number }) {
         ))}
       </div>
     </div>
-  );
+  ));
 }

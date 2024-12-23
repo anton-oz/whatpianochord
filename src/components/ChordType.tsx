@@ -1,20 +1,7 @@
-import { useState } from "react";
+import { usePianoContext } from "../context/PianoContext";
 
 export default function ChordType() {
-  const [selectedChord, setSelectedChord] = useState<number | null>(null);
-
-  const chords = [
-    "major",
-    "minor",
-    "augmented",
-    "diminished",
-    "sus2",
-    "sus4",
-    "major 7th",
-    "minor 7th",
-    "dominant 7th",
-    "diminished 7th",
-  ];
+  const { chords, selectChord, selectedChord } = usePianoContext();
 
   return (
     <div className="w-[33%] h-fit flex flex-col justify-center items-center">
@@ -23,7 +10,7 @@ export default function ChordType() {
         {chords.map((chord, i) => (
           <button
             key={`chord-${i}`}
-            onClick={() => setSelectedChord(i)}
+            onClick={() => selectChord(i)}
             className={`border-2 border-black rounded-lg px-2 m-1 w-fit  ${
               selectedChord === i ? "bg-sky-500 text-white" : "bg-slate-150"
             }`}
