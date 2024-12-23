@@ -10,7 +10,9 @@ export default function ChordType() {
         {chords.map((chord, i) => (
           <button
             key={`chord-${i}`}
-            onClick={() => selectChord(i)}
+            onClick={() => {
+              selectChord(i);
+            }}
             className={`border-2 border-black rounded-lg px-2 m-1 w-fit  ${
               selectedChord === i ? "bg-sky-500 text-white" : "bg-slate-150"
             }`}

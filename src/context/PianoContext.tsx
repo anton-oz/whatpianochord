@@ -56,12 +56,14 @@ interface Piano {
   keyId: typeof keyId;
 }
 
-const Piano = {
+let Piano = {
   keys,
   blackKeys,
   fullPiano,
   chords,
-  selectChord: (chord: number) => {}, // actual function defined in PianoProvider
+  selectChord: (chord: number) => {
+    chord;
+  }, // actual function defined in PianoProvider
   selectedChord: null,
   keyId,
 };
