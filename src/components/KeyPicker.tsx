@@ -4,6 +4,8 @@ import { usePianoContext } from "../context/PianoContext";
 export default function KeyPicker() {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
   const { keys } = usePianoContext();
+
+  
   return (
     <div className="w-[33%] flex flex-col justify-center items-center">
       <p className="text-2xl text-semibold">

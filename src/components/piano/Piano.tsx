@@ -1,71 +1,27 @@
 import { useState, useEffect } from "react";
 import { usePianoContext } from "../../context/PianoContext";
+import chordBuilder from "./utils";
 
 export default function Piano({ octaves }: { octaves: number }) {
   const [currentKey, setCurrentKey] = useState<string | null>(null);
-
   const [chordKeys, setChordKeys] = useState<(string | null)[]>([]);
+  /* 
+    ^ state for for selected keys or chords ^
+  */
 
   const { keys, blackKeys, keyId, selectedChord, chords } = usePianoContext();
+  /*
+    ! TODO ! ^ switch context to part of utility field ^
+  */
 
   useEffect(() => {
-    const currentKeyOctave = currentKey
-      ? currentKey[1] === "#"
-        ? parseInt(currentKey[3])
-        : parseInt(currentKey[2])
-      : null;
-    const currentKeyWithoutOctaveId = currentKey
-      ? currentKey[1] === "#"
-        ? currentKey[0] + currentKey[1]
-        : currentKey[0]
-      : null;
-    let currentKeyIndex = keys.findIndex(
-      (key) => key === currentKeyWithoutOctaveId
-    );
-
-    if (selectedChord !== null && chords[selectedChord] === "major") {
-      const majorThird = 4;
-      const minorThird = 3;
-
-      const majorThirdIndex = (currentKeyIndex + majorThird) % keys.length;
-      const minorThirdIndex = (majorThirdIndex + minorThird) % keys.length;
-
-      let majorThirdKeyId = currentKeyOctave
-        ? keyId(keys[majorThirdIndex], currentKeyOctave - 1)
-        : null;
-      let minorThirdKeyId = currentKeyOctave
-        ? keyId(keys[minorThirdIndex], currentKeyOctave - 1)
-        : null;
-
-      if (currentKeyOctave) {
-        if (currentKeyIndex > majorThirdIndex) {
-          majorThirdKeyId = keyId(keys[majorThirdIndex], currentKeyOctave);
-        }
-        if (currentKeyIndex > minorThirdIndex) {
-          minorThirdKeyId = keyId(keys[minorThirdIndex], currentKeyOctave);
-        }
-      }
-
-      const majorChord = [currentKey, majorThirdKeyId, minorThirdKeyId];
-      setChordKeys(majorChord);
+    const chord = chordBuilder(currentKey, keys, selectedChord, chords, keyId);
+    if (chord === undefined) {
+      console.log("chord is undefined");
       return;
-    } else {
-      setChordKeys([]);
-      if (!selectedChord) {
-        console.log("no chord selected\n");
-        return;
-      }
-      console.log("unsupported chord type");
     }
+    setChordKeys(chord);
   }, [currentKey, selectedChord]);
-
-  useEffect(() => {
-    console.log(chordKeys);
-  }, [chordKeys]);
-
-  const logKey = (key: string, octave: number) => {
-    console.log(key + "-" + (octave + 1));
-  };
 
   const selectNote = (key: string, octave: number) => {
     const id = keyId(key, octave);
@@ -95,7 +51,6 @@ export default function Piano({ octaves }: { octaves: number }) {
               id={keyId(key, octave)}
               onClick={() => {
                 selectNote(key, octave);
-                console.log(keyId(key, octave));
               }}
               className={`w-[50px] flex justify-center items-end border border-black rounded-b-lg shadow-lg z-10 ${
                 currentKey === keyId(key, octave) ? "bg-sky-200" : ""
@@ -119,7 +74,7 @@ export default function Piano({ octaves }: { octaves: number }) {
             onClick={() => {
               selectNote(key, octave);
             }}
-            className={`relative flex justify-center items-end h-full w-[7%] bg-black rounded-b-lg shadow-lg text-white z-20 ${
+            className={`relative flex justify-center items-end h-full w-[7%] bg-black border border-black rounded-b-lg shadow-lg text-white z-20 ${
               currentKey === keyId(key, octave) ? "bg-sky-300" : ""
             }${
               chordKeys !== null &&
