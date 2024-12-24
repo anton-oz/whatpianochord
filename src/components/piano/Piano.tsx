@@ -1,21 +1,32 @@
 import { useState, useEffect } from "react";
 import { usePianoContext } from "../../context/PianoContext";
-import chordBuilder from "./utils";
+import Piano_Class from "./utils";
 
 export default function Piano({ octaves }: { octaves: number }) {
-  const [currentKey, setCurrentKey] = useState<string | null>(null);
+  const [currentKey, updateCurrentKey] = useState<string | null>(null);
+  // const [currentKeys, updateCurrentKeys] = useState<string[] | null>(null);
+  /* ^ change out chordKeys for currentKeys ^ */
   const [chordKeys, setChordKeys] = useState<(string | null)[]>([]);
   /* 
     ^ state for for selected keys or chords ^
   */
+  const [multiSelect, toggleMultiSelect] = useState<boolean>(false); // TODO: have a toggle for selecting multiple notes at once.]
 
   const { keys, blackKeys, keyId, selectedChord, chords } = usePianoContext();
   /*
     ! TODO ! ^ switch context to part of utility field ^
   */
 
+  const Pinano = new Piano_Class();
+
   useEffect(() => {
-    const chord = chordBuilder(currentKey, keys, selectedChord, chords, keyId);
+    if (currentKey === null || selectedChord === null) {
+      console.log("null key or chord");
+      setChordKeys([null]);
+      return;
+    }
+    const chord = Pinano.chord(currentKey, chords[selectedChord]);
+    console.log(chord);
     if (chord === undefined) {
       console.log("chord is undefined");
       return;
@@ -25,11 +36,12 @@ export default function Piano({ octaves }: { octaves: number }) {
 
   const selectNote = (key: string, octave: number) => {
     const id = keyId(key, octave);
+
     if (id === currentKey) {
-      setCurrentKey(null);
+      updateCurrentKey(null);
       return;
     }
-    setCurrentKey(id);
+    updateCurrentKey(id);
   };
 
   // how many octaves to render
