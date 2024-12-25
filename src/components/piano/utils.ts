@@ -84,78 +84,60 @@ class Piano_Class {
     return octave - 1;
   }
   chord(currentKey: string, chord: string): (string | null)[] {
-    let notes: string[];
+    let notes: (string | null)[] = [null];
     const first_note =
       currentKey[1] === "#" ? currentKey[0] + currentKey[1] : currentKey[0];
     const currentKeyOctave = currentKey[currentKey.length - 1];
     let second_note;
     let third_note;
-    let fourth_note;
+    let fourth_note: { note: string; index: number } | null = null;
 
     switch (chord) {
       case "major":
         second_note = this.getNote(first_note, this.intervals.majorThird);
         third_note = this.getNote(first_note, this.intervals.fifth);
-        notes = [
-          currentKey,
-          this.keyId(
-            second_note.note,
-            this.octave(first_note, second_note.note, currentKeyOctave)
-          ),
-          this.keyId(
-            third_note.note,
-            this.octave(first_note, third_note.note, currentKeyOctave)
-          ),
-        ];
-        return notes;
+        break;
       case "minor":
         second_note = this.getNote(first_note, this.intervals.minorThird);
         third_note = this.getNote(first_note, this.intervals.fifth);
-        notes = [
-          currentKey,
-          this.keyId(
-            second_note.note,
-            this.octave(first_note, second_note.note, currentKeyOctave)
-          ),
-          this.keyId(
-            third_note.note,
-            this.octave(first_note, third_note.note, currentKeyOctave)
-          ),
-        ];
-        return notes;
+        break;
       case "augmented":
         second_note = this.getNote(first_note, this.intervals.majorThird);
         third_note = this.getNote(first_note, this.intervals.augmentedFifth);
-        notes = [
-          currentKey,
-          this.keyId(
-            second_note.note,
-            this.octave(first_note, second_note.note, currentKeyOctave)
-          ),
-          this.keyId(
-            third_note.note,
-            this.octave(first_note, third_note.note, currentKeyOctave)
-          ),
-        ];
-        return notes;
+        break;
       case "diminished":
         second_note = this.getNote(first_note, this.intervals.minorThird);
         third_note = this.getNote(first_note, this.intervals.tritone);
-        notes = [
-          currentKey,
-          this.keyId(
-            second_note.note,
-            this.octave(first_note, second_note.note, currentKeyOctave)
-          ),
-          this.keyId(
-            third_note.note,
-            this.octave(first_note, third_note.note, currentKeyOctave)
-          ),
-        ];
-        return notes;
+        break;
+      case "sus2":
+        second_note = this.getNote(first_note, this.intervals.majorSecond);
+        third_note = this.getNote(first_note, this.intervals.fifth);
+        break;
+      case "sus4":
+        second_note = this.getNote(first_note, this.intervals.fourth);
+        third_note = this.getNote(first_note, this.intervals.fifth);
+        break;
       default:
-        return [null];
+        return notes;
     }
+    notes = [
+      currentKey,
+      this.keyId(
+        second_note.note,
+        this.octave(first_note, second_note.note, currentKeyOctave)
+      ),
+      this.keyId(
+        third_note.note,
+        this.octave(first_note, third_note.note, currentKeyOctave)
+      ),
+      fourth_note
+        ? this.keyId(
+            fourth_note.note,
+            this.octave(first_note, fourth_note.note, currentKeyOctave)
+          )
+        : null,
+    ];
+    return notes;
   }
   //
 }
