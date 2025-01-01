@@ -15,11 +15,21 @@
 - [x] domiant 7th
 - [x] diminshed 7th
 
-#### add extended chords
+#### simplify PianoEngine into more specialized sub classes
+
+- [ ]
 
 #### more chord building tools for user
 
+- [ ] add extended chords
+
 - [ ] able to set custom number of octaves
+
+- [ ] have chord inversions
+
+- [ ] if the piano is showing one octave, render the keyboard
+      with the selected note as the first note and render the 12 keys
+      from that note.
 
 ## make key dimensions better
 

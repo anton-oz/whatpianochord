@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PianoEngine from "../PianoEngine";
+import PianoEngine from "../../utils/PianoEngine";
 
 export default function KeyPicker({
   currentKey,

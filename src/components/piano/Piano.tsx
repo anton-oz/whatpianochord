@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import PianoKeyboard from "./PianoKeyboard";
-import PianoControls from "./PianoControls";
+import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
+import PianoControls from "./pianoController/PianoControls";
 
-export default function Piano({ octaves }: { octaves: number }) {
+export default function Piano() {
+  const [octaves, setOctaves] = useState<number[]>([1]);
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
-  const [multiSelect, toggleMultiSelect] = useState<boolean>(false); // TODO: have a toggle for selecting multiple notes at once.
 
   const selectChord = (chord: string) => {
     if (currentChord === chord) {
@@ -26,11 +26,13 @@ export default function Piano({ octaves }: { octaves: number }) {
           currentChord={currentChord}
         />
       </div>
-      <div className="flex items-start w-[75%] h-fit">
+      <div className="flex justify-center items-start w-[75%] h-fit">
         <PianoControls
           currentKey={currentKey}
           currentChord={currentChord}
           selectChord={selectChord}
+          octaves={octaves}
+          setOctaves={setOctaves}
         />
       </div>
     </>

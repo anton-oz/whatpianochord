@@ -1,5 +1,5 @@
 import { useState, useEffect, Dispatch } from "react";
-import PianoEngine from "./PianoEngine";
+import PianoEngine from "../utils/PianoEngine";
 
 export default function PianoKeyboard({
   octaves,
@@ -7,7 +7,7 @@ export default function PianoKeyboard({
   selectKey,
   currentChord,
 }: {
-  octaves: number;
+  octaves: number[];
   currentKey: string | null;
   selectKey: Dispatch<string | null>;
   currentChord: string | null;
@@ -60,12 +60,12 @@ export default function PianoKeyboard({
   };
 
   // how many octaves to render
-  const renderNum = [];
-  for (let i = 0; i < octaves; i++) {
-    renderNum.push(i);
-  }
+  // const renderNum: number[] = [];
+  // for (let i = 0; i < octaves; i++) {
+  //   renderNum.push(i);
+  // }
 
-  return renderNum.map((_, octave) => (
+  return octaves.map((_, octave) => (
     <div
       key={"piano-container-" + octave}
       className="w-[350px] h-[140px] flex relative space-x-[0.5px] mx-[0.25px]"

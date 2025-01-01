@@ -1,4 +1,4 @@
-import PianoEngine from "../PianoEngine";
+import PianoEngine from "../../utils/PianoEngine";
 // import { usePianoContext } from "../../../context/PianoContext";
 
 export default function ChordType({

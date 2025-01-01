@@ -6,7 +6,7 @@ export default function Home() {
     <main className="flex flex-col h-screen w-screen">
       <Nav />
       <section className="h-[91%] flex flex-col justify-center items-center">
-        <Piano octaves={3} />
+        <Piano />
       </section>
     </main>
   );
