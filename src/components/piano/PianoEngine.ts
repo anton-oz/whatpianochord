@@ -1,6 +1,19 @@
-class Piano_Class {
+/* 
+  types
+*/
+
+interface Note {
+  note: string;
+  index: number;
+}
+
+interface Intervals {
+  [key: string]: number;
+}
+
+class PianoEngine {
   keys: string[];
-  intervals: { [key: string]: number };
+  intervals: Intervals;
   chords: string[];
   constructor() {
     this.keys = [
@@ -44,6 +57,9 @@ class Piano_Class {
       "diminished 7th",
     ];
   }
+  /*
+    Get note interval away from input note
+  */
   private getNote(
     key: string,
     interval: number
@@ -52,23 +68,32 @@ class Piano_Class {
     const note = this.keys[index];
     return { note, index };
   }
+  /*
+    return ID of input key on piano
+  */
   keyId(key: string, keyOctave: number): string {
     return `${key}-${keyOctave + 1}`;
   }
-  getArray(
-    arrayName: string
-  ): (string | number)[] | typeof this.intervals | undefined {
-    switch (arrayName) {
-      case "keys":
-        return this.keys;
-      case "intervals":
-        return this.intervals;
-      case "chords":
-        return this.chords;
-      default:
-        return undefined;
-    }
+  /* 
+    methods to get array from this class
+  */
+  getKeys(): string[] {
+    return this.keys;
   }
+  getIntervals(): Intervals {
+    return this.intervals;
+  }
+  getChords(): string[] {
+    return this.chords;
+  }
+  /*
+    ####################################
+  */
+  /*
+    TODO: need to make responsive for inversion option
+    
+    currently returns the octave that the input key should be to be in 1st inversion
+  */
   octave(
     currentKey: string,
     compareKey: string,
@@ -83,15 +108,24 @@ class Piano_Class {
     }
     return octave - 1;
   }
+  /* 
+    returns an array of keys to highlight depending on chord selected
+  */
   chord(currentKey: string, chord: string): (string | null)[] {
     let notes: (string | null)[] = [null];
+
     const first_note =
       currentKey[1] === "#" ? currentKey[0] + currentKey[1] : currentKey[0];
     const currentKeyOctave = currentKey[currentKey.length - 1];
-    let second_note;
-    let third_note;
-    let fourth_note: { note: string; index: number } | null = null;
+    let second_note: Note;
+    let third_note: Note;
+    let fourth_note: Note | undefined;
 
+    /* 
+      To make this switch statement more concise I could have the chord array be
+      an array of objects that have a name key and either an array or an object that 
+      has the intervals neccesary to build the chord 
+    */
     switch (chord) {
       case "major":
         second_note = this.getNote(first_note, this.intervals.majorThird);
@@ -117,6 +151,26 @@ class Piano_Class {
         second_note = this.getNote(first_note, this.intervals.fourth);
         third_note = this.getNote(first_note, this.intervals.fifth);
         break;
+      case "major 7th":
+        second_note = this.getNote(first_note, this.intervals.majorThird);
+        third_note = this.getNote(first_note, this.intervals.fifth);
+        fourth_note = this.getNote(first_note, this.intervals.majorSeventh);
+        break;
+      case "minor 7th":
+        second_note = this.getNote(first_note, this.intervals.minorThird);
+        third_note = this.getNote(first_note, this.intervals.fifth);
+        fourth_note = this.getNote(first_note, this.intervals.minorSeventh);
+        break;
+      case "dominant 7th":
+        second_note = this.getNote(first_note, this.intervals.majorThird);
+        third_note = this.getNote(first_note, this.intervals.fifth);
+        fourth_note = this.getNote(first_note, this.intervals.minorSeventh);
+        break;
+      case "diminished 7th":
+        second_note = this.getNote(first_note, this.intervals.minorThird);
+        third_note = this.getNote(first_note, this.intervals.tritone);
+        fourth_note = this.getNote(first_note, this.intervals.minorSeventh);
+        break;
       default:
         return notes;
     }
@@ -130,16 +184,17 @@ class Piano_Class {
         third_note.note,
         this.octave(first_note, third_note.note, currentKeyOctave)
       ),
-      fourth_note
-        ? this.keyId(
-            fourth_note.note,
-            this.octave(first_note, fourth_note.note, currentKeyOctave)
-          )
-        : null,
     ];
+    if (fourth_note) {
+      notes.push(
+        this.keyId(
+          fourth_note.note,
+          this.octave(first_note, fourth_note.note, currentKeyOctave)
+        )
+      );
+    }
     return notes;
   }
-  //
 }
 
-export default Piano_Class;
+export default PianoEngine;
