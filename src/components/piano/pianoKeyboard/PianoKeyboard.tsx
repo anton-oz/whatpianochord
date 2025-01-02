@@ -70,7 +70,17 @@ export default function PianoKeyboard({
   return octaves.map((_, octave) => (
     <div
       key={"piano-container-" + octave}
-      className="w-[350px] h-[140px] flex relative space-x-[0.5px] mx-[0.25px]"
+      // the width in pixels is the actual width (centimeters converted to pixels) of key (rounded to hundreths place)
+      /*
+      width
+        original value = 350px
+        irl value = 16.3cm =(kinda)= 616.06px
+
+      height
+        original value = 140px
+        irl value = 14.1cm =(kinda)= 532.91px
+      */
+      className="min-w-[610.06px] h-[532.91px] flex justify-between relative space-x-[0.2px] mx-[1px]"
     >
       {newKeys.map(
         (key, i) =>
@@ -81,7 +91,12 @@ export default function PianoKeyboard({
               onClick={() => {
                 selectNote(key, octave);
               }}
-              className={`w-[50px] flex justify-center items-end border border-black rounded-b-lg shadow-lg z-10 ${
+              // the width in pixels is the actual width (centimeters converted to pixels) of key (rounded to hundreths place)
+              /*
+                original value = 50px
+                irl value = 2.2cm =(kinda)= 83.15px
+              */
+              className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 ${
                 currentKey === Piano.keyId(key, octave) ? "bg-sky-200" : ""
               } ${
                 chordKeys !== null &&
@@ -95,7 +110,15 @@ export default function PianoKeyboard({
             ></div>
           )
       )}
-      <div className="absolute flex h-[65%] w-[350px] space-x-[0.5px]">
+      {/* 
+        width 
+          original value = 282px 
+          irl value = 13.3cm =(kinda)= 502.68px 
+        left
+          original value = 13px
+          irl value = 1.5cm == 56.69px
+      */}
+      <div className="absolute left-[56.69px] flex h-[65%] min-w-[502.68px]">
         {newBlackKeys.map((key, i) => (
           <div
             key={"black-keys-" + i + octave}
@@ -103,7 +126,8 @@ export default function PianoKeyboard({
             onClick={() => {
               selectNote(key, octave);
             }}
-            className={`relative flex justify-center items-end h-full w-[7%] bg-black border border-black rounded-b-lg shadow-lg text-white z-20 ${
+            // Width is set based on your previous logic
+            className={`h-full min-w-[38.02px] relative flex justify-center items-end bg-black border border-black rounded-b-lg shadow-lg text-white z-20 ${
               currentKey === Piano.keyId(key, octave) ? "bg-sky-300" : ""
             }${
               chordKeys !== null &&
@@ -115,11 +139,20 @@ export default function PianoKeyboard({
                 : ""
             }`}
             style={{
+              // Dynamically adjust 'left' based on index (i)
               left: `${
-                i === 2 || i === 3 || i === 4
-                  ? 8 * (i + 1) - i + 17.3
-                  : 8 * (i + 1) - i + 2.75
-              }%`,
+                i === 0
+                  ? 6
+                  : i === 1
+                  ? 64.03
+                  : i === 2
+                  ? 64.03 + 135.46
+                  : i === 3
+                  ? 60.43 + 135.46 + 55.45
+                  : i === 4
+                  ? 55.03 + 135.46 + 55.45 * 2
+                  : null
+              }px`, // example of dynamic positioning
             }}
           ></div>
         ))}

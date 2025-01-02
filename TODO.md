@@ -1,16 +1,12 @@
 # Todo
 
-#### simplify PianoEngine into more specialized sub classes
-
-- [ ] in the chords array have the chords be objects with the name and then an array of the intervals of the chord
-
 #### more chord building tools for user
 
 - [ ] store settings in a cookie and have the initial state be the last selected input
 
 - [ ] add extended chords
 
-- [ ] able to set custom number of octaves
+- [x] able to set custom number of octaves
 
 - [ ] have chord inversions
 
@@ -28,4 +24,22 @@
 
 - 12 keys width = 16.3 cm
 
+- black keys width (c# to a#) = 13.3cm
+
 - gap between keys
+
+## make keys look slightly more realistic
+
+- [ ] eventually want it to look as realistic as possible
+
+- - [ ] keys should look somewhat 3d, almost looking at the keys sideways kind of deal
+
+- [ ] have action on piano be delayed
+
+- [ ] add the current current to to actual size indicator, along with a slider to change the size of keys
+
+## add a sound editor
+
+- [ ] be able to edit to the attack, decay, release, and sustain
+
+- [ ] add glissando option
