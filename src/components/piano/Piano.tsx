@@ -25,7 +25,7 @@ export default function Piano() {
 
   return (
     <>
-      <div className="flex border-t border-black scale-[80%] max-w-[100vw] overflow-x-scroll scrollbar">
+      <div className="flex border-t border-black scale-[70%] max-w-[100vw] overflow-x-scroll scrollbar">
         <PianoKeyboard
           octaves={octaves}
           currentKey={currentKey}
