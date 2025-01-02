@@ -1,5 +1,17 @@
 # Todo
 
+## URGEGENT
+
+- [ ] update pianocontroller styles
+
+- - either shadcn or custom style, think of simple style like apple or openai
+
+- [ ] add sounds to corrresponding keys / chords
+
+- - use tunejs or tunepiano ( tunepiano prob easier )
+
+- - - with tunejs you would learn more about the web audio API ( do this if tunepiano is annoying or broken )
+
 #### dark / light mode
 
 #### more chord building tools for user
@@ -59,3 +71,7 @@
 - [ ] upload midi files and it will play them
 
 - [ ] midi keyboard can interface
+
+# unknown / bugs
+
+- [ ] when you click note all the notes rerender, causes a small shake kind of look when clicking keys on piano

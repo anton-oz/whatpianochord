@@ -104,8 +104,11 @@ export default function PianoKeyboard({
                   : "from-neutral-100 to-neutral-100"
               } `}
             >
+              {/* 
+                The following div is what makes the white keys look slightly raised
+              */}
               <div
-                className={`relative  rounded-lg m-2 h-[98.2%] w-[80%] bg-gradient-to-t  ${
+                className={`relative  rounded-lg m-1 h-[98.2%] w-[90%] bg-gradient-to-t  ${
                   currentKey === Piano.keyId(key, octave) ||
                   chordKeys.some(
                     (chordKey, chordKeyIndex) =>
