@@ -21,10 +21,10 @@ export default function Nav() {
         </div>
         <div
           onClick={() => setMenuOpen((prevState) => !prevState)}
-          className={`relative top-0 bg-white p-1 rounded border-black border-2 transition-all duration-200 bg-gradient-to-b  ${
+          className={`relative top-0 bg-white p-1 rounded border-black border-2 transition-all duration-100 bg-gradient-to-b  hover:bg-gradient-to-br hover:scale-[0.96] ${
             menuOpen
-              ? "border-b-[2px] border-r-[2.5px] border-t-[2px] translate-x-[1px] translate-y-[1px] from-amber-50 to-zinc-100"
-              : "border-b-[6px] border-r-[4px] border-t-[2px] from-white to-zinc-200 hover:translate-x-[1px] hover:translate-y-[1px] hover:border-r-[3px] hover:border-b-[3px]"
+              ? "border-b-[2px] border-r-[2.5px] border-t-[2px] translate-x-[1px] translate-y-[1px]  hover:border-r-[3px] hover:border-b-[3px] from-amber-50 to-zinc-100 hover:from-rose-100 hover:to-amber-50"
+              : "border-b-[6px] border-r-[4px] border-t-[2px]  hover:translate-x-[1px] hover:translate-y-[1px] hover:border-r-[3px] hover:border-b-[3px] from-white to-zinc-200 hover:from-emerald-100"
           }`}
         >
           {menuOpen ? (
@@ -41,16 +41,6 @@ export default function Nav() {
             />
           )}
         </div>
-
-        {/* <ChevronDown
-          size={40}
-          strokeWidth={2}
-          className={`bg-white p-1 rounded border-black border-2 transition-transform duration-100    ${
-            menuOpen
-              ? "border-b-[2px] border-t-[2px] border-x-2 bg-white"
-              : "border-b-[4px] border-t-[2px] border-x-1 bg-gradient-to-t from-white to-zinc-50"
-          }`}
-        /> */}
       </div>
       {/* 
         Side Menu ( seperate to component )
@@ -58,17 +48,19 @@ export default function Nav() {
       <div
         /*
           For the following function decide between having it open all the time and when it should auto close
+
+          for now you have to click the menu button to toggle visibility
         */
         // onMouseLeave={() => {
         //   if (menuOpen) {
         //     setMenuOpen((prevState) => !prevState);
         //   }
         // }}
-        className={`absolute w-[20vw] h-screen bg-zinc-50 bg-opacity-95 top-24 left-0 transition-opacity duration-300 ${
+        className={`absolute w-[20vw] h-screen bg-zinc-800 bg-opacity-85 top-24 left-0 transition-opacity duration-300 rounded-tr-lg ${
           menuOpen ? "opacity-100" : "opacity-0"
         }`}
       >
-        <hr className="h-[3px] w-[70%] bg-black place-self-center" />
+        {/* <hr className="border-t-2 border-red-500 w-[100%] rounded-tr-lg place-self-center" /> */}
         <h4 className="m-2 px-3 py-1 rounded bg-sky-600 text-zinc-50 font-semibold text-center">
           Going to put chord settings here
         </h4>
