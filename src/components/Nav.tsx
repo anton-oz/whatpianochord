@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 
-import Piano from "./piano/Piano";
-import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+import SideMenu from "./SideMenu";
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [_, setClicked] = useState<boolean>(false);
 
   const chevron = {
     size: 30,
     strokeWidth: 1.75,
-    className: `transition-all duration-300`,
+    className: `transition-all duration-300 active:border-sky-500`,
+  };
+
+  const handleClick = () => {
+    setMenuOpen((prevState) => !prevState);
+    setClicked((prevState) => !prevState);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      handleClick();
+    }
   };
 
   return (
@@ -20,8 +33,10 @@ export default function Nav() {
           <img src="/kordify.svg" alt="kordify logo" width={32} />
         </div>
         <div
-          onClick={() => setMenuOpen((prevState) => !prevState)}
-          className={`relative top-0 bg-white p-1 rounded border-black border-2 transition-all duration-100 bg-gradient-to-b  hover:bg-gradient-to-br hover:scale-[0.96] ${
+          tabIndex={0}
+          onClick={handleClick}
+          onKeyDown={handleKeyDown}
+          className={`relative top-0 bg-white p-1 rounded border-black border-2 transition-all duration-100 bg-gradient-to-b hover:bg-gradient-to-br hover:scale-[0.96] focus:ring-2 active:ring-[3px] ring-sky-300 ${
             menuOpen
               ? "border-b-[2px] border-r-[2.5px] border-t-[2px] translate-x-[1px] translate-y-[1px]  hover:border-r-[3px] hover:border-b-[3px] from-amber-50 to-zinc-100 hover:from-rose-100 hover:to-amber-50"
               : "border-b-[6px] border-r-[4px] border-t-[2px]  hover:translate-x-[1px] hover:translate-y-[1px] hover:border-r-[3px] hover:border-b-[3px] from-white to-zinc-200 hover:from-emerald-100"
@@ -45,30 +60,7 @@ export default function Nav() {
       {/* 
         Side Menu ( seperate to component )
       */}
-      <div
-        /*
-          For the following function decide between having it open all the time and when it should auto close
-
-          for now you have to click the menu button to toggle visibility
-        */
-        // onMouseLeave={() => {
-        //   if (menuOpen) {
-        //     setMenuOpen((prevState) => !prevState);
-        //   }
-        // }}
-        className={`absolute w-[20vw] h-screen bg-zinc-800 bg-opacity-85 top-24 left-0 transition-opacity duration-300 rounded-tr-lg ${
-          menuOpen ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {/* <hr className="border-t-2 border-red-500 w-[100%] rounded-tr-lg place-self-center" /> */}
-        <h4 className="m-2 px-3 py-1 rounded bg-sky-600 text-zinc-50 font-semibold text-center">
-          Going to put chord settings here
-        </h4>
-        <div className="border-2 border-black rounded w-fit max-w-full h-fit flex flex-col">
-          {" "}
-          <Piano whatToReturn={"controls"} />
-        </div>
-      </div>
+      <SideMenu menuOpen={menuOpen} />
     </nav>
   );
 }
