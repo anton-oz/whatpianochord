@@ -94,16 +94,29 @@ export default function PianoKeyboard({
                 original value = 50px
                 irl value = 2.2cm =(kinda)= 83.15px
               */
-              className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 bg-opacity-100  ${
+              className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 bg-opacity-100 transition-transform duration-150 bg-gradient-to-t ${
                 currentKey === Piano.keyId(key, octave) ||
                 chordKeys.some(
                   (chordKey, chordKeyIndex) =>
                     chordKeyIndex !== 0 && chordKey === Piano.keyId(key, octave)
                 )
-                  ? "bg-sky-200"
-                  : "bg-white"
+                  ? "from-sky-200 to-sky-300 h-[102.5%] top-0 scale-[0.99]"
+                  : "from-neutral-100 to-neutral-100"
               } `}
-            ></div>
+            >
+              <div
+                className={`relative  rounded-lg m-2 h-[98.2%] w-[80%] bg-gradient-to-t  ${
+                  currentKey === Piano.keyId(key, octave) ||
+                  chordKeys.some(
+                    (chordKey, chordKeyIndex) =>
+                      chordKeyIndex !== 0 &&
+                      chordKey === Piano.keyId(key, octave)
+                  )
+                    ? "from-sky-200 to-sky-300"
+                    : "from-white to-neutral-50"
+                }`}
+              ></div>
+            </div>
           )
       )}
       {/* 
@@ -123,16 +136,14 @@ export default function PianoKeyboard({
               selectNote(key, octave);
             }}
             // Width is set based on your previous logic
-            className={`h-full min-w-[38.02px] relative flex justify-center items-end bg-black border border-black rounded-b-lg shadow-lg text-white z-20 ${
-              currentKey === Piano.keyId(key, octave) ? "bg-sky-300" : ""
-            }${
-              chordKeys !== null &&
+            className={`h-full min-w-[38.02px] relative flex justify-center items-end border border-black rounded-b-lg shadow-lg text-white z-20 transition-transform duration-150 ${
+              currentKey === Piano.keyId(key, octave) ||
               chordKeys.some(
                 (chordKey, chordKeyIndex) =>
                   chordKeyIndex !== 0 && chordKey === Piano.keyId(key, octave)
               )
-                ? "bg-sky-300"
-                : ""
+                ? "bg-sky-300 h-[102.5%] top-0 scale-[0.99]"
+                : "bg-black"
             }`}
             style={{
               // Dynamically adjust 'left' based on index (i)
@@ -150,7 +161,23 @@ export default function PianoKeyboard({
                   : null
               }px`, // example of dynamic positioning
             }}
-          ></div>
+          >
+            {/* 
+              the following div is what makes the black key look shiny
+            */}
+            {/* <div className="absolute m-[1px] w-[80%] h-[95%] rounded-b-md bg-opacity-20 top-0 bg-white"></div> */}
+            <div
+              className={`absolute m-[1px] w-[80%] h-[95%] rounded-b-md top-0 bg-gradient-to-tr ${
+                currentKey === Piano.keyId(key, octave) ||
+                chordKeys.some(
+                  (chordKey, chordKeyIndex) =>
+                    chordKeyIndex !== 0 && chordKey === Piano.keyId(key, octave)
+                )
+                  ? "from-sky-200 to-sky-150"
+                  : " from-zinc-900 to-zinc-600"
+              }`}
+            ></div>
+          </div>
         ))}
       </div>
     </div>

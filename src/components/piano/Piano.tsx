@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import PianoControls from "./pianoController/PianoControls";
@@ -21,7 +21,7 @@ export default function Piano() {
 
   return (
     <>
-      <div className="flex border-t border-black bg-black bg-opacity-55 scale-[70%] max-w-[100vw] min-h-fit overflow-x-scroll scrollbar">
+      <div className="flex border-t border-black bg-black bg-opacity-100 rounded-lg scale-[70%] max-w-[100vw] min-h-fit">
         <PianoKeyboard
           octaves={octaves}
           currentKey={currentKey}

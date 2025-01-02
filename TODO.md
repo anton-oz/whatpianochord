@@ -51,3 +51,11 @@
 - [ ] consolidate button toggle on and off tailwind styling in the tailwind.config.js file so resused classes dont need to be lengthly rewritten each time
 
 # FAR FUTURE
+
+- [ ] PWA functionality ( cache the app so available offline )
+
+- [ ] can record / save chord progressions and it will auto play back, can output midi files or score
+
+- [ ] upload midi files and it will play them
+
+- [ ] midi keyboard can interface
