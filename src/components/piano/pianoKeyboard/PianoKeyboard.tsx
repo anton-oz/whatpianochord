@@ -34,6 +34,8 @@ export default function PianoKeyboard({
   const newChords = Piano.getChords();
 
   useEffect(() => {
+    console.log(currentKey);
+
     if (currentKey === null || currentChord === null) {
       setChordKeys([null]);
       return;

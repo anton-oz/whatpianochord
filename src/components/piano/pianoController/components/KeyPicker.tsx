@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch } from "react";
 import PianoEngine from "../../utils/PianoEngine";
 
 export default function KeyPicker({
   currentKey,
+  selectKey,
+  selectChord,
 }: {
   currentKey: string | null;
+  selectKey: Dispatch<string | null>;
+  selectChord: (chord: string | null) => void;
 }) {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
   const Piano = new PianoEngine();
@@ -13,6 +17,8 @@ export default function KeyPicker({
   const selectButton = (id: number) => {
     if (selectedButton === id) {
       setSelectedButton(null);
+      selectKey(null);
+      selectChord(null);
       return;
     }
     setSelectedButton(id);

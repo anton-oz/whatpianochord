@@ -1,15 +1,14 @@
 import PianoEngine from "../../utils/PianoEngine";
-// import { usePianoContext } from "../../../context/PianoContext";
 
 export default function ChordType({
+  currentKey,
   currentChord,
   selectChord,
 }: {
+  currentKey: string | null;
   currentChord: string | null;
   selectChord: (chord: string) => void;
 }) {
-  // const { chords, selectChord, selectedChord } = usePianoContext();
-
   const Piano = new PianoEngine();
 
   const chords = Piano.getChords();
@@ -25,12 +24,12 @@ export default function ChordType({
               selectChord(chord);
             }}
             className={`border-2 border-black rounded-lg px-2 m-1 w-fit  ${
-              currentChord
+              currentKey !== null && currentChord
                 ? chords.indexOf(currentChord) === i
                   ? "bg-sky-500 text-white"
                   : "bg-slate-150"
                 : "bg-slate-150"
-            }`}
+            } ${currentKey === null ? "bg-slate-150" : null}`}
           >
             {chord}
           </button>

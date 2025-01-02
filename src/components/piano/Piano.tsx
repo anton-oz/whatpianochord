@@ -11,8 +11,8 @@ export default function Piano() {
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
 
-  const selectChord = (chord: string) => {
-    if (currentChord === chord) {
+  const selectChord = (chord: string | null) => {
+    if (chord === null || currentChord === chord) {
       setCurrentChord(null);
     } else {
       setCurrentChord(chord);
@@ -21,7 +21,7 @@ export default function Piano() {
 
   return (
     <>
-      <div className="flex border-t border-black scale-[80%]">
+      <div className="flex border-t border-black scale-[120%]">
         <PianoKeyboard
           octaves={octaves}
           currentKey={currentKey}
@@ -29,9 +29,10 @@ export default function Piano() {
           currentChord={currentChord}
         />
       </div>
-      <div className="flex justify-center items-start w-[75%] h-fit">
+      <div className="mt-10 flex justify-center items-start w-[75%] h-fit">
         <PianoControls
           currentKey={currentKey}
+          selectKey={selectKey}
           currentChord={currentChord}
           selectChord={selectChord}
           octaves={octaves}
