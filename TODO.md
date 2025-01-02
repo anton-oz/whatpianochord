@@ -1,5 +1,7 @@
 # Todo
 
+#### dark / light mode
+
 #### more chord building tools for user
 
 - [ ] store settings in a cookie and have the initial state be the last selected input
@@ -43,3 +45,9 @@
 - [ ] be able to edit to the attack, decay, release, and sustain
 
 - [ ] add glissando option
+
+## consolidate css
+
+- [ ] consolidate button toggle on and off tailwind styling in the tailwind.config.js file so resused classes dont need to be lengthly rewritten each time
+
+# FAR FUTURE

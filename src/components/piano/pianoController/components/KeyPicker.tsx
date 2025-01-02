@@ -46,9 +46,10 @@ export default function KeyPicker({
             key={i}
             id={`${key}-button`}
             onClick={() => selectButton(i)}
-            className={`border-2 border-black rounded-lg px-2 m-1 w-fit  ${
-              selectedButton === i ? "bg-sky-500 text-white" : "bg-slate-150"
-              // selectButton(i)
+            className={`rounded-lg px-2 py-0 m-1 mb-3 w-fit text-xl font-semibold hover:bg-sky-300 transition-all duration-75 bg-opacity-75 border-b-2  border-r-2  border-opacity-0 ${
+              selectedButton === i
+                ? "bg-gradient-to-br from-emerald-400 to-sky-500 text-white hover:text-black border-black border-opacity-100"
+                : "bg-sky-100 border-r-sky-100 border-b-sky-100"
             }`}
           >
             {key}

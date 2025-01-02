@@ -34,8 +34,6 @@ export default function PianoKeyboard({
   const newChords = Piano.getChords();
 
   useEffect(() => {
-    console.log(currentKey);
-
     if (currentKey === null || currentChord === null) {
       setChordKeys([null]);
       return;
@@ -96,17 +94,15 @@ export default function PianoKeyboard({
                 original value = 50px
                 irl value = 2.2cm =(kinda)= 83.15px
               */
-              className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 ${
-                currentKey === Piano.keyId(key, octave) ? "bg-sky-200" : ""
-              } ${
-                chordKeys !== null &&
+              className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 bg-opacity-100  ${
+                currentKey === Piano.keyId(key, octave) ||
                 chordKeys.some(
                   (chordKey, chordKeyIndex) =>
                     chordKeyIndex !== 0 && chordKey === Piano.keyId(key, octave)
                 )
                   ? "bg-sky-200"
-                  : ""
-              }`}
+                  : "bg-white"
+              } `}
             ></div>
           )
       )}

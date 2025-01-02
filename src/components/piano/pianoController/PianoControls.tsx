@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 
 import KeyPicker from "./components/KeyPicker";
-import ChordType from "./components/ChordType";
+import ChordPicker from "./components/ChordPicker";
 import OctaveControl from "./components/OctaveControl";
 
 export default function PianoControls({
@@ -26,7 +26,7 @@ export default function PianoControls({
         selectKey={selectKey}
         selectChord={selectChord}
       />
-      <ChordType
+      <ChordPicker
         currentKey={currentKey}
         currentChord={currentChord}
         selectChord={selectChord}

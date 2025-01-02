@@ -19,13 +19,9 @@ export default function Piano() {
     }
   };
 
-  useEffect(() => {
-    console.log(currentKey);
-  }, [currentKey]);
-
   return (
     <>
-      <div className="flex border-t border-black scale-[70%] max-w-[100vw] overflow-x-scroll scrollbar">
+      <div className="flex border-t border-black bg-black bg-opacity-55 scale-[70%] max-w-[100vw] min-h-fit overflow-x-scroll scrollbar">
         <PianoKeyboard
           octaves={octaves}
           currentKey={currentKey}
@@ -33,7 +29,7 @@ export default function Piano() {
           currentChord={currentChord}
         />
       </div>
-      <div className="mt-10 flex justify-center items-start w-[75%] h-fit">
+      <div className="flex justify-center items-start w-[75%] h-fit bg-white p-8 rounded-lg">
         <PianoControls
           currentKey={currentKey}
           selectKey={selectKey}
