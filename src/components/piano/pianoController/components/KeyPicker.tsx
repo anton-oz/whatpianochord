@@ -37,6 +37,11 @@ export default function KeyPicker({
   }, [currentKey]);
 
   return (
+    <p className="text-black">{`${
+      currentKey ? "key: " + currentKey : "no key selected"
+    }`}</p>
+  );
+  return (
     <div className="max-w-[10%] flex flex-col justify-center items-center">
       <p
         onMouseEnter={() => setShowOptions(true)}

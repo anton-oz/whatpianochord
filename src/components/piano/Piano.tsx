@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import PianoControls from "./pianoController/PianoControls";
 
-export default function Piano({
-  whatToReturn,
-}: {
-  whatToReturn: undefined | string;
-}) {
+export default function Piano({ whatToReturn }: { whatToReturn?: string }) {
   /*
     TODO: store settings in a cookie and have the initial state be the last selected input
   */
@@ -22,6 +18,10 @@ export default function Piano({
       setCurrentChord(chord);
     }
   };
+
+  useEffect(() => {
+    console.log(currentKey);
+  }, [currentKey]);
 
   if (whatToReturn === "controls") {
     return (
