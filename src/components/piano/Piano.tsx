@@ -21,7 +21,7 @@ export default function Piano() {
 
   return (
     <>
-      <div className="flex border-t border-black bg-black bg-opacity-100 rounded-lg scale-[70%] max-w-[100vw] min-h-fit">
+      <div className="flex p-4 border-t border-black bg-black bg-opacity-100 rounded-lg scale-[70%] max-w-[130vw] min-h-fit overflow-y-hidden overflow-x-scroll">
         <PianoKeyboard
           octaves={octaves}
           currentKey={currentKey}
