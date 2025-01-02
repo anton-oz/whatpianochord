@@ -4,7 +4,10 @@ import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import PianoControls from "./pianoController/PianoControls";
 
 export default function Piano() {
-  const [octaves, setOctaves] = useState<number[]>([1]);
+  /*
+    TODO: store settings in a cookie and have the initial state be the last selected input
+  */
+  const [octaves, setOctaves] = useState<number[]>([1, 2]); // default number of octaves
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
 

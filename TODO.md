@@ -1,25 +1,12 @@
 # Todo
 
-## chord selector able to select chords on piano
-
-### complete
-
-- [x] major
-- [x] minor
-- [x] augmented
-- [x] diminished
-- [x] sus2
-- [x] sus4
-- [x] major 7th
-- [x] minor 7th
-- [x] domiant 7th
-- [x] diminshed 7th
-
 #### simplify PianoEngine into more specialized sub classes
 
-- [ ]
+- [ ] in the chords array have the chords be objects with the name and then an array of the intervals of the chord
 
 #### more chord building tools for user
+
+- [ ] store settings in a cookie and have the initial state be the last selected input
 
 - [ ] add extended chords
 

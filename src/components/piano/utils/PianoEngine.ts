@@ -11,10 +11,16 @@ interface Intervals {
   [key: string]: number;
 }
 
+type ChordType = {
+  intervals: number[];
+  name: string;
+};
+
 class PianoEngine {
   keys: string[];
   intervals: Intervals;
   chords: string[];
+  chordDefinitions: Record<string, ChordType> = {};
   constructor() {
     this.keys = [
       "C",
@@ -197,4 +203,4 @@ class PianoEngine {
   }
 }
 
-export default PianoEngine;
+// export default PianoEngine;
