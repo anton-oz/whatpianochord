@@ -3,7 +3,11 @@ import { useState } from "react";
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import PianoControls from "./pianoController/PianoControls";
 
-export default function Piano() {
+export default function Piano({
+  whatToReturn,
+}: {
+  whatToReturn: undefined | string;
+}) {
   /*
     TODO: store settings in a cookie and have the initial state be the last selected input
   */
@@ -19,9 +23,26 @@ export default function Piano() {
     }
   };
 
+  if (whatToReturn === "controls") {
+    return (
+      <>
+        <div className="flex justify-center items-center min-w-[25%] h-full bg-white p-8 border-r-2 border-black">
+          <PianoControls
+            currentKey={currentKey}
+            selectKey={selectKey}
+            currentChord={currentChord}
+            selectChord={selectChord}
+            octaves={octaves}
+            setOctaves={setOctaves}
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
-      <div className="flex p-4 border-t border-black bg-black bg-opacity-100 rounded-lg scale-[70%] max-w-[130vw] min-h-fit overflow-y-hidden overflow-x-scroll">
+      <div className="flex p-4 border-t border-black bg-black bg-opacity-100 rounded-lg scale-[0.70] w-fit min-h-fit overflow-y-hidden overflow-x-scroll">
         <PianoKeyboard
           octaves={octaves}
           currentKey={currentKey}
@@ -29,7 +50,7 @@ export default function Piano() {
           currentChord={currentChord}
         />
       </div>
-      <div className="flex justify-center items-start w-[75%] h-fit bg-white p-8 rounded-lg">
+      {/* <div className="flex justify-center items-center min-w-[25%] h-full bg-white p-8 border-r-2 border-black">
         <PianoControls
           currentKey={currentKey}
           selectKey={selectKey}
@@ -38,7 +59,7 @@ export default function Piano() {
           octaves={octaves}
           setOctaves={setOctaves}
         />
-      </div>
+      </div> */}
     </>
   );
 }

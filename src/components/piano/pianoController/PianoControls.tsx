@@ -26,6 +26,15 @@ export default function PianoControls({
         selectKey={selectKey}
         selectChord={selectChord}
       />
+    </>
+  );
+  return (
+    <>
+      <KeyPicker
+        currentKey={currentKey}
+        selectKey={selectKey}
+        selectChord={selectChord}
+      />
       <ChordPicker
         currentKey={currentKey}
         currentChord={currentChord}

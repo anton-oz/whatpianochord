@@ -3,9 +3,9 @@ import Piano from "./components/piano/Piano";
 
 export default function Home() {
   return (
-    <main className="flex flex-col h-screen w-screen bg-sky-50 bg-opacity-5">
+    <main className="flex flex-col h-full w-screen bg-sky-50 bg-opacity-5">
       <Nav />
-      <section className="h-[91%] flex flex-col justify-start items-center">
+      <section className="h-screen w-screen flex flex-row-reverse justify-center items-center overflow-y-scroll overflow-x-hidden">
         <Piano />
       </section>
     </main>

@@ -10,6 +10,7 @@ export default function KeyPicker({
   selectKey: Dispatch<string | null>;
   selectChord: (chord: string | null) => void;
 }) {
+  const [showOptions, setShowOptions] = useState<boolean>(false);
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
   const Piano = new PianoEngine();
   const keys = Piano.getKeys();
@@ -36,17 +37,31 @@ export default function KeyPicker({
   }, [currentKey]);
 
   return (
-    <div className="w-[33%] flex flex-col justify-center items-center">
-      <p className="text-2xl text-semibold">
-        Pick a key to start building a chord:{" "}
+    <div className="max-w-[10%] flex flex-col justify-center items-center">
+      <p
+        onMouseEnter={() => setShowOptions(true)}
+        onMouseLeave={() => setShowOptions(false)}
+        className="text-2xl text-semibold"
+      >
+        type of chord
       </p>
-      <div className="w-[75%] flex flex-wrap justify-center ">
+      <div
+        onMouseEnter={() => {
+          if (showOptions) {
+            setShowOptions(true);
+          }
+        }}
+        onMouseLeave={() => setShowOptions(false)}
+        className={`relative flex bg-zinc-100 justify-center top-0 min-w-fit ${
+          showOptions ? "visible" : "invisible"
+        }`}
+      >
         {keys.map((key, i) => (
           <button
             key={i}
             id={`${key}-button`}
             onClick={() => selectButton(i)}
-            className={`rounded-lg px-2 py-0 m-1 mb-3 w-fit text-xl font-semibold hover:bg-sky-300 transition-all duration-75 bg-opacity-75 border-b-2  border-r-2  border-opacity-0 ${
+            className={`rounded-lg px-2 py-0 m-1 mb-3 w-fit text-xl font-semibold hover:bg-sky-300 transition-all duration-75 border-b-2  border-r-2  border-opacity-0 ${
               selectedButton === i
                 ? "bg-gradient-to-br from-emerald-400 to-sky-500 text-white hover:text-black border-black border-opacity-100"
                 : "bg-sky-100 border-r-sky-100 border-b-sky-100"

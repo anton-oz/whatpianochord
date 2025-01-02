@@ -2,6 +2,8 @@
 
 ## URGEGENT
 
+- [ ] might switch back to piano context XD
+
 - [ ] update pianocontroller styles
 
 - - either shadcn or custom style, think of simple style like apple or openai

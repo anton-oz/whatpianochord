@@ -145,7 +145,7 @@ export default function PianoKeyboard({
                 (chordKey, chordKeyIndex) =>
                   chordKeyIndex !== 0 && chordKey === Piano.keyId(key, octave)
               )
-                ? "bg-sky-300 h-[102.5%] top-0 scale-[0.99]"
+                ? "bg-sky-300 h-[102.1%] top-0 scale-[0.99]"
                 : "bg-black"
             }`}
             style={{
