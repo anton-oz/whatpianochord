@@ -1,6 +1,6 @@
 {
   "name": "kordify",
-  "homepage": "https://anton-oz.github.io/kordify",
+  "homepage": "https://anton-oz.github.io/kordify/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build-deploy": "npm run build && gh-pages -d dist"
+    "build-deploy": "npm run build && gh-pages -d ./dist"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
