@@ -2,6 +2,8 @@
 
 ## URGEGENT
 
+- [ ] be able to drag the piano wider from the corner or edge
+
 - [x] might switch back to piano context XD
 
 - [ ] update pianocontroller styles

@@ -16,13 +16,21 @@ export default function OctaveControl({
   };
   const decrease = () => {
     if (!octaves || !setOctaves) return;
-    if (octaves.length === 1) return;
+    if (octaves.length === 2) return;
     setOctaves(octaves.slice(0, octaves.length - 1));
   };
   return (
-    <div className="w-[33%] flex flex-col justify-center items-center text-white">
-      <h3 className="w-full text-center text-2xl">
-        octaves: {octaves ? octaves.length : ""}
+    <div className="w-[250px] flex flex-col justify-center items-center">
+      <h3 className={`w-full text-center text-2xl`}>
+        octaves:{" "}
+        <span
+          className={`${
+            octaves?.length === 2 || octaves?.length === 4 ? "text-red-500" : ""
+          }`}
+        >
+          {" "}
+          {octaves ? octaves.length : ""}
+        </span>
       </h3>
       <div className="flex justify-center items-center w-full space-x-2 p-2">
         <button
@@ -31,7 +39,7 @@ export default function OctaveControl({
         >
           <Plus
             className="text-white hover:text-gray-400"
-            size={40}
+            size={20}
             strokeWidth={2}
           />
         </button>
@@ -41,18 +49,11 @@ export default function OctaveControl({
         >
           <Minus
             className="text-white hover:text-gray-400"
-            size={40}
+            size={20}
             strokeWidth={2}
           />
         </button>
       </div>
-
-      {octaves?.length === 1 ? (
-        <p className="text-red-500">lowest amount of octaves allowed</p>
-      ) : null}
-      {octaves?.length === 4 ? (
-        <p className="text-red-600">highest amount of octaves allowed</p>
-      ) : null}
     </div>
   );
 }

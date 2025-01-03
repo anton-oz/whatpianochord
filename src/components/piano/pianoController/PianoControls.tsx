@@ -21,11 +21,7 @@ export default function PianoControls({
 }) {
   return (
     <>
-      <KeyPicker
-        currentKey={currentKey}
-        selectKey={selectKey}
-        selectChord={selectChord}
-      />
+      <OctaveControl octaves={octaves} setOctaves={setOctaves} />
     </>
   );
   return (

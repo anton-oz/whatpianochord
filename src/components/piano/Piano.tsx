@@ -5,6 +5,7 @@ import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import PianoControls from "./pianoController/PianoControls";
 
 import { usePiano } from "../../Context/PianoContext";
+import DropDownButton from "../DropDownButton";
 
 export default function Piano({ whatToReturn }: { whatToReturn?: string }) {
   /*
@@ -50,16 +51,38 @@ export default function Piano({ whatToReturn }: { whatToReturn?: string }) {
       </>
     );
   }
+  const boxStyle = {
+    display: "inline-block",
+    backgroundImage: "linear-gradient(to right, #ff7e5f, #feb47b)",
+    backgroundClip: "padding-box",
+  };
 
   return (
     <>
-      <div className="mt-[10%] flex p-4 border-t border-black bg-black bg-opacity-100 rounded-lg scale-[0.70] w-fit min-h-fit overflow-y-hidden overflow-x-scroll">
-        <PianoKeyboard
-          octaves={octaves}
-          currentKey={currentKey}
-          selectKey={selectKey}
-          currentChord={currentChord}
-        />
+      <div className="max-w-full flex flex-col p-4 pl-2 pt-2 pr-[0.75rem] border-t border-black bg-black bg-opacity-100 rounded-lg scale-[.8] w-[1240px] min-h-fit">
+        <div
+          className="m-0 min-h-[300px] max-h-[300px] bg-zinc-700"
+          style={boxStyle}
+        >
+          <DropDownButton />
+          {/* <PianoControls
+            currentKey={currentKey}
+            selectKey={selectKey}
+            currentChord={currentChord}
+            selectChord={selectChord}
+            octaves={octaves}
+            setOctaves={setOctaves}
+          /> */}
+        </div>
+        <div className="h-[20px] w-full bg-gradient-to-br from-[#e67255] to-[#ce9060] border-b border-black"></div>
+        <div className="max-w-full overflow-x-scroll overflow-y-hidden">
+          <PianoKeyboard
+            octaves={octaves}
+            currentKey={currentKey}
+            selectKey={selectKey}
+            currentChord={currentChord}
+          />
+        </div>
       </div>
     </>
   );

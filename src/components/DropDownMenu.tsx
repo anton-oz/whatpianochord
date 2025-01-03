@@ -11,21 +11,25 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
 
   const chords = Piano.getChords();
   return (
+    /* back screen */
     <div
-      className={`flex justify-start items-start p-2 absolute w-[72.5vw] h-[30vh] bg-zinc-800 bg-opacity-85 top-[5rem] left-[13vw] transition-all duration-300 rounded-b-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll ${
-        menuOpen
-          ? "opacity-100 scale-95 translate-y-0 translate-x-0 blur-none"
-          : "opacity-0 scale-[0.1] -translate-y-[50%] -translate-x-[40%] -z-50 blur-sm"
-      }`}
+      className={`flex justify-start items-start p-2 absolute w-fit h-[250px] bg-zinc-900 bg-opacity-95 top-8 left-28 transition-all duration-300 rounded-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll `}
     >
-      <div className="h-full w-full flex justify-around items-center">
+      {/* blue screen */}
+      <div
+        className={`h-full w-full flex justify-start items-center p-4 bg-zinc-200 rounded transition-all duration-200 ${
+          menuOpen
+            ? "opacity-100 translate-y-0 translate-x-0 blur-none"
+            : "opacity-0 blur-sm"
+        }`}
+      >
         {/* 
           current note div
 
           TODO: use KeyPicker component
         */}
-        <div className="text-white place-self-center">
-          <h3 className="text-xl font-medium">Current Note: </h3>
+        <div className="place-self-center">
+          <h3 className="text-xl font-medium w-max">Current Note: </h3>
           <p
             className={`place-self-center text-4xl ${
               piano?.currentKey ? "font-semibold" : ""
@@ -39,7 +43,7 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
 
           TODO: use ChordPicker Component
         */}
-        <div className="max-w-[50%] ">
+        <div className="w-[400px] ">
           <div className="m-4 p-3 flex flex-wrap justify-center items-center rounded-lg ">
             {chords.map((chord, i) => (
               <p
