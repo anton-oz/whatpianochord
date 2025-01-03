@@ -2,7 +2,7 @@
 
 ## URGEGENT
 
-- [ ] might switch back to piano context XD
+- [x] might switch back to piano context XD
 
 - [ ] update pianocontroller styles
 
