@@ -3,6 +3,7 @@ import { PianoContext } from "../Context/PianoContext";
 
 import PianoEngine from "./piano/utils/PianoEngine";
 import { Minus, Plus } from "lucide-react";
+import OctaveControl from "./piano/pianoController/components/OctaveControl";
 
 export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
   const piano = useContext(PianoContext);
@@ -57,43 +58,18 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
         {/*  
           octave div
         */}
-        <div className="flex flex-col w-[25%] h-full items-center justify-center bg-zinc-50">
-          <div className="flex flex-col items-center justify-center">
-            <h4>octaves displayed:</h4>
-            <p>{piano?.octaves.length}</p>
-            <div className="w-fit flex justify-center items-center">
-              <Plus
-                className="cursor-pointer"
-                onClick={() => {
-                  if (piano && piano.octaves.length !== 4) {
-                    // Create a new array with the additional octave
-                    const newOctaves = [
-                      ...piano.octaves,
-                      piano.octaves[piano.octaves.length - 1] + 1,
-                    ];
-
-                    // Update the state with the new array
-                    piano.setOctaves(newOctaves);
-                  }
-                }}
-              />
-
-              <Minus
-                className="cursor-pointer"
-                onClick={() => {
-                  if (piano && piano.octaves.length > 2) {
-                    // Create a new array with the additional octave
-                    const newOctaves = piano.octaves.slice(0, -1);
-
-                    // Update the state with the new array
-                    piano.setOctaves(newOctaves);
-                  }
-                }}
-              />
-            </div>
-          </div>
-          <div></div>
-        </div>
+        <OctaveControl
+          octaves={
+            piano ? (piano?.octaves ? piano.octaves : undefined) : undefined
+          }
+          setOctaves={
+            piano
+              ? piano?.setOctaves
+                ? piano.setOctaves
+                : undefined
+              : undefined
+          }
+        />
         {/*  */}
       </div>
 

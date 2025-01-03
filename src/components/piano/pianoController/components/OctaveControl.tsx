@@ -6,20 +6,24 @@ export default function OctaveControl({
   octaves,
   setOctaves,
 }: {
-  octaves: number[];
-  setOctaves: Dispatch<number[]>;
+  octaves: number[] | undefined;
+  setOctaves: Dispatch<number[]> | undefined;
 }) {
   const increase = () => {
+    if (!octaves || !setOctaves) return;
     if (octaves.length === 4) return;
     setOctaves([...octaves, octaves[octaves.length - 1] + 1]);
   };
   const decrease = () => {
+    if (!octaves || !setOctaves) return;
     if (octaves.length === 1) return;
     setOctaves(octaves.slice(0, octaves.length - 1));
   };
   return (
-    <div className="w-[33%] flex flex-col justify-center items-center">
-      <h3 className="w-full text-center text-2xl">octaves: {octaves.length}</h3>
+    <div className="w-[33%] flex flex-col justify-center items-center text-white">
+      <h3 className="w-full text-center text-2xl">
+        octaves: {octaves ? octaves.length : ""}
+      </h3>
       <div className="flex justify-center items-center w-full space-x-2 p-2">
         <button
           onClick={() => increase()}
@@ -43,10 +47,10 @@ export default function OctaveControl({
         </button>
       </div>
 
-      {octaves.length === 1 ? (
+      {octaves?.length === 1 ? (
         <p className="text-red-500">lowest amount of octaves allowed</p>
       ) : null}
-      {octaves.length === 4 ? (
+      {octaves?.length === 4 ? (
         <p className="text-red-600">highest amount of octaves allowed</p>
       ) : null}
     </div>
