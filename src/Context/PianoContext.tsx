@@ -12,15 +12,18 @@ interface Piano {
   selectKey: Dispatch<string | null>;
   currentChord: string | null;
   setCurrentChord: (chord: string | null) => void;
+  selectChord: (chord: string | null) => void;
   octaves: number[];
   setOctaves: Dispatch<number[]>;
-  selectChord: (chord: string | null) => void;
+  startingOctave: number;
+  setStartingOctave: Dispatch<number>;
 }
 
 export const PianoContext = createContext<Piano | undefined>(undefined);
 
 export const PianoProvider = ({ children }: { children: ReactNode }) => {
   const [octaves, setOctaves] = useState<number[]>([1, 2]);
+  const [startingOctave, setStartingOctave] = useState<number>(5);
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
 
@@ -34,9 +37,11 @@ export const PianoProvider = ({ children }: { children: ReactNode }) => {
       selectKey,
       currentChord,
       setCurrentChord,
+      selectChord,
       octaves,
       setOctaves,
-      selectChord,
+      startingOctave,
+      setStartingOctave,
     }),
     [currentKey, currentChord, octaves]
   );

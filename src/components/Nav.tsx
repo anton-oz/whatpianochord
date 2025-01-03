@@ -26,7 +26,7 @@ export default function Nav() {
   };
 
   return (
-    <nav className="h-[9%] w-screen absolute top-0 flex justify-start items-center bg-opacity-0 px-8 py-12 z-10">
+    <nav className="h-[9%] w-screen absolute top-0 flex justify-start items-center bg-opacity-0 px-8 py-12 z-10 r">
       <div className=" flex items-center justify-center w-fit h-fit space-x-3 px-4 py-2 m-3 rounded-lg ">
         <div className="w-fit flex justify-center items-center space-x-2 bg-white p-2 rounded-lg border-2 border-black">
           <h1 className="sm:text-2xl text-xl font-semibold">Kordify</h1>
