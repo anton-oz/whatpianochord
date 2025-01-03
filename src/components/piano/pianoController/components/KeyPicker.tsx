@@ -26,6 +26,7 @@ export default function KeyPicker({
   };
 
   useEffect(() => {
+    console.log(currentKey);
     if (currentKey) {
       const selectedKey =
         currentKey[1] !== "#" ? currentKey[0] : currentKey[0] + currentKey[1];
@@ -37,7 +38,7 @@ export default function KeyPicker({
   }, [currentKey]);
 
   return (
-    <p className="text-black">{`${
+    <p className="text-zinc-100">{`${
       currentKey ? "key: " + currentKey : "no key selected"
     }`}</p>
   );

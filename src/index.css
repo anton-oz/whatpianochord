@@ -9,3 +9,16 @@
 html {
   overflow: hidden;
 }
+
+/*
+Do more testing with this |
+                          |
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+*/

@@ -3,7 +3,7 @@ import Piano from "./components/piano/Piano";
 
 export default function Home() {
   return (
-    <main className="flex flex-col h-full w-screen bg-gradient-to-t from-sky-50 to-zinc-50 bg-opacity-5">
+    <main className="flex flex-col h-full w-screen bg-gradient-to-tl from-amber-50 to-sky-100 bg-opacity-5">
       <Nav />
       <section className="h-screen w-screen flex flex-row-reverse justify-center items-center overflow-y-scroll overflow-x-hidden">
         <Piano />

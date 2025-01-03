@@ -14,6 +14,14 @@
 
 - - - with tunejs you would learn more about the web audio API ( do this if tunepiano is annoying or broken )
 
+## Reasoning for piano context
+
+- moving the menu to a dropdown menu as of now
+
+- want to keep keyboard as reusable as possible, eventually a standalone component downloadable via npm
+
+- want to make the piano look like a midi keyboard (as realistic as possible) so have the piano controls as panels on the upper part of the keyboard.
+
 #### dark / light mode
 
 #### more chord building tools for user
