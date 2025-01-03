@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { PianoContext } from "../Context/PianoContext";
 
 import PianoEngine from "./piano/utils/PianoEngine";
-import { Minus, Plus } from "lucide-react";
 import OctaveControl from "./piano/pianoController/components/OctaveControl";
 
 export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
@@ -22,6 +21,8 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
       <div className="h-full w-full flex justify-around items-center">
         {/* 
           current note div
+
+          TODO: use KeyPicker component
         */}
         <div className="text-white place-self-center">
           <h3 className="text-xl font-medium">Current Note: </h3>
@@ -35,6 +36,8 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
         </div>
         {/* 
           chord selecting div
+
+          TODO: use ChordPicker Component
         */}
         <div className="max-w-[50%] ">
           <div className="m-4 p-3 flex flex-wrap justify-center items-center rounded-lg ">
@@ -70,36 +73,7 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
               : undefined
           }
         />
-        {/*  */}
       </div>
-
-      {/* 
-        This is the current key component
-
-        TODO: modularize
-      */}
-      {/* <div className="w-[33%] h-full p-4 flex flex-col justify-center items-center">
-        <h3 className="text-white text-2xl bg-zinc-900 px-4 py-2 rounded-lg w-fit font-semibold border-2 border-white">
-          current key:
-        </h3>
-        <p
-          className={`w-max bg-zinc-900 bg-opacity-90 mt-2 rounded px-4 py-2 text-white text-6xl ${
-            piano?.currentKey ? "font-semibold" : "font-normal"
-          }`}
-        >
-          {piano?.currentKey ?? "N/A"}
-        </p>
-      </div> */}
-      {/* 
-        This is the chord selector component
-
-        TODO: modularize
-      */}
-      {/* <div className="w-[33%] h-full p-4 flex flex-col justify-center items-center">
-        <h3 className="text-white text-2xl bg-zinc-900 px-4 py-2 rounded-lg w-fit font-semibold border-2 border-white">
-          Current Chord:
-        </h3>
-      </div> */}
     </div>
   );
 }

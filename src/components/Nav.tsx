@@ -1,6 +1,6 @@
 import { useState, KeyboardEvent } from "react";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import DropDownMenu from "./DropDownMenu";
 

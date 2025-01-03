@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+// COMMENTED OUT FOR PianoContext
+// import { useState, } from "react";
 
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import PianoControls from "./pianoController/PianoControls";
@@ -7,9 +8,11 @@ import { usePiano } from "../../Context/PianoContext";
 
 export default function Piano({ whatToReturn }: { whatToReturn?: string }) {
   /*
-    TODO: store settings in a cookie and have the initial state be the last selected input
+    TODO: store piano settings / current state in a cookie and have the initial state be the last selected input
   */
   /*
+    // COMMENTED OUT FOR PianoContext
+
     const [octaves, setOctaves] = useState<number[]>([1, 2]); // default number of octaves
     const [currentKey, selectKey] = useState<string | null>(null);
     const [currentChord, setCurrentChord] = useState<string | null>(null);
@@ -30,10 +33,6 @@ export default function Piano({ whatToReturn }: { whatToReturn?: string }) {
     currentChord,
     selectChord,
   } = usePiano();
-
-  // useEffect(() => {
-  //   console.log(currentKey);
-  // }, [currentKey]);
 
   if (whatToReturn === "controls") {
     return (
@@ -62,16 +61,6 @@ export default function Piano({ whatToReturn }: { whatToReturn?: string }) {
           currentChord={currentChord}
         />
       </div>
-      {/* <div className="flex justify-center items-center min-w-[25%] h-full bg-white p-8 border-r-2 border-black">
-        <PianoControls
-          currentKey={currentKey}
-          selectKey={selectKey}
-          currentChord={currentChord}
-          selectChord={selectChord}
-          octaves={octaves}
-          setOctaves={setOctaves}
-        />
-      </div> */}
     </>
   );
 }

@@ -114,12 +114,11 @@ class PianoEngine {
     return Object.keys(this.chordDefinitions);
   }
 
-  // changed to public
   public getNote(key: string, interval: number): Note {
     const index = (this.keys.indexOf(key) + interval) % this.keys.length;
     return { note: this.keys[index], index };
   }
-  // changed to public
+
   public keyId(key: string, keyOctave: number): string {
     return `${key}-${keyOctave + 1}`;
   }
