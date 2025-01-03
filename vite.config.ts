@@ -15,4 +15,7 @@ export default defineConfig({
     },
   },
   base: "/kordify/", // for gh-pages to work
+  define: {
+    "process.env": process.env,
+  },
 });
