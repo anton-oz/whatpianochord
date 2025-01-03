@@ -1,20 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { PianoContext } from "../Context/PianoContext";
 
-import { cn } from "../lib/utils";
-
 import PianoEngine from "./piano/utils/PianoEngine";
-
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "./ui/navigation-menu";
+import { Minus, Plus } from "lucide-react";
 
 export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
   const piano = useContext(PianoContext);
@@ -30,35 +18,84 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
           : "opacity-0 scale-[0.1] -translate-y-[50%] -translate-x-[40%] -z-50 blur-sm"
       }`}
     >
-      <h3>Current Note: </h3>
-      <p>{piano?.currentKey}</p>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem></NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              {piano?.currentChord ?? "chords"}
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              {/* <div className="w-[200%] h-full p-3 bg-white"> */}
-              <ul className="flex flex-wrap justify-center h-fit w-[350px] px-4 py-2">
-                {chords.map((chord, i) => (
-                  <ListItem
-                    key={i}
-                    title={chord}
-                    className=""
-                    onClick={() => {
-                      piano?.selectChord(chord);
-                    }}
-                  ></ListItem>
-                ))}
-              </ul>
-              {/* </div> */}
-              {/* <NavigationMenuLink>Link</NavigationMenuLink> */}
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+      <div className="h-full w-full flex justify-around items-center">
+        {/* 
+          current note div
+        */}
+        <div className="text-white place-self-center">
+          <h3 className="text-xl font-medium">Current Note: </h3>
+          <p
+            className={`place-self-center text-4xl ${
+              piano?.currentKey ? "font-semibold" : ""
+            }`}
+          >
+            {piano?.currentKey ?? "N/A"}
+          </p>
+        </div>
+        {/* 
+          chord selecting div
+        */}
+        <div className="max-w-[50%] ">
+          <div className="m-4 p-3 flex flex-wrap justify-center items-center rounded-lg ">
+            {chords.map((chord, i) => (
+              <p
+                key={i}
+                onClick={() => {
+                  piano?.selectChord(chord);
+                }}
+                className={` rounded m-[.3rem] px-4 py-2 cursor-pointer text-xl   ${
+                  piano?.currentChord === chord
+                    ? "bg-zinc-900 text-white font-medium italic underline-offset-4 underline "
+                    : "bg-zinc-50 hover:bg-zinc-100 "
+                }`}
+              >
+                {chord}
+              </p>
+            ))}
+          </div>
+        </div>
+        {/*  
+          octave div
+        */}
+        <div className="flex flex-col w-[25%] h-full items-center justify-center bg-zinc-50">
+          <div className="flex flex-col items-center justify-center">
+            <h4>octaves displayed:</h4>
+            <p>{piano?.octaves.length}</p>
+            <div className="w-fit flex justify-center items-center">
+              <Plus
+                className="cursor-pointer"
+                onClick={() => {
+                  if (piano && piano.octaves.length !== 4) {
+                    // Create a new array with the additional octave
+                    const newOctaves = [
+                      ...piano.octaves,
+                      piano.octaves[piano.octaves.length - 1] + 1,
+                    ];
+
+                    // Update the state with the new array
+                    piano.setOctaves(newOctaves);
+                  }
+                }}
+              />
+
+              <Minus
+                className="cursor-pointer"
+                onClick={() => {
+                  if (piano && piano.octaves.length > 2) {
+                    // Create a new array with the additional octave
+                    const newOctaves = piano.octaves.slice(0, -1);
+
+                    // Update the state with the new array
+                    piano.setOctaves(newOctaves);
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div></div>
+        </div>
+        {/*  */}
+      </div>
 
       {/* 
         This is the current key component
@@ -90,29 +127,3 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
     </div>
   );
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";
