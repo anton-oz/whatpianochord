@@ -36,26 +36,18 @@ export default function Nav() {
           tabIndex={0}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
-          className={`cursor-pointer flex items-center justify-center font-bold relative top-0 bg-white p-1 rounded border-black border-2 transition-all duration-100 bg-gradient-to-b hover:bg-gradient-to-br hover:scale-[0.96] focus:ring-2 active:ring-[3px] ring-sky-300 ${
+          className={`cursor-pointer flex items-center justify-center font-bold relative top-0 bg-white p-1 rounded border-black border-2 transition-all duration-100 bg-gradient-to-b hover:bg-gradient-to-br  focus:ring-2 active:ring-2 ring-sky-400 ${
             menuOpen
-              ? "border-b-[2px] border-r-[2.5px] border-t-[2px] translate-x-[1px] translate-y-[1px]  hover:border-r-[3px] hover:border-b-[3px] from-amber-50 to-zinc-100 hover:from-rose-100 hover:to-amber-50"
-              : "border-b-[6px] border-r-[4px] border-t-[2px]  hover:translate-x-[1px] hover:translate-y-[1px] hover:border-r-[3px] hover:border-b-[3px] from-white to-zinc-200 hover:from-emerald-100"
+              ? "border-b-[2px] border-r-[2.5px] border-t-[2px]  from-sky-100 to-zinc-100 "
+              : "border-b-[6px] border-r-[4px] border-t-[2px]  hover:translate-x-[1px] hover:translate-y-[1px] hover:border-r-[3px] hover:border-b-[3px] from-white to-zinc-200 hover:from-sky-50"
           }`}
         >
           Controls
-          {menuOpen ? (
-            <ChevronUp
-              size={chevron.size}
-              strokeWidth={chevron.strokeWidth}
-              className={chevron.className}
-            />
-          ) : (
-            <ChevronDown
-              size={chevron.size}
-              strokeWidth={chevron.strokeWidth}
-              className={chevron.className}
-            />
-          )}
+          <ChevronDown
+            size={chevron.size}
+            strokeWidth={chevron.strokeWidth}
+            className={chevron.className}
+          />
         </div>
       </div>
       {/* 
