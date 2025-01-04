@@ -1,17 +1,23 @@
 import { useState, useEffect, Dispatch } from "react";
 import PianoEngine from "../utils/PianoEngine";
-import { usePiano } from "../../../Context/PianoContext";
+// import { usePiano } from "../../../Context/PianoContext";
 
 export default function PianoKeyboard({
   octaves,
+  startingOctave,
   currentKey,
   selectKey,
   currentChord,
+  inversion,
+  setInversion,
 }: {
   octaves: number[];
+  startingOctave: number;
   currentKey: string | null;
   selectKey: Dispatch<string | null>;
   currentChord: string | null;
+  inversion: number;
+  setInversion: Dispatch<number>;
 }) {
   const [chordKeys, setChordKeys] = useState<(string | null)[]>([]);
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -23,9 +29,6 @@ export default function PianoKeyboard({
     key[key.length - 1] === "#" ? newBlackKeys.push(key) : null
   );
   const newChords = Piano.getChords();
-
-  const { startingOctave, inversion, setInversion, __setChordKeys } =
-    usePiano();
 
   useEffect(() => {
     if (currentKey === null || currentChord === null) {
@@ -42,7 +45,6 @@ export default function PianoKeyboard({
       console.log("chord is undefined");
       return;
     }
-    __setChordKeys(chord);
     setChordKeys(chord);
   }, [currentKey, currentChord, inversion]);
 
@@ -88,12 +90,13 @@ export default function PianoKeyboard({
                     if (isMouseDown) selectNote(key, octave + startingOctave);
                   }}
                   className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 bg-opacity-100 transition-transform duration-150 bg-gradient-to-t ${
-                    currentKey === Piano.keyId(key, octave + startingOctave) ||
-                    chordKeys.some(
-                      (chordKey, chordKeyIndex) =>
-                        chordKeyIndex !== 0 &&
-                        chordKey === Piano.keyId(key, octave + startingOctave)
-                    )
+                    currentKey === Piano.keyId(key, octave + startingOctave)
+                      ? "from-amber-200 to-amber-300"
+                      : chordKeys.some(
+                          (chordKey) =>
+                            chordKey ===
+                            Piano.keyId(key, octave + startingOctave)
+                        )
                       ? "from-sky-200 to-sky-300 h-[102.5%] top-0 scale-[0.99]"
                       : "from-neutral-100 to-neutral-100"
                   } `}
@@ -101,12 +104,13 @@ export default function PianoKeyboard({
                   {/* div for key shine */}
                   <div
                     className={`relative rounded-lg m-1 h-[98.2%] w-[90%] bg-gradient-to-t  ${
-                      chordKeys.some(
-                        (chordKey, chordKeyIndex) =>
-                          chordKeyIndex !== 0 &&
-                          chordKey === Piano.keyId(key, octave + startingOctave)
-                      ) ||
                       currentKey === Piano.keyId(key, octave + startingOctave)
+                        ? "from-amber-200 to-amber-300"
+                        : chordKeys.some(
+                            (chordKey) =>
+                              chordKey ===
+                              Piano.keyId(key, octave + startingOctave)
+                          )
                         ? "from-sky-200 to-sky-300"
                         : "from-white to-neutral-50"
                     }`}
@@ -125,12 +129,12 @@ export default function PianoKeyboard({
                   if (isMouseDown) selectNote(key, octave + startingOctave);
                 }}
                 className={`h-full min-w-[38.02px] relative flex justify-center items-end border border-black rounded-b-lg shadow-lg text-white z-20 transition-transform duration-150 ${
-                  currentKey === Piano.keyId(key, octave + startingOctave) ||
-                  chordKeys.some(
-                    (chordKey, chordKeyIndex) =>
-                      chordKeyIndex !== 0 &&
-                      chordKey === Piano.keyId(key, octave + startingOctave)
-                  )
+                  currentKey === Piano.keyId(key, octave + startingOctave)
+                    ? "bg-gradient-to-tr from-black to-amber-800"
+                    : chordKeys.some(
+                        (chordKey) =>
+                          chordKey === Piano.keyId(key, octave + startingOctave)
+                      )
                     ? "bg-sky-300 h-[102.1%] top-0 scale-[0.99]"
                     : "bg-black"
                 }`}
@@ -152,12 +156,13 @@ export default function PianoKeyboard({
               >
                 <div
                   className={`absolute m-[1px] w-[80%] h-[95%] rounded-b-md top-0 bg-gradient-to-tr ${
-                    currentKey === Piano.keyId(key, octave + startingOctave) ||
-                    chordKeys.some(
-                      (chordKey, chordKeyIndex) =>
-                        chordKeyIndex !== 0 &&
-                        chordKey === Piano.keyId(key, octave + startingOctave)
-                    )
+                    currentKey === Piano.keyId(key, octave + startingOctave)
+                      ? "from-amber-600 to-amber-300"
+                      : chordKeys.some(
+                          (chordKey) =>
+                            chordKey ===
+                            Piano.keyId(key, octave + startingOctave)
+                        )
                       ? "from-sky-200 to-sky-150"
                       : "from-zinc-900 to-zinc-600"
                   }`}

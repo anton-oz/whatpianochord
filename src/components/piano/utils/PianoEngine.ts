@@ -102,22 +102,6 @@ class PianoEngine {
     },
   };
 
-  private __inversion: number = 1;
-
-  __inversionReset(): void {
-    this.__inversion = 1;
-  }
-
-  __inversionIncrement(chordLength: number): number {
-    (this.__inversion % chordLength) + 1;
-    return this.__inversion;
-  }
-
-  __inversionDecrement(chordLength: number): number {
-    (this.__inversion % chordLength) - 1;
-    return this.__inversion;
-  }
-
   getKeys(): readonly string[] {
     return this.keys;
   }
@@ -176,7 +160,7 @@ class PianoEngine {
       );
       return this.keyId(noteInfo.note, noteOctave);
     });
-    console.log("built: ", chordNotes);
+    console.log(" current key: ", currentKey, "\n", "built: ", chordNotes);
     return chordNotes;
   }
 }

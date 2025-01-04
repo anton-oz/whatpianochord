@@ -1,15 +1,35 @@
-// import { useContext } from "react";
+import { Dispatch } from "react";
 import { Minus, Plus } from "lucide-react";
-import { usePiano } from "../../../Context/PianoContext";
+// import { usePiano } from "../../../Context/PianoContext"
 
-import PianoEngine from "../../piano/utils/PianoEngine";
+import PianoEngine from "../../utils/PianoEngine";
 
-export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
+export default function ScreenContent({
+  screenOn,
+  // octaves,
+  // startingOctave,
+  currentKey,
+  // selectKey,
+  currentChord,
+  inversion,
+  setInversion,
+  selectChord,
+}: {
+  screenOn: boolean;
+  octaves: number[];
+  startingOctave: number;
+  currentKey: string | null;
+  selectKey: Dispatch<string | null>;
+  currentChord: string | null;
+  inversion: number;
+  setInversion: Dispatch<number>;
+  selectChord: (chord: string | null) => void;
+}) {
   // const piano = useContext(PianoContext);
 
-  const { setInversion, inversion } = usePiano();
+  // const { setInversion, inversion } = usePiano();
 
-  const piano = usePiano();
+  // const piano = usePiano();
 
   const Piano = new PianoEngine();
 
@@ -43,10 +63,10 @@ export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
           <h3 className="text-xl font-medium w-max">Current Note: </h3>
           <p
             className={`place-self-center text-4xl ${
-              piano?.currentKey ? "font-semibold" : ""
+              currentKey ? "font-semibold" : ""
             }`}
           >
-            {piano?.currentKey ?? "N/A"}
+            {currentKey ?? "N/A"}
           </p>
         </div>
         {/* 
@@ -60,10 +80,10 @@ export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
               <p
                 key={i}
                 onClick={() => {
-                  piano?.selectChord(chord);
+                  selectChord(chord);
                 }}
                 className={` rounded m-[.3rem] px-4 py-2 cursor-pointer text-xl   ${
-                  piano?.currentChord === chord
+                  currentChord === chord
                     ? "bg-zinc-900 text-white font-medium italic underline-offset-4 underline "
                     : "bg-zinc-50 hover:bg-zinc-100 "
                 }`}

@@ -2,34 +2,28 @@
 import { useState, useEffect } from "react";
 
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
-// COMMENTED OUT FOR PianoContext
-// import PianoControls from "./pianoController/PianoControls";
 
-import { usePiano } from "../../Context/PianoContext";
-// import DropDownButton from "../Screen/components/DropDownButton";
-import Screen from "../Screen/Screen";
+import Screen from "./Screen/Screen";
+/** TODO: SEE ABOUT HAVING ONE PianoEngine AND PASS AS PROP*/
+// import PianoEngine from "./utils/PianoEngine";
 
 export default function Piano() {
   /*
     TODO: store piano settings / current state in a cookie and have the initial state be the last selected input
   */
-  /*
-    // COMMENTED OUT FOR PianoContext
+  const [octaves, setOctaves] = useState<number[]>([1, 2, 3]); // default number of octaves
+  const [startingOctave, setStartingOctave] = useState<number>(3);
+  const [currentKey, selectKey] = useState<string | null>(null);
+  const [currentChord, setCurrentChord] = useState<string | null>(null);
+  const [inversion, setInversion] = useState<number>(1);
 
-    const [octaves, setOctaves] = useState<number[]>([1, 2]); // default number of octaves
-    const [currentKey, selectKey] = useState<string | null>(null);
-    const [currentChord, setCurrentChord] = useState<string | null>(null);
-  */
-  // const selectChord = (chord: string | null) => {
-  //   if (chord === null || currentChord === chord) {
-  //     setCurrentChord(null);
-  //   } else {
-  //     setCurrentChord(chord);
-  //   }
-  // };
-
-  // only for context
-  const { octaves, currentKey, selectKey, currentChord } = usePiano();
+  const selectChord = (chord: string | null) => {
+    if (chord === null || currentChord === chord) {
+      setCurrentChord(null);
+    } else {
+      setCurrentChord(chord);
+    }
+  };
 
   const boxStyle = {
     display: "inline-block",
@@ -71,6 +65,19 @@ export default function Piano() {
     };
   }, []);
 
+  const pianoProps = {
+    octaves,
+    setOctaves,
+    startingOctave,
+    setStartingOctave,
+    currentKey,
+    selectKey,
+    currentChord,
+    inversion,
+    setInversion,
+    selectChord,
+  };
+
   return (
     <>
       <div
@@ -85,16 +92,11 @@ export default function Piano() {
           style={boxStyle}
         >
           {/* <DropDownButton /> */}
-          <Screen />
+          <Screen pianoProps={pianoProps} />
         </div>
         <div className="h-[20px] w-full bg-gradient-to-br from-[#e67255] to-[#ce9060] border-b border-black"></div>
         <div className="max-w-full overflow-x-scroll overflow-y-hidden">
-          <PianoKeyboard
-            octaves={octaves}
-            currentKey={currentKey}
-            selectKey={selectKey}
-            currentChord={currentChord}
-          />
+          <PianoKeyboard {...pianoProps} />
         </div>
       </div>
     </>

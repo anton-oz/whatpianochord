@@ -4,11 +4,11 @@
 
 ### Direction to clean up the piano component state
 
-- I want the piano component to be reusable, so everything neccesary for piano inside that component / folder
+- [x] I want the piano component to be reusable, so everything neccesary for piano inside that component / folder
+
+- [x] remove context, have all state be managed in the main ./src/components/Piano/Piano.tsx
 
 - I want the piano settings to be build in like they are, like a midi keyboard
-
-- remove context, have all state be managed in the main ./src/components/Piano/Piano.tsx
 
 - add sound to piano
 
