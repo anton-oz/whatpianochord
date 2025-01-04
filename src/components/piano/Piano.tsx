@@ -15,6 +15,7 @@ export default function Piano() {
   const [startingOctave, setStartingOctave] = useState<number>(3);
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
+  const [chordKeys, setChordKeys] = useState<(string | null)[]>([]);
   const [inversion, setInversion] = useState<number>(1);
 
   const selectChord = (chord: string | null) => {
@@ -73,9 +74,11 @@ export default function Piano() {
     currentKey,
     selectKey,
     currentChord,
+    selectChord,
+    chordKeys,
+    setChordKeys,
     inversion,
     setInversion,
-    selectChord,
   };
 
   return (

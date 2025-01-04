@@ -12,6 +12,7 @@ export default function Screen({
     currentKey: string | null;
     selectKey: Dispatch<string | null>;
     currentChord: string | null;
+    chordKeys: (string | null)[];
     inversion: number;
     setInversion: Dispatch<number>;
     selectChord: (chord: string | null) => void;

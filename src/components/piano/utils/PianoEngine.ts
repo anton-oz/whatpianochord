@@ -132,9 +132,15 @@ class PianoEngine {
   ): number {
     const numericOctave =
       typeof octave === "string" ? parseInt(octave) : octave;
-    if (inversion === 2 && index === 0) {
-      return numericOctave;
+
+    const _inversion = inversion ? inversion - 1 : 0;
+
+    if (_inversion && index !== undefined && index < _inversion) {
+      return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
+        ? numericOctave + 1
+        : numericOctave;
     }
+
     return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
       ? numericOctave
       : numericOctave - 1;
@@ -160,7 +166,6 @@ class PianoEngine {
       );
       return this.keyId(noteInfo.note, noteOctave);
     });
-    console.log(" current key: ", currentKey, "\n", "built: ", chordNotes);
     return chordNotes;
   }
 }

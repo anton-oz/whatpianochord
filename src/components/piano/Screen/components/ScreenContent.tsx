@@ -11,6 +11,7 @@ export default function ScreenContent({
   currentKey,
   // selectKey,
   currentChord,
+  chordKeys,
   inversion,
   setInversion,
   selectChord,
@@ -21,6 +22,7 @@ export default function ScreenContent({
   currentKey: string | null;
   selectKey: Dispatch<string | null>;
   currentChord: string | null;
+  chordKeys: (string | null)[];
   inversion: number;
   setInversion: Dispatch<number>;
   selectChord: (chord: string | null) => void;
@@ -102,7 +104,8 @@ export default function ScreenContent({
           <div className="flex items-center justify-around space-x-2">
             <Minus
               onClick={() => {
-                const newVal = inversion - 1;
+                const newVal =
+                  inversion === 1 ? chordKeys.length : inversion - 1;
                 setInversion(newVal);
               }}
               className={svgStyle.className}
@@ -111,7 +114,7 @@ export default function ScreenContent({
             />
             <Plus
               onClick={() => {
-                const newVal = inversion + 1;
+                const newVal = (inversion % chordKeys.length) + 1;
                 setInversion(newVal);
               }}
               className={svgStyle.className}

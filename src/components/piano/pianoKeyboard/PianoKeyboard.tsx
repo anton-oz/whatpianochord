@@ -8,6 +8,8 @@ export default function PianoKeyboard({
   currentKey,
   selectKey,
   currentChord,
+  chordKeys,
+  setChordKeys,
   inversion,
   setInversion,
 }: {
@@ -16,10 +18,11 @@ export default function PianoKeyboard({
   currentKey: string | null;
   selectKey: Dispatch<string | null>;
   currentChord: string | null;
+  chordKeys: (string | null)[];
+  setChordKeys: Dispatch<(string | null)[]>;
   inversion: number;
   setInversion: Dispatch<number>;
 }) {
-  const [chordKeys, setChordKeys] = useState<(string | null)[]>([]);
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const Piano = new PianoEngine();
@@ -91,21 +94,21 @@ export default function PianoKeyboard({
                   }}
                   className={`w-[84.75px] flex justify-center items-end border border-black rounded-b-lg  shadow-lg z-10 bg-opacity-100 transition-transform duration-150 bg-gradient-to-t ${
                     currentKey === Piano.keyId(key, octave + startingOctave)
-                      ? "from-amber-200 to-amber-300"
+                      ? "from-amber-500 to-amber-600 scale-[0.97] h-[101%] top-0"
                       : chordKeys.some(
                           (chordKey) =>
                             chordKey ===
                             Piano.keyId(key, octave + startingOctave)
                         )
-                      ? "from-sky-200 to-sky-300 h-[102.5%] top-0 scale-[0.99]"
+                      ? "from-sky-200 to-sky-300  top-0 scale-[0.98]"
                       : "from-neutral-100 to-neutral-100"
                   } `}
                 >
                   {/* div for key shine */}
                   <div
-                    className={`relative rounded-lg m-1 h-[98.2%] w-[90%] bg-gradient-to-t  ${
+                    className={`relative rounded-b-lg place-self-start h-[99%] w-[90%] bg-gradient-to-t  ${
                       currentKey === Piano.keyId(key, octave + startingOctave)
-                        ? "from-amber-200 to-amber-300"
+                        ? "from-amber-400 to-amber-500"
                         : chordKeys.some(
                             (chordKey) =>
                               chordKey ===
@@ -130,12 +133,12 @@ export default function PianoKeyboard({
                 }}
                 className={`h-full min-w-[38.02px] relative flex justify-center items-end border border-black rounded-b-lg shadow-lg text-white z-20 transition-transform duration-150 ${
                   currentKey === Piano.keyId(key, octave + startingOctave)
-                    ? "bg-gradient-to-tr from-black to-amber-800"
+                    ? "bg-gradient-to-tr from-amber-950 to-amber-800 scale-[0.96] h-[95%] top-0"
                     : chordKeys.some(
                         (chordKey) =>
                           chordKey === Piano.keyId(key, octave + startingOctave)
                       )
-                    ? "bg-sky-300 h-[102.1%] top-0 scale-[0.99]"
+                    ? "bg-sky-300 scale-[0.96] h-[95%] top-0"
                     : "bg-black"
                 }`}
                 style={{
@@ -157,7 +160,7 @@ export default function PianoKeyboard({
                 <div
                   className={`absolute m-[1px] w-[80%] h-[95%] rounded-b-md top-0 bg-gradient-to-tr ${
                     currentKey === Piano.keyId(key, octave + startingOctave)
-                      ? "from-amber-600 to-amber-300"
+                      ? "from-amber-600 to-amber-500"
                       : chordKeys.some(
                           (chordKey) =>
                             chordKey ===
