@@ -22,8 +22,8 @@ interface Piano {
 export const PianoContext = createContext<Piano | undefined>(undefined);
 
 export const PianoProvider = ({ children }: { children: ReactNode }) => {
-  const [octaves, setOctaves] = useState<number[]>([1, 2]);
-  const [startingOctave, setStartingOctave] = useState<number>(5);
+  const [octaves, setOctaves] = useState<number[]>([1, 2, 3]);
+  const [startingOctave, setStartingOctave] = useState<number>(3);
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
 

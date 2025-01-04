@@ -1,10 +1,9 @@
 import { useContext } from "react";
-import { PianoContext } from "../Context/PianoContext";
+import { PianoContext } from "../../../Context/PianoContext";
 
-import PianoEngine from "./piano/utils/PianoEngine";
-import OctaveControl from "./piano/pianoController/components/OctaveControl";
+import PianoEngine from "../../Piano/utils/PianoEngine";
 
-export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
+export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
   const piano = useContext(PianoContext);
 
   const Piano = new PianoEngine();
@@ -13,12 +12,12 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
   return (
     /* back screen */
     <div
-      className={`flex justify-start items-start p-2 absolute w-fit h-[250px] bg-zinc-900 bg-opacity-95 top-8 left-28 transition-all duration-300 rounded-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll `}
+      className={`flex justify-start items-start p-2 absolute w-fit h-[250px] bg-zinc-900 bg-opacity-95 top-8 left-28 transition-all duration-300 rounded-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll`}
     >
       {/* blue screen */}
       <div
         className={`h-full w-full flex justify-start items-center p-4 bg-zinc-200 rounded transition-all duration-200 ${
-          menuOpen
+          screenOn
             ? "opacity-100 translate-y-0 translate-x-0 blur-none"
             : "opacity-0 blur-sm"
         }`}
@@ -65,18 +64,7 @@ export default function DropDownMenu({ menuOpen }: { menuOpen: boolean }) {
         {/*  
           octave div
         */}
-        <OctaveControl
-          octaves={
-            piano ? (piano?.octaves ? piano.octaves : undefined) : undefined
-          }
-          setOctaves={
-            piano
-              ? piano?.setOctaves
-                ? piano.setOctaves
-                : undefined
-              : undefined
-          }
-        />
+        <div></div>
       </div>
     </div>
   );
