@@ -17,6 +17,9 @@ interface Piano {
   setOctaves: Dispatch<number[]>;
   startingOctave: number;
   setStartingOctave: Dispatch<number>;
+  inversion: number;
+  setInversion: Dispatch<number>;
+  chordKeys: (string | null)[] | undefined;
 }
 
 export const PianoContext = createContext<Piano | undefined>(undefined);
@@ -26,6 +29,7 @@ export const PianoProvider = ({ children }: { children: ReactNode }) => {
   const [startingOctave, setStartingOctave] = useState<number>(3);
   const [currentKey, selectKey] = useState<string | null>(null);
   const [currentChord, setCurrentChord] = useState<string | null>(null);
+  const [inversion, setInversion] = useState<number>(1);
 
   const selectChord = (chord: string | null) => {
     setCurrentChord((prev) => (prev === chord ? null : chord));
@@ -42,6 +46,9 @@ export const PianoProvider = ({ children }: { children: ReactNode }) => {
       setOctaves,
       startingOctave,
       setStartingOctave,
+      inversion,
+      setInversion,
+      chordKeys: undefined,
     }),
     [currentKey, currentChord, octaves]
   );

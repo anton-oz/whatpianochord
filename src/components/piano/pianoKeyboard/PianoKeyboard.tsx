@@ -24,7 +24,7 @@ export default function PianoKeyboard({
   );
   const newChords = Piano.getChords();
 
-  const { startingOctave } = usePiano();
+  const { startingOctave, inversion } = usePiano();
 
   useEffect(() => {
     if (currentKey === null || currentChord === null) {
@@ -33,14 +33,16 @@ export default function PianoKeyboard({
     }
     const chord = Piano.chord(
       currentKey,
-      newChords.find((chord) => chord === currentChord) as string
+      newChords.find((chord) => chord === currentChord) as string,
+      inversion
     );
     if (chord === undefined) {
       console.log("chord is undefined");
       return;
     }
+    console.log(chord);
     setChordKeys(chord);
-  }, [currentKey, currentChord]);
+  }, [currentKey, currentChord, inversion]);
 
   const selectNote = (key: string, octave: number) => {
     const id = Piano.keyId(key, octave);
@@ -95,14 +97,13 @@ export default function PianoKeyboard({
                   } `}
                 >
                   <div
-                    className={`relative  rounded-lg m-1 h-[98.2%] w-[90%] bg-gradient-to-t  ${
-                      currentKey ===
-                        Piano.keyId(key, octave + startingOctave) ||
+                    className={`relative rounded-lg m-1 h-[98.2%] w-[90%] bg-gradient-to-t  ${
                       chordKeys.some(
                         (chordKey, chordKeyIndex) =>
                           chordKeyIndex !== 0 &&
                           chordKey === Piano.keyId(key, octave + startingOctave)
-                      )
+                      ) ||
+                      currentKey === Piano.keyId(key, octave + startingOctave)
                         ? "from-sky-200 to-sky-300"
                         : "from-white to-neutral-50"
                     }`}

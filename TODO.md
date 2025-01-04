@@ -2,6 +2,26 @@
 
 ## URGEGENT
 
+### Direction to clean up the piano component state
+
+- I want the piano component to be reusable, so everything neccesary for piano inside that component / folder
+
+- I want the piano settings to be build in like they are, like a midi keyboard
+
+- remove context, have all state be managed in the main ./src/components/Piano/Piano.tsx
+
+- add sound to piano
+
+- add velocity dial to piano
+
+- once that is cleaned up try to figure out how to add an ai that will help generate midi
+
+- be able to upload midi files and the piano plays
+
+-
+
+#### rest of urgent
+
 - [ ] be able to drag the piano wider from the corner or edge
 
 - [x] might switch back to piano context XD

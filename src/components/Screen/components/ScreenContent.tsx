@@ -1,14 +1,26 @@
-import { useContext } from "react";
-import { PianoContext } from "../../../Context/PianoContext";
+// import { useContext } from "react";
+import { Minus, Plus } from "lucide-react";
+import { usePiano } from "../../../Context/PianoContext";
 
 import PianoEngine from "../../Piano/utils/PianoEngine";
 
 export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
-  const piano = useContext(PianoContext);
+  // const piano = useContext(PianoContext);
+
+  const { setInversion, inversion } = usePiano();
+
+  const piano = usePiano();
 
   const Piano = new PianoEngine();
 
   const chords = Piano.getChords();
+
+  const svgStyle = {
+    className:
+      "cursor-pointer p-2 rounded border-2 border-black hover:bg-black hover:text-white transition-all duration-100 active:translate-y-1",
+    strokeWidth: 2.5,
+    size: 40,
+  };
   return (
     /* back screen */
     <div
@@ -59,6 +71,31 @@ export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
                 {chord}
               </p>
             ))}
+          </div>
+        </div>
+        {/* INVERSION DIV */}
+        <div className="h-full flex flex-col justify-center items-center p-4">
+          <h3 className="flex flex-col justify-center items-center text-2xl">
+            Inversion:{" "}
+            <span className="font-semibold text-5xl p-2">
+              {piano.inversion}
+            </span>
+          </h3>
+          <div className="flex items-center justify-around space-x-2">
+            <Minus
+              className={svgStyle.className}
+              strokeWidth={svgStyle.strokeWidth}
+              size={svgStyle.size}
+            />
+            <Plus
+              onClick={() => {
+                const newVal = inversion + 1;
+                setInversion(newVal);
+              }}
+              className={svgStyle.className}
+              strokeWidth={svgStyle.strokeWidth}
+              size={svgStyle.size}
+            />
           </div>
         </div>
         {/*  

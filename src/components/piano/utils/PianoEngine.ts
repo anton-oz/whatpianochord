@@ -102,6 +102,22 @@ class PianoEngine {
     },
   };
 
+  private __inversion: number = 1;
+
+  __inversionReset(): void {
+    this.__inversion = 1;
+  }
+
+  __inversionIncrement(chordLength: number): number {
+    (this.__inversion % chordLength) + 1;
+    return this.__inversion;
+  }
+
+  __inversionDecrement(chordLength: number): number {
+    (this.__inversion % chordLength) - 1;
+    return this.__inversion;
+  }
+
   getKeys(): readonly string[] {
     return this.keys;
   }
@@ -126,16 +142,21 @@ class PianoEngine {
   private calculateOctave(
     currentKey: string,
     compareKey: string,
-    octave: number | string
+    octave: number | string,
+    inversion?: number,
+    index?: number
   ): number {
     const numericOctave =
       typeof octave === "string" ? parseInt(octave) : octave;
+    if (inversion === 2 && index === 0) {
+      return numericOctave;
+    }
     return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
       ? numericOctave
       : numericOctave - 1;
   }
 
-  chord(currentKey: string, chordName: string): string[] {
+  chord(currentKey: string, chordName: string, inversion?: number): string[] {
     const chordDef = this.chordDefinitions[chordName];
     if (!chordDef) return [];
 
@@ -144,15 +165,19 @@ class PianoEngine {
       : currentKey[0];
     const currentKeyOctave = parseInt(currentKey[currentKey.length - 1]);
 
-    return chordDef.intervals.map((interval) => {
+    const chordNotes = chordDef.intervals.map((interval, index) => {
       const noteInfo = this.getNote(rootNote, interval);
       const noteOctave = this.calculateOctave(
         rootNote,
         noteInfo.note,
-        currentKeyOctave
+        currentKeyOctave,
+        inversion,
+        index
       );
       return this.keyId(noteInfo.note, noteOctave);
     });
+    console.log("cnotes", chordNotes, "\ninversions: ", inversion);
+    return chordNotes;
   }
 }
 
