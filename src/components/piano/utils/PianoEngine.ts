@@ -176,7 +176,7 @@ class PianoEngine {
       );
       return this.keyId(noteInfo.note, noteOctave);
     });
-    console.log("cnotes", chordNotes, "\ninversions: ", inversion);
+    console.log("built: ", chordNotes);
     return chordNotes;
   }
 }

@@ -2,7 +2,7 @@
 import { Minus, Plus } from "lucide-react";
 import { usePiano } from "../../../Context/PianoContext";
 
-import PianoEngine from "../../Piano/utils/PianoEngine";
+import PianoEngine from "../../piano/utils/PianoEngine";
 
 export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
   // const piano = useContext(PianoContext);
@@ -77,12 +77,14 @@ export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
         <div className="h-full flex flex-col justify-center items-center p-4">
           <h3 className="flex flex-col justify-center items-center text-2xl">
             Inversion:{" "}
-            <span className="font-semibold text-5xl p-2">
-              {piano.inversion}
-            </span>
+            <span className="font-semibold text-5xl p-2">{inversion}</span>
           </h3>
           <div className="flex items-center justify-around space-x-2">
             <Minus
+              onClick={() => {
+                const newVal = inversion - 1;
+                setInversion(newVal);
+              }}
               className={svgStyle.className}
               strokeWidth={svgStyle.strokeWidth}
               size={svgStyle.size}

@@ -24,11 +24,13 @@ export default function PianoKeyboard({
   );
   const newChords = Piano.getChords();
 
-  const { startingOctave, inversion } = usePiano();
+  const { startingOctave, inversion, setInversion, __setChordKeys } =
+    usePiano();
 
   useEffect(() => {
     if (currentKey === null || currentChord === null) {
       setChordKeys([null]);
+      setInversion(1);
       return;
     }
     const chord = Piano.chord(
@@ -40,7 +42,7 @@ export default function PianoKeyboard({
       console.log("chord is undefined");
       return;
     }
-    console.log(chord);
+    __setChordKeys(chord);
     setChordKeys(chord);
   }, [currentKey, currentChord, inversion]);
 
@@ -96,6 +98,7 @@ export default function PianoKeyboard({
                       : "from-neutral-100 to-neutral-100"
                   } `}
                 >
+                  {/* div for key shine */}
                   <div
                     className={`relative rounded-lg m-1 h-[98.2%] w-[90%] bg-gradient-to-t  ${
                       chordKeys.some(
