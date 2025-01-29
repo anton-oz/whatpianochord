@@ -1,88 +1,56 @@
 # Todo
 
-## URGEGENT
+## CURRENT
 
-### Direction to clean up the piano component state
+### 1/7/25
 
-- [x] I want the piano component to be reusable, so everything neccesary for piano inside that component / folder
+      [ ] have piano off button clear all selected keys
 
-- [x] remove context, have all state be managed in the main ./src/components/Piano/Piano.tsx
+      [ ] update piano rendering
 
-- I want the piano settings to be build in like they are, like a midi keyboard
+            - instead of rendering individual 12 key arrays based on octave, create an array with all the keys being currently rendered.
 
-- add sound to piano
+            - this will help with bugs when rendering extended chords that cross multiple octaves
 
-- add velocity dial to piano
+            - ^ e.g. from [12 keys], [12 keys] to [24 keys] ( for 2 octaves rendered )
 
-- once that is cleaned up try to figure out how to add an ai that will help generate midi
+      [x] Inversion shows 'root' when at 0
 
-- be able to upload midi files and the piano plays
+      [ ] new chords addeded all render properly
 
--
+      [ ] get sound when you press piano keys
 
-#### rest of urgent
+      [ ] start with salamander grand piano
 
-- [ ] be able to drag the piano wider from the corner or edge
+      [ ] for note velocity just have a knob to start
 
-- [x] might switch back to piano context XD
+      [ ] be able to upload midi file and the piano plays the file back
 
-- [ ] update pianocontroller styles
+      [ ] add tunejs or web audio API
 
-- - either shadcn or custom style, think of simple style like apple or openai
+#### BACKLOG
 
-- [ ] add sounds to corrresponding keys / chords
+      [ ] add tests for piano
 
-- - use tunejs or tunepiano ( tunepiano prob easier )
+      [ ] add more sounds to keyboard
 
-- - - with tunejs you would learn more about the web audio API ( do this if tunepiano is annoying or broken )
+            [ ] add electric piano
 
-## Reasoning for piano context
+            [ ] synths
 
-- moving the menu to a dropdown menu as of now
+      [ ] dark / light mode
 
-- want to keep keyboard as reusable as possible, eventually a standalone component downloadable via npm
+      [ ] store settings in a cookie and have the initial state be the last selected input
 
-- want to make the piano look like a midi keyboard (as realistic as possible) so have the piano controls as panels on the upper part of the keyboard.
+      [ ] add extended chords
 
-#### dark / light mode
+      [ ] able to set custom number of octaves
 
-#### more chord building tools for user
-
-- [ ] store settings in a cookie and have the initial state be the last selected input
-
-- [ ] add extended chords
-
-- [x] able to set custom number of octaves
-
-- [ ] have chord inversions
-
-- [ ] if the piano is showing one octave, render the keyboard
+      [ ] if the piano is showing one octave, render the keyboard
       with the selected note as the first note and render the 12 keys
       from that note.
 
 ## make key dimensions better
-
-#### real world size for ratio
-
-- white key width = 2.2cm
-
-- black key width = 0.9cm
-
-- 12 keys width = 16.3 cm
-
-- black keys width (c# to a#) = 13.3cm
-
-- gap between keys
-
-## make keys look slightly more realistic
-
-- [ ] eventually want it to look as realistic as possible
-
-- - [ ] keys should look somewhat 3d, almost looking at the keys sideways kind of deal
-
-- [ ] have action on piano be delayed
-
-- [ ] add the current current to to actual size indicator, along with a slider to change the size of keys
 
 ## add a sound editor
 
@@ -95,6 +63,8 @@
 - [ ] consolidate button toggle on and off tailwind styling in the tailwind.config.js file so resused classes dont need to be lengthly rewritten each time
 
 # FAR FUTURE
+
+- [ ] see about a midi generation tool, or a button that makes the piano play itself
 
 - [ ] PWA functionality ( cache the app so available offline )
 

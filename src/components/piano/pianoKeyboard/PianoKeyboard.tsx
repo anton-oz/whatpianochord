@@ -1,6 +1,5 @@
 import { useState, useEffect, Dispatch } from "react";
 import PianoEngine from "../utils/PianoEngine";
-// import { usePiano } from "../../../Context/PianoContext";
 
 export default function PianoKeyboard({
   octaves,
@@ -11,7 +10,7 @@ export default function PianoKeyboard({
   chordKeys,
   setChordKeys,
   inversion,
-  setInversion,
+  Piano,
 }: {
   octaves: number[];
   startingOctave: number;
@@ -22,11 +21,21 @@ export default function PianoKeyboard({
   setChordKeys: Dispatch<(string | null)[]>;
   inversion: number;
   setInversion: Dispatch<number>;
+  Piano: PianoEngine;
 }) {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const Piano = new PianoEngine();
   const newKeys = Piano.getKeys();
+  /* 
+    Array that has all the currently displayed key ids in one array,
+    helps with rendering extended chords properly
+  */
+  const totalKeys = Piano.getTotalKeys()
+
+  useEffect(() => {
+    console.log(totalKeys);
+  }, []);
+
   const newBlackKeys: string[] = [];
   newKeys.forEach((key) =>
     key[key.length - 1] === "#" ? newBlackKeys.push(key) : null
@@ -36,7 +45,6 @@ export default function PianoKeyboard({
   useEffect(() => {
     if (currentKey === null || currentChord === null) {
       setChordKeys([null]);
-      setInversion(1);
       return;
     }
     const chord = Piano.chord(

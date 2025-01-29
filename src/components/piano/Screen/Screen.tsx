@@ -2,6 +2,7 @@ import { useState, Dispatch } from "react";
 
 import ScreenToggle from "./components/ScreenToggle";
 import ScreenContent from "./components/ScreenContent";
+import PianoEngine from "../utils/PianoEngine";
 
 export default function Screen({
   pianoProps,
@@ -16,6 +17,7 @@ export default function Screen({
     inversion: number;
     setInversion: Dispatch<number>;
     selectChord: (chord: string | null) => void;
+    Piano: PianoEngine;
   };
 }) {
   const [screenOn, setScreenOn] = useState<boolean>(true);

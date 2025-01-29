@@ -25,21 +25,33 @@ class PianoEngine {
   ];
 
   private readonly intervals = {
-    minorSecond: 1,
-    majorSecond: 2,
-    minorThird: 3,
-    majorThird: 4,
-    fourth: 5,
-    tritone: 6,
-    fifth: 7,
-    augmentedFifth: 8,
-    majorSixth: 9,
-    minorSeventh: 10,
-    majorSeventh: 11,
-    octave: 12,
-  } as const;
+    root: 0, // Root note, always 0 semitones
+    minorSecond: 1, // 1 semitone
+    majorSecond: 2, // 2 semitones
+    minorThird: 3, // 3 semitones
+    majorThird: 4, // 4 semitones
+    fourth: 5, // Perfect fourth, 5 semitones
+    tritone: 6, // Augmented fourth / diminished fifth, 6 semitones
+    fifth: 7, // Perfect fifth, 7 semitones
+    augmentedFifth: 8, // Augmented fifth, 8 semitones
+    sixth: 8, // ?????
+    minorSixth: 8, // Minor sixth (enharmonic equivalent of augmented fifth)
+    majorSixth: 9, // Major sixth, 9 semitones
+    diminishedSeventh: 9, // Diminished seventh (enharmonic equivalent of major sixth)
+    minorSeventh: 10, // Minor seventh, 10 semitones
+    majorSeventh: 11, // Major seventh, 11 semitones
+    octave: 12, // Octave, 12 semitones
+    flatNinth: 13, // Flat ninth, 13 semitones
+    ninth: 14, // Ninth (octave + major second), 14 semitones
+    sharpNinth: 15, // Sharp ninth, 15 semitones
+    eleventh: 17, // Eleventh (octave + perfect fourth), 17 semitones
+    sharpEleventh: 18, // Sharp eleventh, 18 semitones
+    thirteenth: 21, // Thirteenth (octave + major sixth), 21 semitones
+    flatThirteenth: 20, // Flat thirteenth, 20 semitones
+  };
 
   private readonly chordDefinitions: Record<string, ChordType> = {
+    // Basic triads
     major: {
       intervals: [0, this.intervals.majorThird, this.intervals.fifth],
       name: "major",
@@ -48,14 +60,16 @@ class PianoEngine {
       intervals: [0, this.intervals.minorThird, this.intervals.fifth],
       name: "minor",
     },
-    augmented: {
-      intervals: [0, this.intervals.majorThird, this.intervals.augmentedFifth],
-      name: "augmented",
-    },
     diminished: {
       intervals: [0, this.intervals.minorThird, this.intervals.tritone],
       name: "diminished",
     },
+    augmented: {
+      intervals: [0, this.intervals.majorThird, this.intervals.augmentedFifth],
+      name: "augmented",
+    },
+
+    // Suspended chords
     sus2: {
       intervals: [0, this.intervals.majorSecond, this.intervals.fifth],
       name: "sus2",
@@ -64,6 +78,8 @@ class PianoEngine {
       intervals: [0, this.intervals.fourth, this.intervals.fifth],
       name: "sus4",
     },
+
+    // Seventh chords
     "major 7th": {
       intervals: [
         0,
@@ -96,11 +112,245 @@ class PianoEngine {
         0,
         this.intervals.minorThird,
         this.intervals.tritone,
-        this.intervals.minorSeventh,
+        this.intervals.diminishedSeventh,
       ],
       name: "diminished 7th",
     },
+    "half-diminished 7th": {
+      intervals: [
+        0,
+        this.intervals.minorThird,
+        this.intervals.tritone,
+        this.intervals.minorSeventh,
+      ],
+      name: "half-diminished 7th",
+    },
+    "minor major 7th": {
+      intervals: [
+        0,
+        this.intervals.minorThird,
+        this.intervals.fifth,
+        this.intervals.majorSeventh,
+      ],
+      name: "minor major 7th",
+    },
+
+    // Ninth chords
+    "major 9th": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.majorSeventh,
+        this.intervals.ninth,
+      ],
+      name: "major 9th",
+    },
+    "minor 9th": {
+      intervals: [
+        0,
+        this.intervals.minorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+      ],
+      name: "minor 9th",
+    },
+    "dominant 9th": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+      ],
+      name: "dominant 9th",
+    },
+    "7th flat 9": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.flatNinth,
+      ],
+      name: "7th flat 9",
+    },
+    "7th sharp 9": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.sharpNinth,
+      ],
+      name: "7th sharp 9",
+    },
+
+    // Eleventh chords
+    "11th": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+        this.intervals.eleventh,
+      ],
+      name: "11th",
+    },
+    "minor 11th": {
+      intervals: [
+        0,
+        this.intervals.minorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+        this.intervals.eleventh,
+      ],
+      name: "minor 11th",
+    },
+    "dominant 11th": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+        this.intervals.eleventh,
+      ],
+      name: "dominant 11th",
+    },
+
+    // Thirteenth chords
+    "major 13th": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.majorSeventh,
+        this.intervals.ninth,
+        this.intervals.thirteenth,
+      ],
+      name: "major 13th",
+    },
+    "minor 13th": {
+      intervals: [
+        0,
+        this.intervals.minorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+        this.intervals.thirteenth,
+      ],
+      name: "minor 13th",
+    },
+    "dominant 13th": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.ninth,
+        this.intervals.thirteenth,
+      ],
+      name: "dominant 13th",
+    },
+
+    // Altered chords
+    "7th flat 5": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.tritone,
+        this.intervals.minorSeventh,
+      ],
+      name: "7th flat 5",
+    },
+    "7th sharp 5": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.augmentedFifth,
+        this.intervals.minorSeventh,
+      ],
+      name: "7th sharp 5",
+    },
+    "7th flat 13": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.flatThirteenth,
+      ],
+      name: "7th flat 13",
+    },
+    "7th sharp 11": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.minorSeventh,
+        this.intervals.sharpEleventh,
+      ],
+      name: "7th sharp 11",
+    },
+
+    // Exotic chords
+    add4: {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fourth,
+        this.intervals.fifth,
+      ],
+      name: "add4",
+    },
+    add6: {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.sixth,
+      ],
+      name: "add6",
+    },
+    add9: {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.fifth,
+        this.intervals.ninth,
+      ],
+      name: "add9",
+    },
+    "minor add9": {
+      intervals: [
+        0,
+        this.intervals.minorThird,
+        this.intervals.fifth,
+        this.intervals.ninth,
+      ],
+      name: "minor add9",
+    },
   };
+
+  private readonly octaves: number;
+
+  private readonly startingOctave: number;
+
+  private totalKeys: string[];
+
+  constructor(octaves: number, startingOctave: number) {
+    this.octaves = octaves;
+    this.startingOctave = startingOctave;
+    this.totalKeys = [];
+    for (let i = 0; i < octaves; i++) {
+      let keyIds = this.keys.map((key) => this.keyId(key, i + startingOctave));
+      this.totalKeys.push(...keyIds);
+    }
+  }
 
   getKeys(): readonly string[] {
     return this.keys;
@@ -112,6 +362,15 @@ class PianoEngine {
 
   getChords(): string[] {
     return Object.keys(this.chordDefinitions);
+  }
+
+  getTotalKeys(): string[] {
+    return this.totalKeys;
+  }
+
+  getChordIntervals(chord: string): number[] | undefined {
+    const chordIntervals = this.chordDefinitions[chord];
+    return chordIntervals.intervals;
   }
 
   public getNote(key: string, interval: number): Note {
@@ -128,19 +387,24 @@ class PianoEngine {
     compareKey: string,
     octave: number | string,
     inversion?: number,
-    index?: number
+    index?: number,
+    interval?: number
   ): number {
     const numericOctave =
       typeof octave === "string" ? parseInt(octave) : octave;
 
-    const _inversion = inversion ? inversion - 1 : 0;
-
-    if (_inversion && index !== undefined && index < _inversion) {
-      return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
-        ? numericOctave + 1
-        : numericOctave;
+    if (interval && interval > 12) {
+      return numericOctave;
     }
 
+    if (inversion && index !== undefined) {
+      // logic for normal inversion
+      if (inversion > index) {
+        return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
+          ? numericOctave + 1
+          : numericOctave;
+      }
+    }
     return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
       ? numericOctave
       : numericOctave - 1;
@@ -162,10 +426,12 @@ class PianoEngine {
         noteInfo.note,
         currentKeyOctave,
         inversion,
-        index
+        index,
+        interval
       );
       return this.keyId(noteInfo.note, noteOctave);
     });
+    console.log("chordNotes", chordNotes);
     return chordNotes;
   }
 }

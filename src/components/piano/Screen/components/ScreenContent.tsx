@@ -1,6 +1,5 @@
 import { Dispatch } from "react";
 import { Minus, Plus } from "lucide-react";
-// import { usePiano } from "../../../Context/PianoContext"
 
 import PianoEngine from "../../utils/PianoEngine";
 
@@ -11,10 +10,11 @@ export default function ScreenContent({
   currentKey,
   // selectKey,
   currentChord,
-  chordKeys,
+  // chordKeys,
   inversion,
   setInversion,
   selectChord,
+  Piano,
 }: {
   screenOn: boolean;
   octaves: number[];
@@ -26,15 +26,8 @@ export default function ScreenContent({
   inversion: number;
   setInversion: Dispatch<number>;
   selectChord: (chord: string | null) => void;
+  Piano: PianoEngine;
 }) {
-  // const piano = useContext(PianoContext);
-
-  // const { setInversion, inversion } = usePiano();
-
-  // const piano = usePiano();
-
-  const Piano = new PianoEngine();
-
   const chords = Piano.getChords();
 
   const svgStyle = {
@@ -76,8 +69,8 @@ export default function ScreenContent({
 
           TODO: use ChordPicker Component
         */}
-        <div className="w-[400px] ">
-          <div className="m-4 p-3 flex flex-wrap justify-center items-center rounded-lg ">
+        <div className="w-[600px] h-full overflow-x-auto">
+          <div className="p-3 flex flex-wrap justify-center items-center rounded-lg ">
             {chords.map((chord, i) => (
               <p
                 key={i}
@@ -86,7 +79,7 @@ export default function ScreenContent({
                 }}
                 className={` rounded m-[.3rem] px-4 py-2 cursor-pointer text-xl   ${
                   currentChord === chord
-                    ? "bg-zinc-900 text-white font-medium italic underline-offset-4 underline "
+                    ? "bg-zinc-900 text-white underline-offset-4 underline "
                     : "bg-zinc-50 hover:bg-zinc-100 "
                 }`}
               >
@@ -99,13 +92,17 @@ export default function ScreenContent({
         <div className="h-full flex flex-col justify-center items-center p-4">
           <h3 className="flex flex-col justify-center items-center text-2xl">
             Inversion:{" "}
-            <span className="font-semibold text-5xl p-2">{inversion}</span>
+            <span className="font-semibold text-5xl p-2">
+              {inversion === 0 ? "root" : inversion}
+            </span>
           </h3>
-          <div className="flex items-center justify-around space-x-2">
+          <div className="flex items-center justify-around space-x-2 py-2">
             <Minus
               onClick={() => {
-                const newVal =
-                  inversion === 1 ? chordKeys.length : inversion - 1;
+                if (!currentChord) return;
+                const chordNotes = Piano.getChordIntervals(currentChord);
+                if (!chordNotes) return;
+                const newVal = inversion > 0 ? inversion - 1 : 0;
                 setInversion(newVal);
               }}
               className={svgStyle.className}
@@ -114,7 +111,15 @@ export default function ScreenContent({
             />
             <Plus
               onClick={() => {
-                const newVal = (inversion % chordKeys.length) + 1;
+                if (!currentChord) return;
+                const chordNotes = Piano.getChordIntervals(currentChord);
+                if (!chordNotes) return;
+                const newVal =
+                  inversion < 0
+                    ? inversion + 1
+                    : inversion === chordNotes.length - 1
+                    ? 0
+                    : (inversion % (chordNotes.length - 1)) + 1;
                 setInversion(newVal);
               }}
               className={svgStyle.className}
