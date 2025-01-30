@@ -336,15 +336,15 @@ class PianoEngine {
     },
   };
 
-  private readonly octaves: number;
+  // private readonly octaves: number;
 
-  private readonly startingOctave: number;
+  // private readonly startingOctave: number;
 
   private totalKeys: string[];
 
   constructor(octaves: number, startingOctave: number) {
-    this.octaves = octaves;
-    this.startingOctave = startingOctave;
+    // this.octaves = octaves;
+    // this.startingOctave = startingOctave;
     this.totalKeys = [];
     for (let i = 0; i < octaves; i++) {
       let keyIds = this.keys.map((key) => this.keyId(key, i + startingOctave));
@@ -382,54 +382,30 @@ class PianoEngine {
     return `${key}-${keyOctave + 1}`;
   }
 
-  private calculateOctave(
-    currentKey: string,
-    compareKey: string,
-    octave: number | string,
-    inversion?: number,
-    index?: number,
-    interval?: number
-  ): number {
-    const numericOctave =
-      typeof octave === "string" ? parseInt(octave) : octave;
+  private nextKeyInChord(
+    rootKeyId: string,
+    interval: number,
+    intervalIndex: number, // the index of the current note interval, used when inverting chords
+    inversion?: number
+  ): string {
+    const rootKeyIndex = this.totalKeys.indexOf(rootKeyId);
+    const nextkeyIndex = rootKeyIndex + interval;
 
-    if (interval && interval > 12) {
-      return numericOctave;
-    }
-
-    if (inversion && index !== undefined) {
-      // logic for normal inversion
-      if (inversion > index) {
-        return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
-          ? numericOctave + 1
-          : numericOctave;
+    if (inversion) {
+      if (inversion > intervalIndex) {
+        return this.totalKeys[nextkeyIndex + 12];
       }
     }
-    return this.keys.indexOf(currentKey) > this.keys.indexOf(compareKey)
-      ? numericOctave
-      : numericOctave - 1;
+
+    return this.totalKeys[nextkeyIndex];
   }
 
   chord(currentKey: string, chordName: string, inversion?: number): string[] {
     const chordDef = this.chordDefinitions[chordName];
     if (!chordDef) return [];
 
-    const rootNote = currentKey.includes("#")
-      ? currentKey.slice(0, 2)
-      : currentKey[0];
-    const currentKeyOctave = parseInt(currentKey[currentKey.length - 1]);
-
     const chordNotes = chordDef.intervals.map((interval, index) => {
-      const noteInfo = this.getNote(rootNote, interval);
-      const noteOctave = this.calculateOctave(
-        rootNote,
-        noteInfo.note,
-        currentKeyOctave,
-        inversion,
-        index,
-        interval
-      );
-      return this.keyId(noteInfo.note, noteOctave);
+      return this.nextKeyInChord(currentKey, interval, index, inversion);
     });
     console.log("chordNotes", chordNotes);
     return chordNotes;

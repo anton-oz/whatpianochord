@@ -1,11 +1,24 @@
-// COMMENTED OUT FOR PianoContext
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch } from "react";
 
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 
 import Screen from "./Screen/Screen";
 /** TODO: SEE ABOUT HAVING ONE PianoEngine AND PASS AS PROP*/
 import PianoEngine from "./utils/PianoEngine";
+
+export interface pianoProps {
+  octaves: number[];
+  startingOctave: number;
+  currentKey: string | null;
+  selectKey: Dispatch<string | null>;
+  currentChord: string | null;
+  chordKeys: (string | null)[];
+  setChordKeys: Dispatch<(string | null)[]>;
+  inversion: number;
+  setInversion: Dispatch<number>;
+  Piano: PianoEngine;
+  selectChord: (chord: string | null) => void;
+}
 
 export default function Piano() {
   /*
@@ -68,6 +81,7 @@ export default function Piano() {
     };
   }, []);
 
+  // ! EVERYTIME THIS IS UPDATED UPDATE THE pianoProps INTERFACE !
   const pianoProps = {
     octaves,
     setOctaves,
@@ -96,7 +110,7 @@ export default function Piano() {
           className="m-0 min-h-[300px] max-h-[300px] bg-zinc-700 w-full"
           style={boxStyle}
         >
-          <Screen pianoProps={pianoProps} />
+          <Screen {...pianoProps} />
         </div>
         <div className="h-[20px] w-full bg-gradient-to-br from-[#e67255] to-[#ce9060] border-b border-black"></div>
         <div className="max-w-full overflow-x-scroll overflow-y-hidden">

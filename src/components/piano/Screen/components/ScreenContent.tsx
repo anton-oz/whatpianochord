@@ -1,34 +1,14 @@
-import { Dispatch } from "react";
 import { Minus, Plus } from "lucide-react";
-
-import PianoEngine from "../../utils/PianoEngine";
+import { pianoProps } from "../../Piano";
 
 export default function ScreenContent({
   screenOn,
-  // octaves,
-  // startingOctave,
-  currentKey,
-  // selectKey,
-  currentChord,
-  // chordKeys,
-  inversion,
-  setInversion,
-  selectChord,
-  Piano,
+  pianoProps,
 }: {
+  pianoProps: pianoProps;
   screenOn: boolean;
-  octaves: number[];
-  startingOctave: number;
-  currentKey: string | null;
-  selectKey: Dispatch<string | null>;
-  currentChord: string | null;
-  chordKeys: (string | null)[];
-  inversion: number;
-  setInversion: Dispatch<number>;
-  selectChord: (chord: string | null) => void;
-  Piano: PianoEngine;
 }) {
-  const chords = Piano.getChords();
+  const chords = pianoProps.Piano.getChords();
 
   const svgStyle = {
     className:
@@ -58,10 +38,10 @@ export default function ScreenContent({
           <h3 className="text-xl font-medium w-max">Current Note: </h3>
           <p
             className={`place-self-center text-4xl ${
-              currentKey ? "font-semibold" : ""
+              pianoProps.currentKey ? "font-semibold" : ""
             }`}
           >
-            {currentKey ?? "N/A"}
+            {pianoProps.currentKey ?? "N/A"}
           </p>
         </div>
         {/* 
@@ -75,10 +55,10 @@ export default function ScreenContent({
               <p
                 key={i}
                 onClick={() => {
-                  selectChord(chord);
+                  pianoProps.selectChord(chord);
                 }}
                 className={` rounded m-[.3rem] px-4 py-2 cursor-pointer text-xl   ${
-                  currentChord === chord
+                  pianoProps.currentChord === chord
                     ? "bg-zinc-900 text-white underline-offset-4 underline "
                     : "bg-zinc-50 hover:bg-zinc-100 "
                 }`}
@@ -93,17 +73,20 @@ export default function ScreenContent({
           <h3 className="flex flex-col justify-center items-center text-2xl">
             Inversion:{" "}
             <span className="font-semibold text-5xl p-2">
-              {inversion === 0 ? "root" : inversion}
+              {pianoProps.inversion === 0 ? "root" : pianoProps.inversion}
             </span>
           </h3>
           <div className="flex items-center justify-around space-x-2 py-2">
             <Minus
               onClick={() => {
-                if (!currentChord) return;
-                const chordNotes = Piano.getChordIntervals(currentChord);
+                if (!pianoProps.currentChord) return;
+                const chordNotes = pianoProps.Piano.getChordIntervals(
+                  pianoProps.currentChord
+                );
                 if (!chordNotes) return;
-                const newVal = inversion > 0 ? inversion - 1 : 0;
-                setInversion(newVal);
+                const newVal =
+                  pianoProps.inversion > 0 ? pianoProps.inversion - 1 : 0;
+                pianoProps.setInversion(newVal);
               }}
               className={svgStyle.className}
               strokeWidth={svgStyle.strokeWidth}
@@ -111,16 +94,18 @@ export default function ScreenContent({
             />
             <Plus
               onClick={() => {
-                if (!currentChord) return;
-                const chordNotes = Piano.getChordIntervals(currentChord);
+                if (!pianoProps.currentChord) return;
+                const chordNotes = pianoProps.Piano.getChordIntervals(
+                  pianoProps.currentChord
+                );
                 if (!chordNotes) return;
                 const newVal =
-                  inversion < 0
-                    ? inversion + 1
-                    : inversion === chordNotes.length - 1
+                  pianoProps.inversion < 0
+                    ? pianoProps.inversion + 1
+                    : pianoProps.inversion === chordNotes.length - 1
                     ? 0
-                    : (inversion % (chordNotes.length - 1)) + 1;
-                setInversion(newVal);
+                    : (pianoProps.inversion % (chordNotes.length - 1)) + 1;
+                pianoProps.setInversion(newVal);
               }}
               className={svgStyle.className}
               strokeWidth={svgStyle.strokeWidth}

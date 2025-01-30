@@ -1,5 +1,5 @@
-import { useState, useEffect, Dispatch } from "react";
-import PianoEngine from "../utils/PianoEngine";
+import { useState, useEffect } from "react";
+import { pianoProps } from "../Piano.tsx";
 
 export default function PianoKeyboard({
   octaves,
@@ -11,18 +11,8 @@ export default function PianoKeyboard({
   setChordKeys,
   inversion,
   Piano,
-}: {
-  octaves: number[];
-  startingOctave: number;
-  currentKey: string | null;
-  selectKey: Dispatch<string | null>;
-  currentChord: string | null;
-  chordKeys: (string | null)[];
-  setChordKeys: Dispatch<(string | null)[]>;
-  inversion: number;
-  setInversion: Dispatch<number>;
-  Piano: PianoEngine;
-}) {
+}: pianoProps
+) {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const newKeys = Piano.getKeys();
