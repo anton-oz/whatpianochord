@@ -2,33 +2,67 @@
 
 ## CURRENT
 
+## Name brainstorm
+
+chordify is taken, and kordify is too similar...
+
+- chordzen
+
+- music haven
+
+- quick chords
+
+- quordhs
+
+- chordy
+
+- --> --> kordem <-- <--
+
+- chordem
+
+- chordme
+
 ### 1/7/25
 
-      [ ] have piano off button clear all selected keys
+      [ ] add dark mode and light mode
 
-      [ ] update piano rendering
+      [ ] implement a subscreen with a chatbot option, the chatbot will help to come up with
+      chord progressions, you can ask it to try and find a chord progression from a certain song,
+      have the chatbot be musically trained.
 
-            - instead of rendering individual 12 key arrays based on octave, create an array with all the keys being currently rendered.
+      [ ] add screen to keyboard for customizing
 
-            - this will help with bugs when rendering extended chords that cross multiple octaves
+            - amount of octaves rendered
 
-            - ^ e.g. from [12 keys], [12 keys] to [24 keys] ( for 2 octaves rendered )
+            -
 
-      [x] Inversion shows 'root' when at 0
+      [ ] reorganize chords
 
-      [ ] new chords addeded all render properly
+            - chords are built off of being major, minor, diminished, augmented, dominant
+
+            - have an option for major, minor, diminished, augmented, dominant
+
+            - have seperate field for triad, 7th, 9th, 11th, 13th,
+
+            - have another field for altered chords
 
       [ ] get sound when you press piano keys
 
-      [ ] start with salamander grand piano
+            - start with salamander grand piano
+
+            - add tunejs or web audio API
 
       [ ] for note velocity just have a knob to start
 
       [ ] be able to upload midi file and the piano plays the file back
 
-      [ ] add tunejs or web audio API
-
 #### BACKLOG
+
+      [ ] allow user to change piano color, note highlight color
+
+      [ ] allow midi input, and return the current chord being played
+
+      [ ] recreate a fender rhodes in 3D that has similar functionality ( uses PianoEngine )
 
       [ ] add tests for piano
 

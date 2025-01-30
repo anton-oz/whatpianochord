@@ -34,7 +34,6 @@ class PianoEngine {
     tritone: 6, // Augmented fourth / diminished fifth, 6 semitones
     fifth: 7, // Perfect fifth, 7 semitones
     augmentedFifth: 8, // Augmented fifth, 8 semitones
-    sixth: 8, // ?????
     minorSixth: 8, // Minor sixth (enharmonic equivalent of augmented fifth)
     majorSixth: 9, // Major sixth, 9 semitones
     diminishedSeventh: 9, // Diminished seventh (enharmonic equivalent of major sixth)
@@ -46,8 +45,8 @@ class PianoEngine {
     sharpNinth: 15, // Sharp ninth, 15 semitones
     eleventh: 17, // Eleventh (octave + perfect fourth), 17 semitones
     sharpEleventh: 18, // Sharp eleventh, 18 semitones
-    thirteenth: 21, // Thirteenth (octave + major sixth), 21 semitones
     flatThirteenth: 20, // Flat thirteenth, 20 semitones
+    thirteenth: 21, // Thirteenth (octave + major sixth), 21 semitones
   };
 
   private readonly chordDefinitions: Record<string, ChordType> = {
@@ -116,6 +115,15 @@ class PianoEngine {
       ],
       name: "diminished 7th",
     },
+    "major 7th flat 5": {
+      intervals: [
+        0,
+        this.intervals.majorThird,
+        this.intervals.tritone,
+        this.intervals.majorSeventh,
+      ],
+      name: "major 7th flat 5",
+    },
     "half-diminished 7th": {
       intervals: [
         0,
@@ -166,7 +174,7 @@ class PianoEngine {
       ],
       name: "dominant 9th",
     },
-    "7th flat 9": {
+    "dominant 7th flat 9": {
       intervals: [
         0,
         this.intervals.majorThird,
@@ -174,9 +182,9 @@ class PianoEngine {
         this.intervals.minorSeventh,
         this.intervals.flatNinth,
       ],
-      name: "7th flat 9",
+      name: "dominant 7th flat 9",
     },
-    "7th sharp 9": {
+    "dominant 7th sharp 9": {
       intervals: [
         0,
         this.intervals.majorThird,
@@ -184,16 +192,16 @@ class PianoEngine {
         this.intervals.minorSeventh,
         this.intervals.sharpNinth,
       ],
-      name: "7th sharp 9",
+      name: "dominant 7th sharp 9",
     },
 
     // Eleventh chords
-    "11th": {
+    "major 11th": {
       intervals: [
         0,
         this.intervals.majorThird,
         this.intervals.fifth,
-        this.intervals.minorSeventh,
+        this.intervals.majorSeventh,
         this.intervals.ninth,
         this.intervals.eleventh,
       ],
@@ -230,6 +238,7 @@ class PianoEngine {
         this.intervals.fifth,
         this.intervals.majorSeventh,
         this.intervals.ninth,
+        this.intervals.eleventh,
         this.intervals.thirteenth,
       ],
       name: "major 13th",
@@ -241,6 +250,7 @@ class PianoEngine {
         this.intervals.fifth,
         this.intervals.minorSeventh,
         this.intervals.ninth,
+        this.intervals.eleventh,
         this.intervals.thirteenth,
       ],
       name: "minor 13th",
@@ -252,29 +262,30 @@ class PianoEngine {
         this.intervals.fifth,
         this.intervals.minorSeventh,
         this.intervals.ninth,
+        this.intervals.eleventh,
         this.intervals.thirteenth,
       ],
       name: "dominant 13th",
     },
 
     // Altered chords
-    "7th flat 5": {
+    "dominant 7th flat 5": {
       intervals: [
         0,
         this.intervals.majorThird,
         this.intervals.tritone,
         this.intervals.minorSeventh,
       ],
-      name: "7th flat 5",
+      name: "dominant 7th flat 5",
     },
-    "7th sharp 5": {
+    "dominant 7th sharp 5": {
       intervals: [
         0,
         this.intervals.majorThird,
         this.intervals.augmentedFifth,
         this.intervals.minorSeventh,
       ],
-      name: "7th sharp 5",
+      name: "dominant 7th sharp 5",
     },
     "7th flat 13": {
       intervals: [
@@ -312,7 +323,7 @@ class PianoEngine {
         0,
         this.intervals.majorThird,
         this.intervals.fifth,
-        this.intervals.sixth,
+        this.intervals.majorSixth,
       ],
       name: "add6",
     },
@@ -390,13 +401,11 @@ class PianoEngine {
   ): string {
     const rootKeyIndex = this.totalKeys.indexOf(rootKeyId);
     const nextkeyIndex = rootKeyIndex + interval;
-
     if (inversion) {
       if (inversion > intervalIndex) {
         return this.totalKeys[nextkeyIndex + 12];
       }
     }
-
     return this.totalKeys[nextkeyIndex];
   }
 

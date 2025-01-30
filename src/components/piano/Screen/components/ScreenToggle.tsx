@@ -37,7 +37,7 @@ export default function ScreenToggle({
           onKeyDown={handleKeyDown}
           className={`absolute max-w-fit h-fit scale-[1.5] left-10 top-8 cursor-pointer flex items-center justify-center font-bold bg-white p-1 rounded border-black border-2 transition-all duration-100 bg-gradient-to-b hover:bg-gradient-to-br  focus:ring-2 active:ring-2 ring-sky-400 ${
             screenOn
-              ? "border-b-[2px] border-r-[2.5px] border-t-[2px] from-white to-zinc-50 text-emerald-400"
+              ? "border-b-[2px] border-r-[2.5px] border-t-[2px] from-white to-zinc-50 text-emerald-400 translate-x-[1px] translate-y-[1px]"
               : "border-b-[6px] border-r-[4px] border-t-[2px]  hover:translate-x-[1px] hover:translate-y-[1px] hover:border-r-[3px] hover:border-b-[3px] from-white to-zinc-200 hover:from-sky-50"
           }`}
         >
