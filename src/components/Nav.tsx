@@ -3,8 +3,8 @@ import { useState } from "react";
 export default function Nav() {
   const [show, setShow] = useState(false);
   const publicFolderLocation = process.env.VITE_PRODUCTION
-    ? "/kordify.svg"
-    : "/kordify/kordify.svg";
+    ? "/kordem.svg"
+    : "/kordem/kordem.svg";
 
   return (
     <>
