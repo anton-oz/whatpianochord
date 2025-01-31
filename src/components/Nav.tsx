@@ -14,10 +14,10 @@ export default function Nav() {
             onClick={() => setShow(!show)}
             className="w-fit flex justify-center items-center space-x-2 bg-white p-2 rounded-lg border-2 border-black z-50 cursor-pointer hover:scale-[1.02] hover:bg-black hover:text-white transition-all duration-200"
           >
-            <h1 className="sm:text-2xl text-xl font-semibold">Kordify</h1>
+            <h1 className="sm:text-2xl text-xl font-semibold">Kordem</h1>
             <img
               src={publicFolderLocation /* this is for gh-pages config */}
-              alt="kordify logo"
+              alt="Kordem logo"
               width={32}
             />
           </div>
