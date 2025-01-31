@@ -1,9 +1,9 @@
-# kordify
+# Kordem
 
-kordify name may still change
+## what is Kordem?
 
-## what is kordify?
+Kordem is a reusable react component that renders piano chords.
 
-could potentially be some kind of chatgpt but ask it to create melodies and it will give back something and play it on the keyboard for you along with midi/sheet music.
-
-as of the latest commits it is a chord calculator for piano chords.
+Currently kordem only generates chords based off of the currently selected
+options on the piano screen but in future will be able to take midi input
+and tell you the current chord being played.

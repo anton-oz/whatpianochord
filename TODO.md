@@ -2,35 +2,15 @@
 
 ## CURRENT
 
-## Name brainstorm
-
-chordify is taken, and kordify is too similar...
-
-- chordzen
-
-- music haven
-
-- quick chords
-
-- quordhs
-
-- chordy
-
-- --> --> kordem <-- <--
-
-- chordem
-
-- chordme
-
-### 1/7/25
+### URGENT
 
       [ ] add dark mode and light mode
 
-      [ ] implement a subscreen with a chatbot option, the chatbot will help to come up with
-      chord progressions, you can ask it to try and find a chord progression from a certain song,
-      have the chatbot be musically trained.
+      [ ] allow midi input
 
-      [ ] add screen to keyboard for customizing
+      [ ] allow user to login and save settings, such as color of piano, note highlight color, etc.
+
+      [ ] add second screen to keyboard for customizing
 
             - amount of octaves rendered
 
@@ -57,6 +37,10 @@ chordify is taken, and kordify is too similar...
       [ ] be able to upload midi file and the piano plays the file back
 
 #### BACKLOG
+
+      [ ] implement a subscreen with a chatbot option, the chatbot will help to come up with
+      chord progressions, you can ask it to try and find a chord progression from a certain song,
+      have the chatbot be musically trained.
 
       [ ] allow user to change piano color, note highlight color
 
