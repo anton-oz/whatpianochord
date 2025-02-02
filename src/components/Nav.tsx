@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useThemeContext } from "../Context/themeContext";
 
 export default function Nav() {
   const [show, setShow] = useState(false);
-  const publicFolderLocation = process.env.VITE_PRODUCTION
+  const publicFolderLocation = process.env.PRODUCTION
     ? "/kordem.svg"
     : "/kordem/kordem.svg";
+
+  const darkmode = useThemeContext();
 
   return (
     <>
@@ -28,7 +31,11 @@ export default function Nav() {
       </nav>
       {show ? (
         <div className="absolute w-screen h-screen flex justify-center items-center bg-opacity-0">
-          <div className="w-[90%] h-[90%] z-20 bg-black bg-opacity-25  rounded-lg">
+          <div
+            className={`w-[90%] h-[90%] z-20 rounded-lg ${
+              darkmode ? "bg-white" : "bg-black"
+            } bg-opacity-40`}
+          >
             {/* <ChatWindow /> */}
           </div>
         </div>

@@ -11,8 +11,7 @@ export default function PianoKeyboard({
   setChordKeys,
   inversion,
   Piano,
-}: pianoProps
-) {
+}: pianoProps) {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const newKeys = Piano.getKeys();
@@ -20,11 +19,7 @@ export default function PianoKeyboard({
     Array that has all the currently displayed key ids in one array,
     helps with rendering extended chords properly
   */
-  const totalKeys = Piano.getTotalKeys()
-
-  useEffect(() => {
-    console.log(totalKeys);
-  }, []);
+  // const totalKeys = Piano.getTotalKeys()
 
   const newBlackKeys: string[] = [];
   newKeys.forEach((key) =>

@@ -2,20 +2,17 @@
 
 ## CURRENT
 
-
 ### URGENT
 
-      [ ] add dark mode and light mode
-
-      [ ] allow midi input
+      [x] add dark mode and light mode
 
       [ ] allow user to login and save settings, such as color of piano, note highlight color, etc.
+
+      [ ] create context for piano component, will help clean up prop drilling
 
       [ ] add second screen to keyboard for customizing
 
             - amount of octaves rendered
-
-            -
 
       [ ] reorganize chords
 
@@ -38,6 +35,8 @@
       [ ] be able to upload midi file and the piano plays the file back
 
 #### BACKLOG
+
+      [ ] allow midi input
 
       [ ] implement a subscreen with a chatbot option, the chatbot will help to come up with
       chord progressions, you can ask it to try and find a chord progression from a certain song,
