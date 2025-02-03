@@ -1,4 +1,4 @@
-import { useThemeContext } from "./Context/themeContext";
+import { useThemeContext } from "./Context/ThemeContext";
 import Nav from "./components/Nav";
 import Piano from "./components/Piano/Piano";
 

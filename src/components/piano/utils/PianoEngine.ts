@@ -8,7 +8,9 @@ type ChordType = {
   name: string;
 };
 
-class PianoEngine {
+export interface PianoEngineInterface extends PianoEngine {}
+
+export class PianoEngine {
   private readonly keys = [
     "C",
     "C#",
@@ -347,19 +349,17 @@ class PianoEngine {
     },
   };
 
-  // private readonly octaves: number;
-
-  // private readonly startingOctave: number;
-
   private totalKeys: string[];
 
-  constructor(octaves: number, startingOctave: number) {
-    // this.octaves = octaves;
-    // this.startingOctave = startingOctave;
+  constructor(octaves: number | undefined, startingOctave: number | undefined) {
     this.totalKeys = [];
-    for (let i = 0; i < octaves; i++) {
-      let keyIds = this.keys.map((key) => this.keyId(key, i + startingOctave));
-      this.totalKeys.push(...keyIds);
+    if (octaves && startingOctave) {
+      for (let i = 0; i < octaves; i++) {
+        let keyIds = this.keys.map((key) =>
+          this.keyId(key, i + startingOctave)
+        );
+        this.totalKeys.push(...keyIds);
+      }
     }
   }
 
@@ -421,4 +421,4 @@ class PianoEngine {
   }
 }
 
-export default PianoEngine;
+// export default PianoEngine;

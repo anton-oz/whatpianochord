@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 
 import ScreenToggle from "./components/ScreenToggle";
 import ScreenContent from "./components/ScreenContent";
-import { pianoProps } from "../Piano.tsx";
+import { usePianoContext } from "../../../Context/PianoContext";
 
-export default function Screen(pianoProps: pianoProps) {
+export default function Screen() {
   const [screenOn, setScreenOn] = useState<boolean>(true);
+
+  const PianoContext = usePianoContext();
 
   useEffect(() => {
     if (!screenOn) {
-      pianoProps.resetToInitalState();
+      PianoContext.resetToInitialState();
     }
     return;
   }, [screenOn]);
@@ -17,7 +19,7 @@ export default function Screen(pianoProps: pianoProps) {
   return (
     <>
       <ScreenToggle screenOn={screenOn} setScreenOn={setScreenOn} />
-      <ScreenContent screenOn={screenOn} pianoProps={pianoProps} />
+      <ScreenContent screenOn={screenOn} />
     </>
   );
 }

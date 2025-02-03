@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useThemeContext } from "../Context/themeContext";
+import { useThemeContext } from "../Context/ThemeContext";
 
 export default function Nav() {
   const [show, setShow] = useState(false);

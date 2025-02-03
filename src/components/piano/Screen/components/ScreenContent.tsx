@@ -1,14 +1,10 @@
 import { Minus, Plus } from "lucide-react";
-import { pianoProps } from "../../Piano";
+import { usePianoContext } from "../../../../Context/PianoContext";
 
-export default function ScreenContent({
-  screenOn,
-  pianoProps,
-}: {
-  pianoProps: pianoProps;
-  screenOn: boolean;
-}) {
-  const chords = pianoProps.Piano.getChords();
+export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
+  const PianoContext = usePianoContext();
+
+  const chords = PianoContext.Piano.getChords();
 
   const svgStyle = {
     className:
@@ -21,7 +17,7 @@ export default function ScreenContent({
     <div
       className={`flex justify-start items-start p-2 absolute w-fit h-[250px] bg-zinc-900 bg-opacity-95 top-8 left-28 transition-all duration-300 rounded-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll`}
     >
-      {/* blue screen */}
+      {/* screen */}
       <div
         className={`h-full w-full flex justify-start items-center p-4 bg-zinc-200 rounded transition-all duration-200 ${
           screenOn
@@ -38,10 +34,10 @@ export default function ScreenContent({
           <h3 className="text-xl font-medium w-max">Current Note: </h3>
           <p
             className={`place-self-center text-4xl ${
-              pianoProps.currentKey ? "font-semibold" : ""
+              PianoContext.currentKey ? "font-semibold" : ""
             }`}
           >
-            {pianoProps.currentKey ?? "N/A"}
+            {PianoContext.currentKey ?? "N/A"}
           </p>
         </div>
         {/* 
@@ -55,10 +51,10 @@ export default function ScreenContent({
               <p
                 key={i}
                 onClick={() => {
-                  pianoProps.selectChord(chord);
+                  PianoContext.selectChord(chord);
                 }}
                 className={` rounded m-[.3rem] px-4 py-2 cursor-pointer text-xl   ${
-                  pianoProps.currentChord === chord
+                  PianoContext.currentChord === chord
                     ? "bg-zinc-900 text-white underline-offset-4 underline "
                     : "bg-zinc-50 hover:bg-zinc-100 "
                 }`}
@@ -69,24 +65,24 @@ export default function ScreenContent({
           </div>
         </div>
         {/* INVERSION DIV */}
-        <div className="h-full flex flex-col justify-center items-center p-4">
+        <div className="h-full flex flex-col justify-center items-center w-[10rem] p-4">
           <h3 className="flex flex-col justify-center items-center text-2xl">
             Inversion:{" "}
-            <span className="font-semibold text-5xl p-2">
-              {pianoProps.inversion === 0 ? "root" : pianoProps.inversion}
-            </span>
           </h3>
+          <p className="font-semibold text-5xl p-2 w-full text-center">
+            {PianoContext.inversion === 0 ? "root" : PianoContext.inversion}
+          </p>
           <div className="flex items-center justify-around space-x-2 py-2">
             <Minus
               onClick={() => {
-                if (!pianoProps.currentChord) return;
-                const chordNotes = pianoProps.Piano.getChordIntervals(
-                  pianoProps.currentChord
+                if (!PianoContext.currentChord) return;
+                const chordNotes = PianoContext.Piano.getChordIntervals(
+                  PianoContext.currentChord
                 );
                 if (!chordNotes) return;
                 const newVal =
-                  pianoProps.inversion > 0 ? pianoProps.inversion - 1 : 0;
-                pianoProps.setInversion(newVal);
+                  PianoContext.inversion > 0 ? PianoContext.inversion - 1 : 0;
+                PianoContext.setInversion(newVal);
               }}
               className={svgStyle.className}
               strokeWidth={svgStyle.strokeWidth}
@@ -94,18 +90,18 @@ export default function ScreenContent({
             />
             <Plus
               onClick={() => {
-                if (!pianoProps.currentChord) return;
-                const chordNotes = pianoProps.Piano.getChordIntervals(
-                  pianoProps.currentChord
+                if (!PianoContext.currentChord) return;
+                const chordNotes = PianoContext.Piano.getChordIntervals(
+                  PianoContext.currentChord
                 );
                 if (!chordNotes) return;
                 const newVal =
-                  pianoProps.inversion < 0
-                    ? pianoProps.inversion + 1
-                    : pianoProps.inversion === chordNotes.length - 1
+                  PianoContext.inversion < 0
+                    ? PianoContext.inversion + 1
+                    : PianoContext.inversion === chordNotes.length - 1
                     ? 0
-                    : (pianoProps.inversion % (chordNotes.length - 1)) + 1;
-                pianoProps.setInversion(newVal);
+                    : (PianoContext.inversion % (chordNotes.length - 1)) + 1;
+                PianoContext.setInversion(newVal);
               }}
               className={svgStyle.className}
               strokeWidth={svgStyle.strokeWidth}
@@ -116,7 +112,10 @@ export default function ScreenContent({
         {/*  
           octave div
         */}
-        <div></div>
+        <div className="flex flex-col justify-center items-center h-full p-4 space-x-2">
+          <h3 className="text-xl">Octaves</h3>
+          <p>{PianoContext.octaves.length}</p>
+        </div>
       </div>
     </div>
   );

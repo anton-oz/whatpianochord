@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import { pianoProps } from "../Piano.tsx";
+import { usePianoContext } from "../../../Context/PianoContext";
 
-export default function PianoKeyboard({
-  octaves,
-  startingOctave,
-  currentKey,
-  selectKey,
-  currentChord,
-  chordKeys,
-  setChordKeys,
-  inversion,
-  Piano,
-}: pianoProps) {
+export default function PianoKeyboard() {
   const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const PianoContext = usePianoContext();
+
+  const {
+    Piano,
+    currentKey,
+    selectKey,
+    currentChord,
+    chordKeys,
+    setChordKeys,
+    inversion,
+    octaves,
+    startingOctave,
+  } = PianoContext;
 
   const newKeys = Piano.getKeys();
   /* 
