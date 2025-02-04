@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { usePianoContext } from "../../../Context/PianoContext";
 
 export default function PianoKeyboard() {
-  const [isMouseDown, setIsMouseDown] = useState(false);
-
   const PianoContext = usePianoContext();
 
   const {
@@ -18,12 +16,9 @@ export default function PianoKeyboard() {
     startingOctave,
   } = PianoContext;
 
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
   const newKeys = Piano.getKeys();
-  /* 
-    Array that has all the currently displayed key ids in one array,
-    helps with rendering extended chords properly
-  */
-  // const totalKeys = Piano.getTotalKeys()
 
   const newBlackKeys: string[] = [];
   newKeys.forEach((key) =>
@@ -46,7 +41,7 @@ export default function PianoKeyboard() {
       return;
     }
     setChordKeys(chord);
-  }, [currentKey, currentChord, inversion]);
+  }, [currentKey, currentChord, inversion, octaves]);
 
   const selectNote = (key: string, octave: number) => {
     const id = Piano.keyId(key, octave);
@@ -66,14 +61,23 @@ export default function PianoKeyboard() {
     return () => document.removeEventListener("mouseup", handleMouseUp);
   }, []);
 
+  const generateRenderArray = (octaves: number) => {
+    const renderArray = [];
+    for (let i = 0; i < octaves; i++) {
+      renderArray.push(i);
+    }
+    return renderArray;
+  };
+
+  const renderArray = generateRenderArray(octaves);
+
   return (
     <div
-      className="flex
-    "
+      className="flex transition-all"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     >
-      {octaves.map((_, octave) => (
+      {renderArray.map((_, octave) => (
         <div
           key={"piano-container-" + octave + startingOctave}
           className="min-w-[610.06px] h-[532.91px] flex justify-between relative space-x-[0.2px] mx-[1px]"
@@ -138,6 +142,7 @@ export default function PianoKeyboard() {
                     ? "bg-sky-300 scale-[0.96] h-[95%] top-0"
                     : "bg-black"
                 }`}
+                // clean this shit up
                 style={{
                   left: `${
                     i === 0

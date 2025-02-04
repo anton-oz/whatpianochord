@@ -351,11 +351,11 @@ export class PianoEngine {
 
   private totalKeys: string[];
 
-  constructor(octaves: number | undefined, startingOctave: number | undefined) {
+  constructor(octaves?: number, startingOctave?: number) {
     this.totalKeys = [];
     if (octaves && startingOctave) {
       for (let i = 0; i < octaves; i++) {
-        let keyIds = this.keys.map((key) =>
+        const keyIds = this.keys.map((key) =>
           this.keyId(key, i + startingOctave)
         );
         this.totalKeys.push(...keyIds);

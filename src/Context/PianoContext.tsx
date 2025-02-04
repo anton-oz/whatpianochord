@@ -7,31 +7,22 @@ import {
   useContext,
 } from "react";
 
-import { PianoEngine } from "../components/Piano/utils/PianoEngine";
-
-const none = undefined;
+import { PianoEngine } from "@/components/Piano/utils/PianoEngine";
 
 // placeholder obj, actual state defined in PianoContextProvider
 const pianoContext = {
-  octaves: [0],
+  octaves: 3,
+  setOctaves: () => {},
   startingOctave: 0,
   currentKey: "",
-  selectKey: () => {
-    return "";
-  },
+  selectKey: () => {},
   currentChord: "",
   chordKeys: [""],
-  setChordKeys: () => {
-    return [""];
-  },
+  setChordKeys: () => {},
   inversion: 0,
-  setInversion: () => {
-    return 0;
-  },
-  Piano: new PianoEngine(none, none), // placeholder, actual value defined in PianoContextProvider
-  selectChord: (chord: string | null) => {
-    return chord;
-  },
+  setInversion: () => {},
+  Piano: new PianoEngine(), // placeholder, actual value defined in PianoContextProvider
+  selectChord: () => {},
   resetToInitialState: () => {},
 };
 
@@ -41,17 +32,9 @@ const PianoContext = createContext<PianoContext>(pianoContext);
   TODO: store initial state in a cookie and have the initial state be the last selected input
 */
 
-const initialState = {
-  octaves: [1, 2, 3],
-  startingOctave: 3,
-  currentKey: null,
-  currentChord: null,
-  chordKeys: [],
-  inversion: 0,
-};
-
 export interface PianoContext {
-  octaves: number[];
+  octaves: number;
+  setOctaves: Dispatch<number>;
   startingOctave: number;
   currentKey: string | null;
   selectKey: Dispatch<string | null>;
@@ -65,10 +48,19 @@ export interface PianoContext {
   resetToInitialState: () => void;
 }
 
+const initialState = {
+  octaves: 3,
+  startingOctave: 3,
+  currentKey: null,
+  currentChord: null,
+  chordKeys: [],
+  inversion: 0,
+};
+
 export const usePianoContext = () => useContext(PianoContext);
 
 export function PianoContextProvider({ children }: { children: ReactNode }) {
-  const [octaves, setOctaves] = useState<number[]>(initialState.octaves); // default number of octaves ( its an array because I am using map function to render each 12 key block)
+  const [octaves, setOctaves] = useState<number>(initialState.octaves); // default number of octaves ( its an array because I am using map function to render each 12 key block)
   const [startingOctave, setStartingOctave] = useState<number>(
     initialState.startingOctave
   );
@@ -106,7 +98,7 @@ export function PianoContextProvider({ children }: { children: ReactNode }) {
     }
   }, [currentKey, currentChord]);
 
-  const Piano = new PianoEngine(octaves.length, startingOctave);
+  const Piano = new PianoEngine(octaves, startingOctave);
 
   const value = {
     octaves,

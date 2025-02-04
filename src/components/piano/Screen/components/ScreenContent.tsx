@@ -1,17 +1,49 @@
 import { Minus, Plus } from "lucide-react";
-import { usePianoContext } from "../../../../Context/PianoContext";
+import { usePianoContext } from "@/Context/PianoContext";
 
 export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
   const PianoContext = usePianoContext();
 
-  const chords = PianoContext.Piano.getChords();
+  const { Piano, currentChord, inversion, setInversion, octaves, setOctaves } =
+    PianoContext;
 
-  const svgStyle = {
-    className:
-      "cursor-pointer p-2 rounded border-2 border-black hover:bg-black hover:text-white transition-all duration-100 active:translate-y-1",
-    strokeWidth: 2.5,
-    size: 40,
+  const chords = Piano.getChords();
+
+  const inversionMinus = () => {
+    if (!currentChord) return;
+    const chordNotes = Piano.getChordIntervals(currentChord);
+    if (!chordNotes) return;
+    const newVal = inversion > 0 ? inversion - 1 : 0;
+    setInversion(newVal);
   };
+
+  const inversionPlus = () => {
+    if (!currentChord) return;
+    const chordNotes = Piano.getChordIntervals(currentChord);
+    if (!chordNotes) return;
+    const newVal =
+      inversion < 0
+        ? inversion + 1
+        : inversion === chordNotes.length - 1
+        ? 0
+        : (inversion % (chordNotes.length - 1)) + 1;
+    setInversion(newVal);
+  };
+
+  const octaveMinus = () => {
+    if (octaves === 3) {
+      return;
+    }
+    setOctaves(octaves - 1);
+  };
+
+  const octavePlus = () => {
+    if (octaves >= 8) {
+      return;
+    }
+    setOctaves(octaves + 1);
+  };
+
   return (
     /* back screen */
     <div
@@ -65,58 +97,52 @@ export default function ScreenContent({ screenOn }: { screenOn: boolean }) {
           </div>
         </div>
         {/* INVERSION DIV */}
-        <div className="h-full flex flex-col justify-center items-center w-[10rem] p-4">
+        <div className="h-full flex flex-col justify-center items-center w-[10rem] px-2 py-4">
           <h3 className="flex flex-col justify-center items-center text-2xl">
             Inversion:{" "}
           </h3>
           <p className="font-semibold text-5xl p-2 w-full text-center">
-            {PianoContext.inversion === 0 ? "root" : PianoContext.inversion}
+            {inversion === 0 ? "root" : inversion}
           </p>
-          <div className="flex items-center justify-around space-x-2 py-2">
-            <Minus
-              onClick={() => {
-                if (!PianoContext.currentChord) return;
-                const chordNotes = PianoContext.Piano.getChordIntervals(
-                  PianoContext.currentChord
-                );
-                if (!chordNotes) return;
-                const newVal =
-                  PianoContext.inversion > 0 ? PianoContext.inversion - 1 : 0;
-                PianoContext.setInversion(newVal);
-              }}
-              className={svgStyle.className}
-              strokeWidth={svgStyle.strokeWidth}
-              size={svgStyle.size}
-            />
-            <Plus
-              onClick={() => {
-                if (!PianoContext.currentChord) return;
-                const chordNotes = PianoContext.Piano.getChordIntervals(
-                  PianoContext.currentChord
-                );
-                if (!chordNotes) return;
-                const newVal =
-                  PianoContext.inversion < 0
-                    ? PianoContext.inversion + 1
-                    : PianoContext.inversion === chordNotes.length - 1
-                    ? 0
-                    : (PianoContext.inversion % (chordNotes.length - 1)) + 1;
-                PianoContext.setInversion(newVal);
-              }}
-              className={svgStyle.className}
-              strokeWidth={svgStyle.strokeWidth}
-              size={svgStyle.size}
-            />
-          </div>
+          <PlusMinus plus={inversionPlus} minus={inversionMinus} />
         </div>
-        {/*  
-          octave div
-        */}
-        <div className="flex flex-col justify-center items-center h-full p-4 space-x-2">
-          <h3 className="text-xl">Octaves</h3>
-          <p>{PianoContext.octaves.length}</p>
+        {/* OCTAVE DIV */}
+        <div className="h-full flex flex-col justify-center items-center w-[10rem] px-2 py-4">
+          <h3 className="flex flex-col justify-center items-center text-2xl">
+            Octaves:{" "}
+          </h3>
+          <p className="font-semibold text-5xl p-2 w-full text-center">
+            {octaves}
+          </p>
+          <PlusMinus plus={octavePlus} minus={octaveMinus} />
         </div>
       </div>
+    </div>
+  );
+}
+
+function PlusMinus({ plus, minus }: { plus: () => void; minus: () => void }) {
+  const svgStyle = {
+    className:
+      "cursor-pointer p-2 rounded border-2 border-black hover:bg-black hover:text-white transition-all duration-100 active:translate-y-1",
+    strokeWidth: 2.5,
+    size: 40,
+  };
+
+  return (
+    <div className="flex items-center justify-around space-x-2 py-2">
+      <Minus
+        onClick={minus}
+        className={svgStyle.className}
+        strokeWidth={svgStyle.strokeWidth}
+        size={svgStyle.size}
+      />
+      <Plus
+        onClick={plus}
+        className={svgStyle.className}
+        strokeWidth={svgStyle.strokeWidth}
+        size={svgStyle.size}
+      />
     </div>
   );
 }

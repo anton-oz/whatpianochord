@@ -12,7 +12,9 @@ export default function Home() {
       }`}
     >
       <Nav />
-      <section className="h-screen w-screen flex flex-col justify-center items-center overflow-y-scroll overflow-x-hidden">
+      <section
+        className={`h-screen w-screen flex flex-col justify-center items-center overflow-y-scroll overflow-x-hidden `}
+      >
         <Piano />
       </section>
     </main>
