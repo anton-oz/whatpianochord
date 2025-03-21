@@ -1,18 +1,25 @@
-import { Settings } from "lucide-react";
+import { LogIn, Settings } from "lucide-react";
 import { useState } from "react";
-import { useThemeContext } from "../Context/ThemeContext";
+// import { useThemeContext } from "../Context/ThemeContext";
+
 export default function Nav() {
   const [show, setShow] = useState(false);
   const publicFolderLocation = process.env.PRODUCTION
     ? "/kordem.svg"
     : "/kordem/kordem.svg";
 
-  const darkmode = useThemeContext();
+  // const darkmode = useThemeContext();
 
   const dropdownItems = [
     {
       name: "Settings",
       icon: <Settings />,
+      link: "/",
+    },
+    {
+      name: "Login",
+      icon: <LogIn />,
+      link: "/",
     },
   ];
 
@@ -39,7 +46,7 @@ export default function Nav() {
           <div
             className={`z-0 relative transition-all duration-200 ${
               show
-                ? "translate-y-[30%] opacity-100"
+                ? "translate-y-[15%] opacity-100"
                 : "-translate-y-[35%] opacity-0"
             }`}
           >
@@ -48,10 +55,10 @@ export default function Nav() {
             >
               {dropdownItems.map((item, i) => (
                 <a
-                  href="/"
+                  href={item.link}
                   className={`py-3 w-full flex justify-evenly place-self-center ${
                     i === dropdownItems.length - 1
-                      ? "rounded-b-md"
+                      ? "rounded-b-sm"
                       : "border-b-2 border-black"
                   } hover:bg-[#000000] hover:text-white`}
                   key={i}

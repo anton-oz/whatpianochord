@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-
+import { useState } from "react";
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
-
 import Screen from "./Screen/Screen";
-
-import { usePianoContext } from "../../Context/PianoContext";
 
 export default function Piano() {
   const boxStyle = {
@@ -13,57 +9,9 @@ export default function Piano() {
     backgroundClip: "padding-box",
   };
 
-  const PianoContext = usePianoContext();
-
-  const { octaves } = PianoContext;
-
   // FOR SCALE
   //
-  const [scale, setScale] = useState(1); // Initial scale value
-  //     previousScale is for smooth transitions when changing amount of octaves rendered
-  // const [_, setPreviousScale] = useState(1); // for smooth transitions
-  //
-  const calculateScale = () => {
-    // setPreviousScale(scale);
-    // Example: Adjust the scale based on window width
-    const minWidth = 500; // Minimum width for scaling
-    const maxWidth = 1920; // Maximum width for scaling
-    const minScale = 0.2; // Minimum scale value
-    const maxScale = window.innerWidth / (520 * octaves + octaves); // Maximum scale value
-
-    const clampedWidth = Math.min(
-      Math.max(window.innerWidth, minWidth),
-      maxWidth
-    );
-
-    const newScale =
-      minScale +
-      ((clampedWidth - minWidth) / (maxWidth - minWidth)) *
-        (maxScale - minScale);
-
-    setScale(newScale);
-    console.log("rerender");
-  };
-
-  useEffect(() => {
-    // Calculate the initial scale and listen for resize events
-    let timeout: any = false;
-    const timeoutLength = 250;
-    calculateScale();
-    const debounceResize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        calculateScale();
-      }, timeoutLength);
-    };
-    window.addEventListener("resize", debounceResize);
-    //
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", debounceResize);
-    };
-  }, [octaves]);
-
+  const [scale, _] = useState(1); // Initial scale value
   return (
     <>
       <div
