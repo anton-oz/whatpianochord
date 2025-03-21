@@ -1,10 +1,13 @@
 import { Settings } from "lucide-react";
 import { useState } from "react";
+import { useThemeContext } from "../Context/ThemeContext";
 export default function Nav() {
   const [show, setShow] = useState(false);
-  const publicFolderLocation = process.env.VITE_PRODUCTION
+  const publicFolderLocation = process.env.PRODUCTION
     ? "/kordem.svg"
     : "/kordem/kordem.svg";
+
+  const darkmode = useThemeContext();
 
   const dropdownItems = [
     {
