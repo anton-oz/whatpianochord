@@ -1,15 +1,14 @@
-import { useThemeContext } from "./Context/ThemeContext";
+import { useThemeContext } from "./Context/themeContext";
 import Nav from "./components/Nav";
-import Piano from "./components/Piano/Piano";
+import Piano from "./components/piano/Piano";
 
 export default function Home() {
   const theme = useThemeContext();
 
   return (
     <main
-      className={`flex flex-col h-full w-screen bg-gradient-to-t ${
-        theme ? "from-zinc-800 to-zinc-600" : "from-zinc-50 to-zinc-100 "
-      }`}
+      className={`flex flex-col h-full w-screen bg-gradient-to-t ${theme ? "from-zinc-800 to-zinc-600" : "from-zinc-50 to-zinc-100 "
+        }`}
     >
       <Nav />
       <section

@@ -7,23 +7,23 @@ import {
   useContext,
 } from "react";
 
-import { PianoEngine } from "@/components/Piano/utils/PianoEngine";
+import { PianoEngine } from "@/components/piano/utils/PianoEngine";
 
 // placeholder obj, actual state defined in PianoContextProvider
 const pianoContext = {
   octaves: 3,
-  setOctaves: () => {},
+  setOctaves: () => { },
   startingOctave: 0,
   currentKey: "",
-  selectKey: () => {},
+  selectKey: () => { },
   currentChord: "",
   chordKeys: [""],
-  setChordKeys: () => {},
+  setChordKeys: () => { },
   inversion: 0,
-  setInversion: () => {},
+  setInversion: () => { },
   Piano: new PianoEngine(), // placeholder, actual value defined in PianoContextProvider
-  selectChord: () => {},
-  resetToInitialState: () => {},
+  selectChord: () => { },
+  resetToInitialState: () => { },
 };
 
 const PianoContext = createContext<PianoContext>(pianoContext);
