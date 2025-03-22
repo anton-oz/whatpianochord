@@ -8,7 +8,7 @@ type ChordType = {
   name: string;
 };
 
-export interface PianoEngineInterface extends PianoEngine {}
+export interface PianoEngineInterface extends PianoEngine { }
 
 export class PianoEngine {
   private readonly keys = [
@@ -25,49 +25,49 @@ export class PianoEngine {
     "A#",
     "B",
   ];
-
+  // notes and their corresponding semitone intervals
   private readonly intervals = {
-    root: 0, // Root note, always 0 semitones
-    minorSecond: 1, // 1 semitone
-    majorSecond: 2, // 2 semitones
-    minorThird: 3, // 3 semitones
-    majorThird: 4, // 4 semitones
-    fourth: 5, // Perfect fourth, 5 semitones
-    tritone: 6, // Augmented fourth / diminished fifth, 6 semitones
-    fifth: 7, // Perfect fifth, 7 semitones
-    augmentedFifth: 8, // Augmented fifth, 8 semitones
-    minorSixth: 8, // Minor sixth (enharmonic equivalent of augmented fifth)
-    majorSixth: 9, // Major sixth, 9 semitones
-    diminishedSeventh: 9, // Diminished seventh (enharmonic equivalent of major sixth)
-    minorSeventh: 10, // Minor seventh, 10 semitones
-    majorSeventh: 11, // Major seventh, 11 semitones
-    octave: 12, // Octave, 12 semitones
-    flatNinth: 13, // Flat ninth, 13 semitones
-    ninth: 14, // Ninth (octave + major second), 14 semitones
-    sharpNinth: 15, // Sharp ninth, 15 semitones
-    eleventh: 17, // Eleventh (octave + perfect fourth), 17 semitones
-    sharpEleventh: 18, // Sharp eleventh, 18 semitones
-    flatThirteenth: 20, // Flat thirteenth, 20 semitones
-    thirteenth: 21, // Thirteenth (octave + major sixth), 21 semitones
+    root: 0,
+    minorSecond: 1,
+    majorSecond: 2,
+    minorThird: 3,
+    majorThird: 4,
+    fourth: 5,
+    tritone: 6,
+    fifth: 7,
+    augmentedFifth: 8,
+    minorSixth: 8,
+    majorSixth: 9,
+    diminishedSeventh: 9,
+    minorSeventh: 10,
+    majorSeventh: 11,
+    octave: 12,
+    flatNinth: 13,
+    ninth: 14,
+    sharpNinth: 15,
+    eleventh: 17,
+    sharpEleventh: 18,
+    flatThirteenth: 20,
+    thirteenth: 21,
   };
 
   private readonly chordDefinitions: Record<string, ChordType> = {
     // Basic triads
-    major: {
+    "major triad": {
       intervals: [0, this.intervals.majorThird, this.intervals.fifth],
-      name: "major",
+      name: "major triad",
     },
-    minor: {
+    "minor triad": {
       intervals: [0, this.intervals.minorThird, this.intervals.fifth],
-      name: "minor",
+      name: "minor triad",
     },
-    diminished: {
+    "diminished triad": {
       intervals: [0, this.intervals.minorThird, this.intervals.tritone],
-      name: "diminished",
+      name: "diminished triad",
     },
-    augmented: {
+    "augmented triad": {
       intervals: [0, this.intervals.majorThird, this.intervals.augmentedFifth],
-      name: "augmented",
+      name: "augmented triad",
     },
 
     // Suspended chords
@@ -207,7 +207,7 @@ export class PianoEngine {
         this.intervals.ninth,
         this.intervals.eleventh,
       ],
-      name: "11th",
+      name: "major 11th",
     },
     "minor 11th": {
       intervals: [

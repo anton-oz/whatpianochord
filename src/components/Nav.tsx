@@ -1,4 +1,4 @@
-import { LogIn, Settings, TestTube } from "lucide-react";
+import { LogIn, Settings } from "lucide-react";
 import { useState } from "react";
 // import { useThemeContext } from "../Context/ThemeContext";
 
@@ -19,11 +19,6 @@ export default function Nav() {
     {
       name: "Login",
       icon: <LogIn />,
-      link: "/",
-    },
-    {
-      name: "Test",
-      icon: <TestTube />,
       link: "/",
     },
   ];
