@@ -4,15 +4,9 @@
 
 ### URGENT
 
-      [x] add dark mode and light mode
-
       [ ] allow user to login and save settings, such as color of piano, note highlight color, etc.
-
-      [ ] create context for piano component, will help clean up prop drilling
-
-      [ ] add second screen to keyboard for customizing
-
-            - amount of octaves rendered
+        
+         - maybe dont login, just save settings to local storage for better accessibility.
 
       [ ] reorganize chords
 
@@ -67,8 +61,6 @@
       [ ] if the piano is showing one octave, render the keyboard
       with the selected note as the first note and render the 12 keys
       from that note.
-
-## make key dimensions better
 
 ## add a sound editor
 

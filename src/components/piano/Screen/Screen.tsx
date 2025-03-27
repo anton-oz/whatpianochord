@@ -7,11 +7,11 @@ import { usePianoContext } from "../../../Context/PianoContext";
 export default function Screen() {
   const [screenOn, setScreenOn] = useState<boolean>(true);
 
-  const PianoContext = usePianoContext();
+  const { resetScreenToInit } = usePianoContext();
 
   useEffect(() => {
     if (!screenOn) {
-      PianoContext.resetToInitialState();
+      resetScreenToInit();
     }
     return;
   }, [screenOn]);
