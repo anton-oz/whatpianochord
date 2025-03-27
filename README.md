@@ -1,9 +1,7 @@
-# Kordem
+# What Piano Chord
 
-## what is Kordem?
+[whatpianochord.com](https://whatpianochord.com)
 
-Kordem is a reusable react component that renders piano chords.
+What piano chord is a web app for learning piano chords.
 
-Currently kordem only generates chords based off of the currently selected
-options on the piano screen but in future will be able to take midi input
-and tell you the current chord being played.
+

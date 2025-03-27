@@ -14,7 +14,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: process.env.PRODUCTION ? "/" : "/kordem/", // for gh-pages to work
+  base: "/",
   define: {
     "process.env": process.env,
   },

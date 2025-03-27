@@ -7,9 +7,6 @@ export default function Nav() {
   const [showMenuLinks, setShowMenuLinks] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalName, setModalName] = useState("");
-  const publicFolderLocation = process.env.PRODUCTION
-    ? "/kordem.svg"
-    : "/kordem/kordem.svg";
 
   // const darkmode = useThemeContext();
 
@@ -63,11 +60,11 @@ export default function Nav() {
             } p-2  border-2 border-black z-10 cursor-pointer transition-all duration-200 bg-white text-black hover:bg-black hover:text-white`}
           >
             <h1 className="sm:text-2xl text-xl font-semibold">
-              <a href="/">Kordem</a>
+              <a href="/">What Piano Chord</a>
             </h1>
             <img
-              src={publicFolderLocation /* this is for gh-pages config */}
-              alt="Kordem logo"
+              src="/whatpianochord.svg"
+              alt="What Piano Chord logo"
               width={32}
             />
           </div>
