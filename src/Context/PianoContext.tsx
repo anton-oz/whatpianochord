@@ -110,7 +110,7 @@ export function PianoContextProvider({ children }: { children: ReactNode }) {
     setCurrentChord(initialState.currentChord);
     setChordKeys(initialState.chordKeys);
     setInversion(initialState.inversion);
-    // setPianoColors(initialState.pianoColors);
+    setPianoColors(initialState.pianoColors);
   };
 
   useEffect(() => {

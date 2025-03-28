@@ -22,7 +22,7 @@ export default function PianoKeyboard() {
 
   const newBlackKeys: string[] = [];
   newKeys.forEach((key) =>
-    key[key.length - 1] === "#" ? newBlackKeys.push(key) : null
+    key[key.length - 1] === "#" ? newBlackKeys.push(key) : null,
   );
   const newChords = Piano.getChords();
 
@@ -34,10 +34,10 @@ export default function PianoKeyboard() {
     const chord = Piano.chord(
       currentKey,
       newChords.find((chord) => chord === currentChord) as string,
-      inversion
+      inversion,
     );
     if (chord === undefined) {
-      console.log("chord is undefined");
+      console.error("ERROR: chord is undefined");
       return;
     }
     setChordKeys(chord);
@@ -97,12 +97,12 @@ export default function PianoKeyboard() {
                     currentKey === Piano.keyId(key, octave + startingOctave)
                       ? "from-amber-500 to-amber-600 scale-[0.97] h-[101%] top-0"
                       : chordKeys.some(
-                          (chordKey) =>
-                            chordKey ===
-                            Piano.keyId(key, octave + startingOctave)
-                        )
-                      ? "from-sky-200 to-sky-300  top-0 scale-[0.98]"
-                      : "from-neutral-100 to-neutral-100"
+                            (chordKey) =>
+                              chordKey ===
+                              Piano.keyId(key, octave + startingOctave),
+                          )
+                        ? "from-sky-200 to-sky-300  top-0 scale-[0.98]"
+                        : "from-neutral-100 to-neutral-100"
                   } `}
                 >
                   {/* div for key shine */}
@@ -111,16 +111,16 @@ export default function PianoKeyboard() {
                       currentKey === Piano.keyId(key, octave + startingOctave)
                         ? "from-amber-400 to-amber-500"
                         : chordKeys.some(
-                            (chordKey) =>
-                              chordKey ===
-                              Piano.keyId(key, octave + startingOctave)
-                          )
-                        ? "from-sky-200 to-sky-300"
-                        : "from-white to-neutral-50"
+                              (chordKey) =>
+                                chordKey ===
+                                Piano.keyId(key, octave + startingOctave),
+                            )
+                          ? "from-sky-200 to-sky-300"
+                          : "from-white to-neutral-50"
                     }`}
                   ></div>
                 </div>
-              )
+              ),
           )}
           <div className="absolute left-[56.69px] flex h-[65%] min-w-[502.68px]">
             {/* RENDER BLACK KEYS */}
@@ -136,11 +136,12 @@ export default function PianoKeyboard() {
                   currentKey === Piano.keyId(key, octave + startingOctave)
                     ? "bg-gradient-to-tr from-amber-950 to-amber-800 scale-[0.96] h-[95%] top-0"
                     : chordKeys.some(
-                        (chordKey) =>
-                          chordKey === Piano.keyId(key, octave + startingOctave)
-                      )
-                    ? "bg-sky-300 scale-[0.96] h-[95%] top-0"
-                    : "bg-black"
+                          (chordKey) =>
+                            chordKey ===
+                            Piano.keyId(key, octave + startingOctave),
+                        )
+                      ? "bg-sky-300 scale-[0.96] h-[95%] top-0"
+                      : "bg-black"
                 }`}
                 // clean this shit up
                 style={{
@@ -148,14 +149,14 @@ export default function PianoKeyboard() {
                     i === 0
                       ? 6
                       : i === 1
-                      ? 64.03
-                      : i === 2
-                      ? 64.03 + 135.46
-                      : i === 3
-                      ? 60.43 + 135.46 + 55.45
-                      : i === 4
-                      ? 55.03 + 135.46 + 55.45 * 2
-                      : null
+                        ? 64.03
+                        : i === 2
+                          ? 64.03 + 135.46
+                          : i === 3
+                            ? 60.43 + 135.46 + 55.45
+                            : i === 4
+                              ? 55.03 + 135.46 + 55.45 * 2
+                              : null
                   }px`,
                 }}
               >
@@ -164,12 +165,12 @@ export default function PianoKeyboard() {
                     currentKey === Piano.keyId(key, octave + startingOctave)
                       ? "from-amber-600 to-amber-500"
                       : chordKeys.some(
-                          (chordKey) =>
-                            chordKey ===
-                            Piano.keyId(key, octave + startingOctave)
-                        )
-                      ? "from-sky-200 to-sky-150"
-                      : "from-zinc-900 to-zinc-600"
+                            (chordKey) =>
+                              chordKey ===
+                              Piano.keyId(key, octave + startingOctave),
+                          )
+                        ? "from-sky-200 to-sky-150"
+                        : "from-zinc-900 to-zinc-600"
                   }`}
                 ></div>
               </div>

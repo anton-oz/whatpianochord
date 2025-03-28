@@ -8,7 +8,7 @@ type ChordType = {
   name: string;
 };
 
-export interface PianoEngineInterface extends PianoEngine { }
+export interface PianoEngineInterface extends PianoEngine {}
 
 export class PianoEngine {
   private readonly keys = [
@@ -356,7 +356,7 @@ export class PianoEngine {
     if (octaves && startingOctave) {
       for (let i = 0; i < octaves; i++) {
         const keyIds = this.keys.map((key) =>
-          this.keyId(key, i + startingOctave)
+          this.keyId(key, i + startingOctave),
         );
         this.totalKeys.push(...keyIds);
       }
@@ -397,7 +397,7 @@ export class PianoEngine {
     rootKeyId: string,
     interval: number,
     intervalIndex: number, // the index of the current note interval, used when inverting chords
-    inversion?: number
+    inversion?: number,
   ): string {
     const rootKeyIndex = this.totalKeys.indexOf(rootKeyId);
     const nextkeyIndex = rootKeyIndex + interval;
@@ -416,7 +416,6 @@ export class PianoEngine {
     const chordNotes = chordDef.intervals.map((interval, index) => {
       return this.nextKeyInChord(currentKey, interval, index, inversion);
     });
-    console.log("chordNotes", chordNotes);
     return chordNotes;
   }
 }
