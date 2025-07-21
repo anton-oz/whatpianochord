@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main
       className={`flex flex-col h-full w-screen bg-gradient-to-t ${
-        theme ? "from-zinc-800 to-zinc-600" : "from-zinc-50 to-zinc-100 "
+        theme ? "to-[#292c3c] from-[#232634]" : "from-zinc-50 to-zinc-100 "
       }`}
     >
       <Nav />
