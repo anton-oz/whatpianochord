@@ -41,6 +41,7 @@ export default function PianoKeyboard() {
       return;
     }
     setChordKeys(chord);
+    // eslint-disable-next-line
   }, [currentKey, currentChord, inversion, octaves]);
 
   const selectNote = (key: string, octave: number) => {
@@ -55,11 +56,6 @@ export default function PianoKeyboard() {
 
   const handleMouseDown = () => setIsMouseDown(true);
   const handleMouseUp = () => setIsMouseDown(false);
-
-  useEffect(() => {
-    document.addEventListener("mouseup", handleMouseUp);
-    return () => document.removeEventListener("mouseup", handleMouseUp);
-  }, []);
 
   const generateRenderArray = (octaves: number) => {
     const renderArray = [];

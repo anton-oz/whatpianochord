@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePianoContext } from "@/Context/PianoContext";
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import Screen from "./Screen/Screen";
@@ -34,8 +34,7 @@ export default function Piano() {
 
     let hue = 0;
     const saturation = max - min;
-    if (max === min) {
-    } else {
+    if (max !== min) {
       if (max === r) {
         hue = (g - b) / saturation;
       } else if (max === g) {
@@ -56,7 +55,7 @@ export default function Piano() {
       return;
     }
     const hslArr = rgbToHsl(rgb);
-    for (let number in hslArr) {
+    for (const number in hslArr) {
       hslArr[number] = Number(hslArr[number].toPrecision(3));
     }
     const [h, s, l] = hslArr;
@@ -72,7 +71,15 @@ export default function Piano() {
   };
   // FOR SCALE
   //
-  const [scale, _] = useState(1); // Initial scale value
+  const [scale, setScale] = useState(1); // Initial scale value
+
+  useEffect(() => {
+    const screenX = document.body.clientWidth;
+    const newScale = screenX / 2500;
+    console.log(newScale);
+    setScale(newScale);
+  }, []);
+
   return (
     <>
       <div
