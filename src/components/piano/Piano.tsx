@@ -7,6 +7,7 @@ export default function Piano() {
   const { pianoColors } = usePianoContext();
   const colorOne = pianoColors[0];
   const colorTwo = pianoColors[1];
+  // NOTE: background color of piano.
   const boxStyle = {
     display: "inline-block",
     // backgroundImage: "linear-gradient(to right, #ff7e5f, #feb47b)",
@@ -120,7 +121,7 @@ export default function Piano() {
         }}
       >
         <div
-          className="m-0 min-h-[300px] max-h-[300px] bg-zinc-700 w-full"
+          className="m-0 min-h-[300px] max-h-[300px] bg-zinc-700 w-full place-items-center pt-5"
           style={boxStyle}
         >
           <Screen />
