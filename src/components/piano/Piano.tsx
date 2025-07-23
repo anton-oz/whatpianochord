@@ -74,10 +74,40 @@ export default function Piano() {
   const [scale, setScale] = useState(1); // Initial scale value
 
   useEffect(() => {
-    const screenX = document.body.clientWidth;
-    const newScale = screenX / 2500;
-    console.log(newScale);
-    setScale(newScale);
+    const handleSetScale = () => {
+      const screenX = document.body.clientWidth;
+      const newScale = screenX / 2500;
+      setScale(newScale);
+    };
+
+    handleSetScale();
+
+    let ranResize = 0;
+
+    let debounce = true;
+    const length = 500;
+
+    const handleResize = (e: UIEvent) => {
+      if (debounce) {
+        setTimeout(() => {
+          ranResize++;
+          console.log(ranResize);
+          console.log("ran resize ", ranResize, " times.");
+          console.log(e);
+          debounce = true;
+
+          handleSetScale();
+        }, length);
+        debounce = false;
+      }
+    };
+
+    // TODO: Need to add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
