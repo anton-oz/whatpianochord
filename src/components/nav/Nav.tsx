@@ -1,14 +1,11 @@
 import { LogIn, Settings } from "lucide-react";
 import { useState } from "react";
 import Modal from "@/components/modal/Modal";
-// import { useThemeContext } from "../Context/ThemeContext";
 
 export default function Nav() {
   const [showMenuLinks, setShowMenuLinks] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalName, setModalName] = useState("");
-
-  // const darkmode = useThemeContext();
 
   const dropdownItems = [
     {
@@ -59,9 +56,11 @@ export default function Nav() {
               showMenuLinks ? "rounded-t-lg" : "rounded-lg"
             } p-2  border-2 border-black z-50 cursor-pointer transition-all duration-200 bg-white text-black hover:bg-black hover:text-white`}
           >
-            <h1 className="sm:text-2xl text-xl font-semibold">
-              <a href="/">What Piano Chord</a>
-            </h1>
+            {document.body.clientWidth < 850 ? null : (
+              <h1 className="sm:text-2xl text-xl font-semibold">
+                <a href="/">What Piano Chord</a>
+              </h1>
+            )}
             <img
               src="/whatpianochord.svg"
               alt="What Piano Chord logo"
