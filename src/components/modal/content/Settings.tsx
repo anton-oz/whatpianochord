@@ -34,7 +34,7 @@ export default function Settings() {
     setColorOne(pianoColors[0]);
     setColorTwo(pianoColors[1]);
     setShowSaveButton(false);
-  }, [activeOption]);
+  }, [activeOption, pianoColors]);
 
   const handleActiveOption = (e: MouseEvent<HTMLHeadingElement>) => {
     if (!(e.target instanceof HTMLHeadingElement) || !e.target.dataset.key)

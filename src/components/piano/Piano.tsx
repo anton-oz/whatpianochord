@@ -14,6 +14,7 @@ export default function Piano() {
     backgroundImage: `linear-gradient(to right, ${colorOne}, ${colorTwo})`,
     backgroundClip: "padding-box",
   };
+
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
@@ -63,6 +64,7 @@ export default function Piano() {
     const hsl = `hsl(${h} ${s * 100}% ${l * 100 * lumFactor}%)`;
     return hsl;
   };
+
   const luminanceFactor = 0.7;
   const lowerPianoColorOne = ColorLuminance(colorOne, luminanceFactor);
   const lowerPianoColorTwo = ColorLuminance(colorTwo, luminanceFactor);
@@ -70,8 +72,7 @@ export default function Piano() {
   const lowerBoxStyle = {
     backgroundImage: `linear-gradient(45deg, ${lowerPianoColorOne}, 50%, ${lowerPianoColorTwo})`,
   };
-  // FOR SCALE
-  //
+
   const [scale, setScale] = useState(1); // Initial scale value
 
   useEffect(() => {
@@ -83,22 +84,16 @@ export default function Piano() {
 
     handleSetScale();
 
-    let ranResize = 0;
-
     let debounce = true;
     const length = 500;
 
-    const handleResize = (e: UIEvent) => {
+    const handleResize = (/* e: UIEvent */) => {
       if (debounce) {
         setTimeout(() => {
-          ranResize++;
-          console.log(ranResize);
-          console.log("ran resize ", ranResize, " times.");
-          console.log(e);
           debounce = true;
-
           handleSetScale();
         }, length);
+
         debounce = false;
       }
     };

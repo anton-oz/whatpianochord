@@ -3,51 +3,29 @@ interface Note {
   index: number;
 }
 
-type ChordType = {
+interface ChordType {
   intervals: number[];
   name: string;
-};
-
-export interface PianoEngineInterface extends PianoEngine {}
+  symbol?: string;
+}
 
 export class PianoEngine {
+  // prettier-ignore
   private readonly keys = [
-    "C",
-    "C#",
-    "D",
-    "D#",
-    "E",
-    "F",
-    "F#",
-    "G",
-    "G#",
-    "A",
-    "A#",
-    "B",
+    "C", "C#", "D", "D#",
+    "E", "F", "F#", "G",
+    "G#", "A", "A#", "B",
   ];
   // notes and their corresponding semitone intervals
+  // prettier-ignore
   private readonly intervals = {
-    root: 0,
-    minorSecond: 1,
-    majorSecond: 2,
-    minorThird: 3,
-    majorThird: 4,
-    fourth: 5,
-    tritone: 6,
-    fifth: 7,
-    augmentedFifth: 8,
-    minorSixth: 8,
-    majorSixth: 9,
-    diminishedSeventh: 9,
-    minorSeventh: 10,
-    majorSeventh: 11,
-    octave: 12,
-    flatNinth: 13,
-    ninth: 14,
-    sharpNinth: 15,
-    eleventh: 17,
-    sharpEleventh: 18,
-    flatThirteenth: 20,
+    root: 0, minorSecond: 1, majorSecond: 2,
+    minorThird: 3, majorThird: 4, fourth: 5,
+    tritone: 6, fifth: 7, augmentedFifth: 8,
+    minorSixth: 8, majorSixth: 9, diminishedSeventh: 9,
+    minorSeventh: 10, majorSeventh: 11, octave: 12,
+    flatNinth: 13, ninth: 14, sharpNinth: 15,
+    eleventh: 17, sharpEleventh: 18, flatThirteenth: 20,
     thirteenth: 21,
   };
 
@@ -56,18 +34,23 @@ export class PianoEngine {
     "major triad": {
       intervals: [0, this.intervals.majorThird, this.intervals.fifth],
       name: "major triad",
+      // or 󰔷
+      symbol: "M",
     },
     "minor triad": {
       intervals: [0, this.intervals.minorThird, this.intervals.fifth],
       name: "minor triad",
-    },
-    "diminished triad": {
-      intervals: [0, this.intervals.minorThird, this.intervals.tritone],
-      name: "diminished triad",
+      symbol: "m",
     },
     "augmented triad": {
       intervals: [0, this.intervals.majorThird, this.intervals.augmentedFifth],
       name: "augmented triad",
+      symbol: "+",
+    },
+    "diminished triad": {
+      intervals: [0, this.intervals.minorThird, this.intervals.tritone],
+      name: "diminished triad",
+      symbol: "",
     },
 
     // Suspended chords
@@ -89,6 +72,8 @@ export class PianoEngine {
         this.intervals.majorSeventh,
       ],
       name: "major 7th",
+      // or 󰔷7
+      symbol: "M7",
     },
     "minor 7th": {
       intervals: [
@@ -98,6 +83,7 @@ export class PianoEngine {
         this.intervals.minorSeventh,
       ],
       name: "minor 7th",
+      symbol: "m7",
     },
     "dominant 7th": {
       intervals: [
@@ -107,6 +93,7 @@ export class PianoEngine {
         this.intervals.minorSeventh,
       ],
       name: "dominant 7th",
+      symbol: "7",
     },
     "diminished 7th": {
       intervals: [
@@ -116,6 +103,7 @@ export class PianoEngine {
         this.intervals.diminishedSeventh,
       ],
       name: "diminished 7th",
+      symbol: "7",
     },
     "major 7th flat 5": {
       intervals: [
@@ -125,6 +113,7 @@ export class PianoEngine {
         this.intervals.majorSeventh,
       ],
       name: "major 7th flat 5",
+      symbol: "M7󰽫5",
     },
     "half-diminished 7th": {
       intervals: [
@@ -134,7 +123,10 @@ export class PianoEngine {
         this.intervals.minorSeventh,
       ],
       name: "half-diminished 7th",
+      // m7♭5
+      symbol: "ø7",
     },
+
     "minor major 7th": {
       intervals: [
         0,
@@ -143,6 +135,7 @@ export class PianoEngine {
         this.intervals.majorSeventh,
       ],
       name: "minor major 7th",
+      symbol: "m(maj7)",
     },
 
     // Ninth chords
@@ -155,6 +148,7 @@ export class PianoEngine {
         this.intervals.ninth,
       ],
       name: "major 9th",
+      symbol: "M9",
     },
     "minor 9th": {
       intervals: [
@@ -165,6 +159,7 @@ export class PianoEngine {
         this.intervals.ninth,
       ],
       name: "minor 9th",
+      symbol: "m9",
     },
     "dominant 9th": {
       intervals: [
@@ -175,6 +170,7 @@ export class PianoEngine {
         this.intervals.ninth,
       ],
       name: "dominant 9th",
+      symbol: "9",
     },
     "dominant 7th flat 9": {
       intervals: [
@@ -185,6 +181,7 @@ export class PianoEngine {
         this.intervals.flatNinth,
       ],
       name: "dominant 7th flat 9",
+      symbol: "7󰽫9",
     },
     "dominant 7th sharp 9": {
       intervals: [
@@ -195,6 +192,7 @@ export class PianoEngine {
         this.intervals.sharpNinth,
       ],
       name: "dominant 7th sharp 9",
+      symbol: "7#9",
     },
 
     // Eleventh chords
@@ -208,6 +206,7 @@ export class PianoEngine {
         this.intervals.eleventh,
       ],
       name: "major 11th",
+      symbol: "M11",
     },
     "minor 11th": {
       intervals: [
@@ -219,6 +218,7 @@ export class PianoEngine {
         this.intervals.eleventh,
       ],
       name: "minor 11th",
+      symbol: "m11",
     },
     "dominant 11th": {
       intervals: [
@@ -230,6 +230,7 @@ export class PianoEngine {
         this.intervals.eleventh,
       ],
       name: "dominant 11th",
+      symbol: "11",
     },
 
     // Thirteenth chords
@@ -244,6 +245,7 @@ export class PianoEngine {
         this.intervals.thirteenth,
       ],
       name: "major 13th",
+      symbol: "M13",
     },
     "minor 13th": {
       intervals: [
@@ -256,6 +258,7 @@ export class PianoEngine {
         this.intervals.thirteenth,
       ],
       name: "minor 13th",
+      symbol: "m13",
     },
     "dominant 13th": {
       intervals: [
@@ -268,6 +271,7 @@ export class PianoEngine {
         this.intervals.thirteenth,
       ],
       name: "dominant 13th",
+      symbol: "13",
     },
 
     // Altered chords
@@ -279,6 +283,7 @@ export class PianoEngine {
         this.intervals.minorSeventh,
       ],
       name: "dominant 7th flat 5",
+      symbol: "7󰽫5",
     },
     "dominant 7th sharp 5": {
       intervals: [
@@ -288,8 +293,9 @@ export class PianoEngine {
         this.intervals.minorSeventh,
       ],
       name: "dominant 7th sharp 5",
+      symbol: "7#5",
     },
-    "7th flat 13": {
+    "dominant 7th flat 13": {
       intervals: [
         0,
         this.intervals.majorThird,
@@ -298,8 +304,9 @@ export class PianoEngine {
         this.intervals.flatThirteenth,
       ],
       name: "7th flat 13",
+      symbol: "7add󰽫13",
     },
-    "7th sharp 11": {
+    "dominant 7th sharp 11": {
       intervals: [
         0,
         this.intervals.majorThird,
@@ -308,6 +315,7 @@ export class PianoEngine {
         this.intervals.sharpEleventh,
       ],
       name: "7th sharp 11",
+      symbol: "7add#11",
     },
 
     // Exotic chords
@@ -319,6 +327,7 @@ export class PianoEngine {
         this.intervals.fifth,
       ],
       name: "add4",
+      symbol: "M(add4)",
     },
     add6: {
       intervals: [
@@ -328,6 +337,7 @@ export class PianoEngine {
         this.intervals.majorSixth,
       ],
       name: "add6",
+      symbol: "M(add6)",
     },
     add9: {
       intervals: [
@@ -337,6 +347,7 @@ export class PianoEngine {
         this.intervals.ninth,
       ],
       name: "add9",
+      symbol: "M(add9)",
     },
     "minor add9": {
       intervals: [
@@ -346,6 +357,7 @@ export class PianoEngine {
         this.intervals.ninth,
       ],
       name: "minor add9",
+      symbol: "m(add9)",
     },
   };
 
@@ -419,5 +431,3 @@ export class PianoEngine {
     return chordNotes;
   }
 }
-
-// export default PianoEngine;

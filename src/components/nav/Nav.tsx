@@ -36,7 +36,6 @@ export default function Nav() {
       console.error(`ERROR: e.target.dataset.name is ${name}`);
       return;
     }
-    console.log(e.target.dataset.name);
     setModalName(name);
   };
   const toggleModal = () => {
@@ -46,6 +45,7 @@ export default function Nav() {
   return (
     <>
       <nav className="h-[9%] w-screen absolute top-0 flex justify-start items-center bg-opacity-0 px-8 py-12">
+        {/* NOTE: this div is here to contain the main drop down menu */}
         <div
           onMouseEnter={toggleMenu}
           onMouseLeave={toggleMenu}
