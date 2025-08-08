@@ -47,7 +47,7 @@ export default function Screen() {
   return (
     /* back screen */
     <div
-      className={`flex justify-start items-start p-2 absolute w-fit h-[250px] bg-zinc-900 bg-opacity-95 transition-all duration-300 rounded-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll`}
+      className={`flex justify-start items-start p-2 absolute w-fit h-[250px] bg-zinc-900 bg-opacity-95 transition-all duration-300 rounded-lg sm:overflow-hidden overflow-y-hidden overflow-x-scroll text-black`}
     >
       {/* screen */}
       <div

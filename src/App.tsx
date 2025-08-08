@@ -3,12 +3,14 @@ import Nav from "@/components/nav/Nav";
 import Piano from "@/components/piano/Piano";
 
 export default function Home() {
-  const theme = useThemeContext();
+  const darkmode = useThemeContext();
 
   return (
     <main
       className={`flex flex-col h-full w-screen bg-gradient-to-t ${
-        theme ? "to-[#292c3c] from-[#232634]" : "from-zinc-50 to-zinc-100 "
+        darkmode
+          ? "to-[#292c3c] from-[#232634] text-white"
+          : "from-zinc-50 to-zinc-100 text-black"
       }`}
     >
       <Nav />
