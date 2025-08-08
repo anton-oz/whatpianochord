@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePianoContext } from "@/Context/PianoContext";
+import { usePianoContext } from "@/Context/utils";
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import Screen from "./Screen/Screen";
 

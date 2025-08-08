@@ -421,12 +421,12 @@ export class PianoEngine {
     return this.totalKeys[nextkeyIndex];
   }
 
-  chord(currentKey: string, chordName: string, inversion?: number): string[] {
+  chord(selectedKey: string, chordName: string, inversion?: number): string[] {
     const chordDef = this.chordDefinitions[chordName];
     if (!chordDef) return [];
 
     const chordNotes = chordDef.intervals.map((interval, index) => {
-      return this.nextKeyInChord(currentKey, interval, index, inversion);
+      return this.nextKeyInChord(selectedKey, interval, index, inversion);
     });
     return chordNotes;
   }

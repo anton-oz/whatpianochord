@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, MouseEvent, useEffect } from "react";
-import { usePianoContext } from "@/Context/PianoContext";
+import { usePianoContext } from "@/Context/utils";
 
 export default function Settings() {
   const { pianoColors, setPianoColors, resetToInit } = usePianoContext();

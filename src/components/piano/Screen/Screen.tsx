@@ -1,5 +1,5 @@
 import { Minus, Plus } from "lucide-react";
-import { usePianoContext } from "@/Context/PianoContext";
+import { usePianoContext } from "@/Context/utils";
 
 export default function Screen() {
   const PianoContext = usePianoContext();
@@ -64,10 +64,10 @@ export default function Screen() {
           <h3 className="text-xl font-medium w-max">Current Note: </h3>
           <p
             className={`place-self-center text-4xl ${
-              PianoContext.currentKey ? "font-semibold" : ""
+              PianoContext.selectedKey ? "font-semibold" : ""
             }`}
           >
-            {PianoContext.currentKey ?? "N/A"}
+            {PianoContext.selectedKey ?? "N/A"}
           </p>
         </div>
         {/* 

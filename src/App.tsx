@@ -1,6 +1,6 @@
-import { useThemeContext } from "./Context/themeContext";
-import Nav from "./components/nav/Nav";
-import Piano from "./components/piano/Piano";
+import { useThemeContext } from "@/Context/utils";
+import Nav from "@/components/nav/Nav";
+import Piano from "@/components/piano/Piano";
 
 export default function Home() {
   const theme = useThemeContext();

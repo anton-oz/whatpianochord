@@ -1,14 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
-
-const ThemeContext = createContext(false);
-
-export const useThemeContext = () => useContext(ThemeContext);
+import { useState, ReactNode, useEffect } from "react";
+import { ThemeContext } from "./utils";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [darkmode, setDarkMode] = useState(false);
@@ -29,14 +20,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setDarkMode(false);
       return;
     }
-  }, [modeChange]);
+  }, [modeChange, darkTheme]);
 
   useEffect(() => {
     darkTheme.onchange = toggleChange;
     return () => {
       darkTheme.onchange = null;
     };
-  }, []);
+  }, [darkTheme]);
 
   return (
     <ThemeContext.Provider value={darkmode}>{children}</ThemeContext.Provider>
