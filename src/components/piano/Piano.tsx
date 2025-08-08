@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePianoContext } from "@/Context/utils";
 import PianoKeyboard from "./pianoKeyboard/PianoKeyboard";
 import Screen from "./Screen/Screen";
 
 export default function Piano() {
-  const { pianoColors } = usePianoContext();
+  const { pianoColors, octaves } = usePianoContext();
   const colorOne = pianoColors[0];
   const colorTwo = pianoColors[1];
   // NOTE: background color of piano.
@@ -78,7 +78,11 @@ export default function Piano() {
   useEffect(() => {
     const handleSetScale = () => {
       const screenX = document.body.clientWidth;
-      const newScale = screenX / 2500;
+      let newScale = screenX / 2500;
+      if (pianoRef.current) {
+        const pianoWidth = pianoRef.current.clientWidth;
+        if (pianoWidth > screenX) newScale = screenX / 3500;
+      }
       setScale(newScale);
     };
 
@@ -104,7 +108,9 @@ export default function Piano() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [octaves]);
+
+  const pianoRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <>
@@ -114,6 +120,7 @@ export default function Piano() {
           transition: "0.4s ease-in-out",
           transform: `scale(${scale})`,
         }}
+        ref={pianoRef}
       >
         <div
           className="m-0 min-h-[300px] max-h-[300px] bg-zinc-700 w-full place-items-center pt-5"
